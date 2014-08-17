@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-context 'Class hierarchy' do
+describe 'Class hierarchy' do
   specify 'b should not be an instance of A' do
     b = B.new(1)
     expect(b).not_to be_an_instance_of(A)
