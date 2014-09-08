@@ -11,6 +11,7 @@ describe "range" do
     end
     specify 'should exclude the end' do
       expect((1...2).exclude_end?).to be(true)
+      expect((1..2).exclude_end?).to be(false)
     end
     specify 'dont include the last element' do
       expect(1...2).to_not include(2)
