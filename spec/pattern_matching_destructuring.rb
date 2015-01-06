@@ -47,6 +47,8 @@ describe "pattern matching and destructuring" do
     p = Point.new("22", 23)
     m = MatchContext.new
     expect(Point.new(m.x >> String >> /\d/, m.y >> Integer)).to be === p
+    expect(m.x).to eq '22'
+    expect(m.y).to eq 23
   end
 
 end
