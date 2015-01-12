@@ -22,4 +22,9 @@ describe 'Date' do
     expect(d.day).to eq(8)
     expect(d.month).to eq(2)
   end
+  specify 'yday' do
+    d = Date.new 2015, 2, 1
+    day = d.yday
+    expect(day).to eq(32)
+  end
 end
