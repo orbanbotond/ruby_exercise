@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'Passing Cars' do
-  # correctness: 40%
+  # correctness: 80%
   # performance: 0%
   def a(a)
 
@@ -10,7 +10,7 @@ describe 'Passing Cars' do
     # a.slice_when {|i, j| i < j }.to_a
     (2..(a.size-1)).each do |slice_size|
         a.each_cons(slice_size).with_index do |slice, idx|
-            avg = slice.reduce(:+)/2.0
+            avg = (slice.reduce(:+)*1.0)/slice_size
             if avg < average
                 average = avg
                 min_idx = idx
