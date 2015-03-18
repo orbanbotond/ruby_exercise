@@ -1,21 +1,23 @@
 require 'spec_helper'
 
-  #TODO correctness: 100%
-  #     performance: 40%
-
 def solution(n,a)
-  # initial_counters = Array.new(n,0)
+  initial = Array.new(n,0)
   counters = Array.new(n,0)
-  # increments = 0
+  increments = 0
+  max = 0
   a.each do |x|
-      counters[x-1] +=1 if 1<=x && x<=n
-      counters = Array.new(n,counters.max) if x == n+1
-      #   increments += counters.max
-      #   counters = initial_counters
-      # end
+      if 1<=x && x<=n
+        counters[x-1] +=1
+        max = counters[x-1] if max < counters[x-1]
+      end
+      if x == n+1
+        increments += max
+        max = 0
+        counters = initial.dup
+      end
   end
-  # counters.map{|x|x+increments}
-  counters
+  counters.map{|x|x+increments}
+  # counters
 end
 
 describe 'Max Counters' do
