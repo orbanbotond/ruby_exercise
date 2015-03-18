@@ -24,7 +24,7 @@ end
 require 'spec_helper'
 
 #TODO
-
+#Make it more performant O(n) instead of O(n**3)
 describe 'Max slices' do
 
   specify 'normal case' do
