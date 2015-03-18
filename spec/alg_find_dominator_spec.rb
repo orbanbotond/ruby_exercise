@@ -2,15 +2,19 @@
 # puts "this is a debug message"
 
 def solution(a)
-    b = Array.new a.size, [0, 0]
+
+    b = {}
 
     a.each do |x|
-        b[x][0] += 1
-        b[x][1] = x
+        if b[x]
+            b[x] = b[x] + 1
+        else
+            b[x] = 1
+        end
     end
 
-    dominator = b.find{|x| x.first > (a.size / 2)}
-    dominator != nil ? a.find_index(dominator.last) : -1
+    dominator = b.to_a.find{|x| x.last > (a.size / 2)}
+    dominator != nil ? a.find_index(dominator.first) : -1
     # write your code in Ruby 2.2
 end
 
