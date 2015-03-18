@@ -1,17 +1,18 @@
 require 'spec_helper'
 
 describe 'Frog pass' do
-  #TODO
-  #redo 16% performance
   def a(x, a)
-    timings = (1..x).to_a.map do |x|
-      a.find_index{|leafe_position| leafe_position == x}
+    b = Array.new x, nil
+
+    a.each_with_index do |pos, time|
+      b[pos-1] = time if b[pos-1] == nil
     end
-    if timings.include? nil
-      -1
-    else
-      timings.max
-    end
+
+    b.all?{|x|x != nil} ? b.max : -1
+  end
+
+  specify 'single element' do
+    expect(a(1,[1])).to eq(0)
   end
 
   specify 'double element' do
