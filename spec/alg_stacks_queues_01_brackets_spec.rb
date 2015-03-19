@@ -11,7 +11,11 @@ def solution(s)
             return 0 if c != pairs[a.pop]
         end
     end
-    return 1
+    if a.empty?
+      return 1
+    else
+      return 0
+    end
     # write your code in Ruby 2.2
 end
 
@@ -26,8 +30,30 @@ require 'spec_helper'
 
 # Detected time complexity: O(N**3)
 describe 'Alg Brackets' do
-  #TODO
-  #check the performance again
+
+  specify 'empty' do
+    expect(solution('')).to eq(1)
+  end
+
+  specify '1p' do
+    expect(solution('()')).to eq(1)
+  end
+
+  specify '2p' do
+    expect(solution('[]')).to eq(1)
+  end
+
+  specify '3p' do
+    expect(solution('{}')).to eq(1)
+  end
+
+  specify '1n' do
+    expect(solution('{(')).to eq(0)
+  end
+
+  specify '2n' do
+    expect(solution('{]')).to eq(0)
+  end
 
   specify 'normal negative test' do
     expect(solution('([)()]')).to eq(0)
