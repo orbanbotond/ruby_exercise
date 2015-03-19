@@ -1,7 +1,6 @@
 require 'spec_helper'
 
-describe 'Passing Cars' do
-  def a(a)
+def solution(a)
     west_count = 0
     east_count = 0
     passings = 0
@@ -20,7 +19,11 @@ describe 'Passing Cars' do
     end
 
     passings > 1000000000 ? -1 : passings
-  end
+end
+
+require 'spec_helper'
+
+describe 'Passing Cars' do
 
   specify 'double element' do
     expect(a([0,1,0,1,1])).to eq(5)
