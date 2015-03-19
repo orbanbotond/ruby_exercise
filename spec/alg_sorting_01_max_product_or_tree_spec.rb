@@ -43,10 +43,6 @@ end
 
 require 'spec_helper'
 
-#TODO
-# Detected time complexity:O(N**3)
-# Expected O(log(N))
-
 describe 'Equilibrum indexes' do
 
   specify 'normal case' do
