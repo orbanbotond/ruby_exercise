@@ -19,9 +19,6 @@ def solution(s)
     # write your code in Ruby 2.2
 end
 
-#([)()] => 0
-#{[()()]} => 1
-
 require 'spec_helper'
 
 describe 'Alg Brackets' do
@@ -35,27 +32,12 @@ describe 'Alg Brackets' do
   end
 
   specify '2p' do
-    expect(solution('[]')).to eq(1)
+    expect(solution('(()(())())')).to eq(1)
   end
 
-  specify '3p' do
-    expect(solution('{}')).to eq(1)
+  specify '3n' do
+    expect(solution('())')).to eq(0)
   end
 
-  specify '1n' do
-    expect(solution('{(')).to eq(0)
-  end
-
-  specify '2n' do
-    expect(solution('{]')).to eq(0)
-  end
-
-  specify 'normal negative test' do
-    expect(solution('([)()]')).to eq(0)
-  end
-
-  specify 'normal pozitive test' do
-    expect(solution('{[()()]}')).to eq(1)
-  end
 
 end
