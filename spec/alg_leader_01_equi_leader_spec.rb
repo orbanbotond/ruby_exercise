@@ -1,44 +1,38 @@
 require 'spec_helper'
 
 def solution(a)
-    dominant_left_row = a.max - a.min + 1
-    dominant_right_row = a.max - a.min + 2
-    h = Array.new a.size + 1, Array.new( a.max - a.min + 3, 0)
-    a.each_with_index do |x, col|
-        row = x - a.min
-        h[col + 1] = h[col].dup
-        h[col + 1][row] = h[col][row] + 1
-    end
-    # puts "#{h}"
-    a.each_index do |col|
-        dominant_left = h[col + 1].max
-
-        if h[col + 1].find_all{|x|x == dominant_left}.count > 1
-            dominant_left = -1
-        else
-            dominant_left = h[col + 1].find_index(dominant_left)
+    candidate = nil
+    candidate_idx = 0
+    candidate_count = 0
+    a.each_with_index do |x, idx|
+        if candidate_count == 0
+            candidate = x
+            candidate_idx = idx
+            candidate_count += 1
         end
-        h[col + 1][dominant_left_row] = dominant_left
-
-        # right_side =  h.last.map.with_index{|x,i| x - h[1,i]}
-        right_side =  h.last.map.with_index{|x,i| x - h[col + 1][i]}.to_a
-
-        dominant_right = right_side.max
-        # puts "dominant: #{dominant_right}"
-
-        if right_side.find_all{|x|x == dominant_right}.count > 1
-            dominant_right = nil
+        if x == candidate
+            candidate_count += 1
         else
-            dominant_right = right_side.find_index(dominant_right)
+            candidate_count -= 1
         end
-        h[col + 1][dominant_right_row] = dominant_right
     end
-    h.count{|x| x[dominant_left_row] == x[dominant_right_row]} -1
+
+    leader_count = a.count{|x|x == candidate}
+    if leader_count > a.size/2
+        leader = candidate
+    else
+        return 0
+    end
+
+    leader_count_so_far = 0
+    equi_leader_counts = 0
+    a.each_with_index do |x, idx|
+        leader_count_so_far += 1 if x == leader
+        equi_leader_counts +=1 if leader_count_so_far > (idx + 1) / 2 &&
+           (leader_count - leader_count_so_far) > ((a.size - idx -1) / 2)
+    end
+    equi_leader_counts
 end
-
-# TODO
-# Correctness: 60%
-# Performance: 0%
 
 require 'spec_helper'
 
