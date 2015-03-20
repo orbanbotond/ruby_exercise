@@ -9,8 +9,7 @@ def solution(a)
             candidate = x
             candidate_idx = idx
             candidate_count += 1
-        end
-        if x == candidate
+        elsif x == candidate
             candidate_count += 1
         else
             candidate_count -= 1

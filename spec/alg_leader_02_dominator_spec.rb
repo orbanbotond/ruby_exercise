@@ -1,7 +1,31 @@
 # you can use puts for debugging purposes, e.g.
 # puts "this is a debug message"
 
-def solution(a)
+def solution2(a)
+    candidate = nil
+    candidate_last_idx = 0
+    candidate_count = 0
+    a.each_with_index do |x, idx|
+        if candidate_count == 0
+            candidate = x
+            candidate_last_idx = idx
+            candidate_count += 1
+        elsif x == candidate
+            candidate_count += 1
+        else
+            candidate_count -= 1
+        end
+    end
+
+    leader_count = a.count{|x|x == candidate}
+    if leader_count > a.size/2
+        return a.find_index(candidate)
+    else
+        return -1
+    end
+end
+
+def solution1(a)
 
     b = {}
 
@@ -17,6 +41,9 @@ def solution(a)
     dominator != nil ? a.find_index(dominator.first) : -1
     # write your code in Ruby 2.2
 end
+
+alias :solution :solution2
+# alias :solution :solution1
 
 require 'spec_helper'
 
