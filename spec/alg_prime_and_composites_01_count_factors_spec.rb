@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 def solution(a)
-  factor_count = 2
+  factor_count = 0
 
-  last_factor = 2
+  last_factor = 1
   while last_factor*last_factor < a do
     if a % last_factor == 0
       factor_count += 2
@@ -11,7 +11,7 @@ def solution(a)
     last_factor += 1
   end
 
-  factor_count+=1 if last_factor*last_factor == a
+  factor_count +=1 if last_factor*last_factor == a
 
   return factor_count
 end
@@ -22,6 +22,10 @@ describe 'factors count' do
 
   specify 'simple' do
     expect(solution(24)).to eq(8)
+  end
+
+  specify 'simple' do
+    expect(solution(1)).to eq(1)
   end
 
   specify 'square' do
