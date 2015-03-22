@@ -6,9 +6,6 @@ def do_debug
   yield if debugging
 end
 
-#TODO
-#Correctness: 100 %
-#Perf: 80%
 def solution(a)
     do_debug{puts "a: #{a}"}
     idx = 0
