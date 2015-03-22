@@ -36,8 +36,7 @@ def solution(h)
 
   hh = h.to_enum.with_index.map { |e, i| i }
 
-  last_block_nr = nil
-  factors.each do |block_nr|
+  factors.reverse_each do |block_nr|
     block_size = a / block_nr
     success = true
     1.upto(block_nr) do |slice_nr|
@@ -51,11 +50,11 @@ def solution(h)
         break
       end
     end
-    last_block_nr = block_nr if success
+    return block_nr if success
     # puts "last_block_nr: #{last_block_nr}"
   end
 
-  return last_block_nr
+  return 0
 end
 
 require 'spec_helper'
