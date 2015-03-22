@@ -19,8 +19,6 @@ end
 require 'spec_helper'
 
 describe 'Count dividers' do
-  # correctness: 100%
-  # performance: 0%
 
   specify 'double element' do
     expect(solution(5, 8, 3)).to eq(1)

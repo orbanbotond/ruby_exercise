@@ -1,26 +1,33 @@
 require 'spec_helper'
 
+def do_debug
+  # debugging = true
+  debugging = false
+  yield if debugging
+end
+
 #TODO
 #Correctness: 100 %
 #Perf: 80%
 def solution(a)
+    do_debug{puts "a: #{a}"}
     idx = 0
     min = nil
 
     core = ->(x,i) do
         sum = x.reduce(:+) / x.length.to_f
-        # puts "Checking: slice: #{x}, idx: #{i} sum: #{sum}"
+        do_debug{puts "Checking: slice: #{x}, idx: #{i} sum: #{sum}"}
         if min == nil || min != nil && min > sum
-            # puts "Setting as min!"
+            do_debug{ puts "Setting as min!: #{sum} at idx:#{i}" }
             idx = i
             min = sum
         end
     end
 
-    a.each_cons(3).with_index do |x, i|
+    a.each_cons(2).with_index do |x, i|
       core.call(x,i)
     end
-    a.each_cons(2).with_index do |x, i|
+    a.each_cons(3).with_index do |x, i|
       core.call(x,i)
     end
 
@@ -28,10 +35,13 @@ def solution(a)
 end
 
 describe 'Min Avg Two Slice' do
-  # correctness: 80%
-  # performance: 0%
 
   specify 'double element' do
     expect(solution([4, 2, 2, 5, 1, 5, 8])).to eq(1)
+  end
+
+  specify 'big' do
+    a = [-1, -1, 0, -1, 1, -1, 0, -1, 1, -1, 0, 0, -1, -1, 0, -1, 0, -1, -1, 0, 1, -1, -1, 1, -1, 1, 0, -1, 1, 1, 0, 1, -1, 0, 0, 1, -1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, -1, 1, -1, 1, 1, 0, -1, 0, 0, -1, 0, 0, 0, -1, -1, 0, -1, 0, -1, 0, 1, 1, 0, 1, 1, 0, -1, 0, -1, 1, 0, 1, -1, -1, -1, -1, 0, -1, 0, 0, -1, -1, 0, -1, 0, -1]
+    expect(solution(a)).to eq(0)
   end
 end
