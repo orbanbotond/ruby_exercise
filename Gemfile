@@ -4,3 +4,5 @@ gem 'rspec', '~> 3.0'
 
 gem 'equalizer'
 gem 'adamantium'
+gem 'pry'
+gem 'pry-nav'
