@@ -1,20 +1,28 @@
 require 'spec_helper'
 
+def do_debug
+  # debugging = true
+  debugging = false
+  yield if debugging
+end
 #O(n)
 #space O(n)
 def solution(a)
-  b = Array.new a.size, nil
+  do_debug{puts "a:#{a}"}
+  b = {}
   a.each do |x|
-    b[x - 1] = true if x > 0
+    b[x] = true if x > 0
   end
-  idx = b.find_index{|x|x == nil} || a.max
-  idx + 1
+  do_debug{puts "b:#{b}"}
+  last = 0
+  if b.keys.size > 0
+    1.upto(b.keys.max) do |x|
+      return x unless b[x]
+      last = x
+    end
+  end
+  last + 1
 end
-
-#TODO 
-# Correctness:100%
-# Performance: 40%
-# Task score: 66%
 
 describe 'Missing Integer' do
 
@@ -38,4 +46,8 @@ describe 'Missing Integer' do
     expect(solution([-1, -2])).to eq(1)
   end
 
+  specify 'negative against memory allocation' do
+    input = [-2147483648, 2147483647]
+    expect(solution(input)).to eq(1)
+  end
 end
