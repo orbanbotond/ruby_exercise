@@ -1,14 +1,15 @@
 def b_search(start_idx,end_idx, &block)
-  return nil if end_idx < start_idx
-  return start_idx if start_idx == end_idx
-  middle = (start_idx + end_idx ) / 2
-  comparison = yield( middle)
-  return middle if comparison == 0
-  if comparison < 0
-    b_search(middle + 1, end_idx, &block)
-  else
-    b_search(start_idx, middle, &block)
-  end
+    result = -1
+    while (start_idx <= end_idx) do
+      mid = (start_idx + end_idx) / 2
+      if yield(mid) < 0
+        start_idx = mid + 1 
+      else
+        end_idx = mid - 1
+        result = mid
+      end
+    end
+    return result
 end
 
 alias :to_check :b_search
@@ -19,7 +20,7 @@ describe 'binary search' do
 
   specify 'empty' do
     data = []
-    expect(to_check(0, data.size - 1){|x|data[x] <=> 5 }).to eq(nil)
+    expect(to_check(0, data.size - 1){|x|data[x] <=> 5 }).to eq(-1)
   end
 
   specify 'one elem' do
