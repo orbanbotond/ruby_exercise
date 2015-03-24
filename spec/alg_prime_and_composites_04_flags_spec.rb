@@ -1,3 +1,4 @@
+#Prime.prime_division
 require 'spec_helper'
 
 def do_debug
