@@ -1,19 +1,20 @@
 # you can use puts for debugging purposes, e.g.
 # puts "this is a debug message"
 
-def has_same_prime_divisors(x,y)
-  smaller = [x,y].min
-  bigger = [x,y].max
-  if bigger % smaller == 0
-    factor = bigger / smaller
-    if bigger % factor == 0 && smaller % factor == 0
-      true
-    else
-      false
-    end
-  else
-    false
+def are_other_prime_divisors(x, common_prime_divisor)
+  while x > 1
+    gcd = x.gcd common_prime_divisor
+    break if gcd == 1
+    x /= gcd
   end
+  x != 1
+end
+
+def has_same_prime_divisors(x,y)
+  gcd = x.gcd y
+  return false if are_other_prime_divisors(x,gcd)
+  return false if are_other_prime_divisors(y,gcd)
+  return true
 end
 
 def solution(a, b)
@@ -27,6 +28,14 @@ describe 'Stone Wall' do
 
   specify 'empty' do
     expect(solution([15, 10, 3], [75, 30, 5])).to eq(1)
+  end
+
+  specify 'just one' do
+    expect(solution([1], [1])).to eq(1)
+  end
+
+  specify 'wont pass' do
+    expect(solution([2], [8])).to eq(1)
   end
 
   specify 'empty' do
