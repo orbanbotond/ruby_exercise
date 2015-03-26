@@ -17,52 +17,10 @@ def generate_fibonacci(max)
   array
 end
 
-def generate_prefix(a)
-  a.map.with_index do |x,idx|
-    if x == 1
-      idx +1 
-    else
-      0
-    end
-  end
-end
-
-def solution1(a)
-  # puts "a:#{a}"
-  a << 1
-  prefix = generate_prefix a
-  # puts "prefix:#{prefix}"
-  fib = generate_fibonacci(prefix.max)
-  # puts "fib:#{fib}"
-
-  last = 0
-  jumps = 0
-  while last <= prefix.size - 1
-    # puts "last:#{last} prefix:#{prefix.size - 1} checking:#{last < prefix.size - 1} jumps:#{jumps}"
-    found = false
-    prefix.size.downto(last) do |n|
-      position = prefix[n-1]
-      # puts "idx:#{n} position:#{position} last:#{last} n-last:#{position-last} isfib?:#{fib.any?{|x| x == position - last }}"
-      if fib.any?{|x| x == position - last } && position > 0
-        # puts "found a jumping position. jumping"
-        jumps += 1
-        last = n
-        found = true
-        break
-      end
-    end
-    unless found
-      # puts "No jumping position is found! return -1"
-      return -1
-    end
-  end
-  jumps
-end
-
 def possibilities(a, pos, fib, goal, already_there)
   ret = []
-  # pos.first.upto(a.size-1) do | x |
-  (a.size-1).downto(pos.first) do | x |
+  pos.first.upto(a.size-1) do | x |
+  # (a.size-1).downto(pos.first) do | x |
     if a[x] == 1 && fib.any?{|f| f == x + 1 - pos.first} 
       do_debug{"Can reach:#{x+1}"}
       if already_there[x+1]
@@ -72,6 +30,7 @@ def possibilities(a, pos, fib, goal, already_there)
           do_debug{'reached the end'}
           goal << pos.last + 1
         else
+          already_there[x + 1] = true
           ret << [x + 1, pos.last + 1]
         end
       end
@@ -91,7 +50,6 @@ def solution2(a)
   goal = []
 
   while queue.size != 0
-    # pos =  queue.pop
     pos =  queue.shift
     do_debug{"q: #{queue} examining:#{pos}"}
     pos = possibilities(a, pos, fib, goal, already_there)
@@ -99,9 +57,15 @@ def solution2(a)
     queue += pos
   end
 
-  goal.min
+  -1
 end
 
+def solution3(a)
+  puts "a:#{a}"
+  return 999
+end
+
+# alias :solution :solution3
 alias :solution :solution2
 # alias :solution :solution1
 
@@ -109,8 +73,16 @@ require 'spec_helper'
 
 describe 'Frog Jumps' do
 
-  specify 'extreme small' do
+  specify 'extreme small ones' do
     expect(solution([])).to eq(1)
+  end
+
+  specify 'extreme small zeros' do
+    expect(solution([0])).to eq(1)
+  end
+
+  specify 'simple functional' do
+    expect(solution([0, 0, 1, 0, 0, 0, 1, 1, 1, 1])).to eq(2)
   end
 
   specify 'simple' do
