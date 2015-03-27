@@ -42,8 +42,7 @@ def possibilities(a, pos, fib, goal, already_there)
 end
 
 def solution(a)
-  fib = generate_fibonacci(a.size)
-  fib.shift
+  fib = generate_fibonacci(a.size + 1)
   fib.shift
   do_debug{"fib:#{fib}"}
   do_debug{"a:#{a}"}
@@ -68,11 +67,11 @@ require 'spec_helper'
 describe 'Frog Jumps' do
 
   specify 'extreme small ones' do
-    expect(solution([])).to eq(-1)
+    expect(solution([])).to eq(1)
   end
 
   specify 'extreme small zeros' do
-    expect(solution([0])).to eq(-1)
+    expect(solution([0])).to eq(1)
   end
 
   specify 'simple functional' do
