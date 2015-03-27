@@ -19,34 +19,37 @@ end
 
 def possibilities(a, pos, fib, goal, already_there)
   ret = []
-  pos.first.upto(a.size-1) do | x |
-  # (a.size-1).downto(pos.first) do | x |
-    if a[x] == 1 && fib.any?{|f| f == x + 1 - pos.first} 
-      do_debug{"Can reach:#{x+1}"}
-      if already_there[x+1]
-        do_debug{'already reached... skipping'}
-      else
-        if x + 1 == a.size
-          do_debug{'reached the end'}
-          goal << pos.last + 1
-        else
-          already_there[x + 1] = true
-          ret << [x + 1, pos.last + 1]
-        end
-      end
+  fib.each do |x|
+    do_debug{"Trying #{x}"}
+    if pos.first + x == a.size
+      do_debug{"reached the end"}
+      goal << pos.last + 1
+      return ret
     end
+    if pos.first + x > a.size ||
+      a[pos.first + x] == 0 ||
+      already_there[pos.first + x] == true
+      do_debug{"already there:#{already_there[pos.first + x]}"}
+      do_debug{"not reachable:#{a[pos.first + x] == 0}"}
+      do_debug{"the jump is longer:#{pos.first + x > a.size}"}
+      next
+    end
+    do_debug{"reaching pos:#{pos.first + x}"}
+    ret << [pos.first + x, pos.last + 1]
   end
   do_debug{"reachable possibilities: #{ret}"}
   ret
 end
 
-def solution2(a)
-  a << 1
-
+def solution(a)
   fib = generate_fibonacci(a.size)
+  fib.shift
+  fib.shift
+  do_debug{"fib:#{fib}"}
+  do_debug{"a:#{a}"}
 
   already_there = {}
-  queue = [[0,0]]
+  queue = [[-1,0]]
   goal = []
 
   while queue.size != 0
@@ -60,25 +63,16 @@ def solution2(a)
   -1
 end
 
-def solution3(a)
-  puts "a:#{a}"
-  return 999
-end
-
-# alias :solution :solution3
-alias :solution :solution2
-# alias :solution :solution1
-
 require 'spec_helper'
 
 describe 'Frog Jumps' do
 
   specify 'extreme small ones' do
-    expect(solution([])).to eq(1)
+    expect(solution([])).to eq(-1)
   end
 
   specify 'extreme small zeros' do
-    expect(solution([0])).to eq(1)
+    expect(solution([0])).to eq(-1)
   end
 
   specify 'simple functional' do
