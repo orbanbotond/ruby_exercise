@@ -1,3 +1,4 @@
+
 def b_search(start_idx,end_idx, &block)
     result = -1
     while (start_idx <= end_idx) do
