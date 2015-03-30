@@ -38,11 +38,9 @@ def bsearch(a, l, u, x)
 end
 
 describe 'Detect intersecting circles' do
-  #TODO
-  #check the performance again
 
   specify 'normal case' do
-    expect(solution([1, 5, 2, 1, 4, 0] )).to eq(11)
+    expect(solution([1, 5, 2, 1, 4, 0])).to eq(11)
   end
 
 end
