@@ -5,7 +5,7 @@ def do_debug str
     # puts str
 end
 
-def solution(a, b)
+def solution2(a, b)
     do_debug "a:#{a} b:#{b}"
     input = [a, b].transpose
     remainings = []
@@ -33,8 +33,40 @@ def solution(a, b)
     remainings.size
 end
 
+def solution(a, b)
+    do_debug "a:#{a} b:#{b}"
+    input = [a, b].transpose
+    downstream = []
+    alive_upstream = 0
+
+    input.each do |i|
+        if i.last == 1 
+            downstream.push(i)
+            do_debug "downstream:#{downstream}"
+        else
+            while downstream.size > 0
+                if downstream[-1].first > i.first
+                    do_debug "downstream eats upstream"
+                    break
+                else
+                    do_debug "upstream eats downstream"
+                    downstream.pop
+                end
+            end
+            if downstream.size == 0
+                alive_upstream += 1 
+                do_debug "upstream alive:#{alive_upstream}"
+            end
+        end
+    end
+
+    do_debug "alive_upstream:#{alive_upstream} downstream:#{downstream}"
+    alive_upstream + downstream.size
+end
+
 require 'spec_helper'
 
+#TODO efficiency: 25%
 describe 'Greedy Fishes' do
   specify 'simple' do
     expect(solution([4,3,2,1,5],[0,1,0,0,0])).to eq(2)
