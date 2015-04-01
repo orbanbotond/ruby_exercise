@@ -41,8 +41,6 @@ def solution(a)
       accessed[x] = idx
     else
       new_back = accessed[x] + 1
-      # why why why ???
-      # count += (new_back - back) * (idx - back + idx - new_back + 1) / 2
       count += (idx - back) * (idx - back + 1) / 2
       count -= (idx - new_back) * (idx - new_back + 1) / 2
       back.upto(new_back - 1) { |n| accessed[a[n]] = nil}
