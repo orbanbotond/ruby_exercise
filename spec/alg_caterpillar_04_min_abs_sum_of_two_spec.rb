@@ -1,8 +1,6 @@
 # you can use puts for debugging purposes, e.g.
 # puts "this is a debug message"
 
-#TODO correctness: 0%
-#     performance: 85%
 def solution(a)
   # puts "a:#{a}"
   a.map!{|x| [x.abs, x < 0 ? -1 : 1] }
