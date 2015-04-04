@@ -31,7 +31,7 @@ end
 
 require 'spec_helper'
 
-describe 'min abs sum of two' do
+describe 'max nonoverlapping segments' do
 
   specify 'normal case' do
     expect(solution([1, 3, 7, 9, 9], [5, 6, 8, 9, 10])).to eq(3)
