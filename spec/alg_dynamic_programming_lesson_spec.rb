@@ -1,3 +1,18 @@
+def solution_frog_jump(jumping_distances, distance)
+  n = jumping_distances.size - 1
+  dp=[1]+[0]*distance
+  1.upto(distance) do |j|
+    jumping_distances.each do |distance|
+      if distance <= j
+        dp[j] += dp[j - distance]
+      end
+    end
+  end
+
+  puts "dp:#{dp}"
+  return dp[distance]
+end
+
 def solution(coins, amount)
   n = coins.size
   dp=[0]+[10000000]*amount
@@ -15,10 +30,18 @@ end
 
 require 'spec_helper'
 
-describe 'smallest number of coins' do
+describe 'dynamic programming' do
 
-  specify 'dynamic algorythm test' do
-    expect(solution([1, 3, 4], 6)).to eq(2)
+  context "smallest number of coins" do
+    specify 'dynamic algorythm test' do
+      expect(solution([1, 3, 4], 6)).to eq(2)
+    end
+  end
+
+  context 'frog jumps' do
+    specify 'simple' do
+      expect(solution_frog_jump([1, 2],10)).to eq(89)
+    end
   end
 
 end
