@@ -10,7 +10,7 @@ end
 #
 # Detected time complexity:
 # O(N*log(N))
-def solution(a)
+def solution_n_log_n(a)
   a.each_with_index do |elem, idx|
     next if idx ==0
     bidx = [idx - 6, 0].max
@@ -19,6 +19,19 @@ def solution(a)
     # puts "a:#{a}"
   end
   a[-1]
+end
+
+def solution(a)
+  d = Array.new a.size, -10000000000000
+  d[0] = a[0]
+  a.each_with_index do |elem, idx|
+    1.upto(6) do |inner|
+      next if idx -inner < 0
+      d[idx] = [d[idx], d[idx - inner] + a[idx]].max
+    end
+
+  end
+  d[-1]
 end
 
 require 'spec_helper'
