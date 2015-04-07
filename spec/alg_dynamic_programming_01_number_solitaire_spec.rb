@@ -36,7 +36,7 @@ end
 
 require 'spec_helper'
 
-describe 'Frog Jumps' do
+describe 'Number Solitaire' do
 
   specify 'extreme small ones' do
     expect(solution([1, -2, 0, 9, -1, -2])).to eq(8)
