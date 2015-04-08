@@ -11,7 +11,7 @@ end
 
 require 'spec_helper'
 
-describe 'Tree depth' do
+describe 'Odd occurences' do
 
   specify 'extreme small ones' do
     expect(solution([9, 3, 9, 3, 9, 7, 9])).to eq(7)
