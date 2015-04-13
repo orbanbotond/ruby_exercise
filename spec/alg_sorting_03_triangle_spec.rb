@@ -1,6 +1,16 @@
 # you can use puts for debugging purposes, e.g.
 # puts "this is a debug message"
 
+
+def solution_nicest(a)
+  return 0 if a.size < 3
+  a.sort!
+  a.each_cons(3) do |x,y,z|
+    return 1if x + y > z
+  end
+  return 0
+end
+
 def solution(a)
     if a.size < 3
       return 0
