@@ -41,6 +41,14 @@ def solution2(a)
 end
 # write your code in Ruby 2.2
 
+def solution_nicest(a)
+  a.sort!
+
+  v1 = a[0] * a[1] * a[-1]
+  v2 = a[-1] * a[-2] * a[-3]
+  v1 > v2 ? v1 : v2
+end
+
 require 'spec_helper'
 
 describe 'Equilibrum indexes' do
