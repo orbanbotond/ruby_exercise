@@ -16,6 +16,28 @@ def solution2(a)
     distinct_count
 end
 
+
+def solution_3(a)
+  h = {}
+  a.each do |x|
+    h[x] = x
+  end
+
+  h.size
+end
+
+def solution_4(a)
+  return 0 if a.size == 0 
+  a.sort!
+  distinct = 1
+
+  a.each_cons(2) do |x,y|
+    distinct += 1 unless x == y
+  end
+
+  distinct
+end
+
 alias :solution :solution2
 
 require 'spec_helper'
