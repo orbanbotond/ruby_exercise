@@ -1,28 +1,49 @@
 require 'spec_helper'
 
-def do_debug
-  # debugging = true
-  debugging = false
-  yield if debugging
-end
-#O(n)
-#space O(n)
+# def do_debug
+#   # debugging = true
+#   debugging = false
+#   yield if debugging
+# end
+# #O(n)
+# #space O(n)
+# def solution(a)
+#   do_debug{puts "a:#{a}"}
+#   b = {}
+#   a.each do |x|
+#     b[x] = true if x > 0
+#   end
+#   do_debug{puts "b:#{b}"}
+#   last = 0
+#   if b.keys.size > 0
+#     1.upto(b.keys.max) do |x|
+#       return x unless b[x]
+#       last = x
+#     end
+#   end
+#   last + 1
+# end
+
+
+# A[0] = 1
+# A[1] = 3
+# A[2] = 6
+# A[3] = 4
+# A[4] = 1
+# A[5] = 2
+
+# A[0] = -1 = > 1
 def solution(a)
-  do_debug{puts "a:#{a}"}
   b = {}
-  a.each do |x|
-    b[x] = true if x > 0
+  a.each { |x| b[x] = x if x >= 0 }
+
+  last = 1
+  while b.has_key?(last)
+    last +=1
   end
-  do_debug{puts "b:#{b}"}
-  last = 0
-  if b.keys.size > 0
-    1.upto(b.keys.max) do |x|
-      return x unless b[x]
-      last = x
-    end
-  end
-  last + 1
+  return last
 end
+
 
 describe 'Missing Integer' do
 
