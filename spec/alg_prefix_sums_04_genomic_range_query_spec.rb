@@ -56,6 +56,34 @@ end
 #                   [5,5] 4
 #                   [0,6] 1
 
+def solution_nicer(s, p, q)
+  size = s.size
+  impacts = {'A' => 1, 'C' => 2, 'G' => 3, 'T' => 4}
+  s = s.chars.map{|x|impacts[x.upcase]}
+  queries = [p, q].transpose
+
+  h = {1=> Array.new(size + 1, -1), 2=>Array.new(size + 1, -1), 3=> Array.new(size + 1, -1), 4=>Array.new(size + 1, -1)}
+
+  s.to_enum.with_index.reverse_each do |x, idx|
+    h[1][idx] = h[1][idx + 1]
+    h[2][idx] = h[2][idx + 1]
+    h[3][idx] = h[3][idx + 1]
+    h[4][idx] = h[4][idx + 1]
+    h[x][idx] = idx
+  end
+
+  queries.map do |query|
+    res = []
+    res << 1 if query.first <= h[1][query.first] && h[1][query.first] <= query.last
+    res << 2 if query.first <= h[2][query.first] && h[2][query.first] <= query.last
+    res << 3 if query.first <= h[3][query.first] && h[3][query.first] <= query.last
+    res << 4 if query.first <= h[4][query.first] && h[4][query.first] <= query.last
+    res.min
+  end
+#return the minimal impact value for each query
+
+end
+
 require 'spec_helper'
 
 describe 'Genomic Range Query' do
