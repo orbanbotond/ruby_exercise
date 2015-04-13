@@ -37,6 +37,39 @@ def bsearch(a, l, u, x)
     end
 end
 
+
+def count_intersections(disc_edges, actual_idx)
+  actual = disc_edges[actual_idx]
+  b = actual_idx + 1
+  e = disc_edges.size - 1
+  last = 0
+  # should find the last which intersects
+  while b <= e
+    middle = (b + e) / 2
+    if disc_edges[middle].first <= actual.last
+      last = middle
+      b = middle + 1
+    else
+      e = middle - 1
+    end
+  end
+  intersections = last == 0 ? 0 : last - actual_idx
+  intersections
+end
+
+def solution_nicer(a)
+  disc_edges = a.map.with_index{|x, idx| [idx - x, idx + x]}
+  disc_edges.sort!{|x,y| x.first <=> y.first}
+
+  count = 0
+  disc_edges.each.with_index do |disc, idx|
+    count += count_intersections(disc_edges, idx)
+  end
+
+  count > 10000000 ? -1 : count
+end
+
+
 describe 'Detect intersecting circles' do
 
   specify 'normal case' do
