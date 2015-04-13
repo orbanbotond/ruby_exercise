@@ -3,10 +3,9 @@
 
 
 def solution_nicest(a)
-  return 0 if a.size < 3
   a.sort!
   a.each_cons(3) do |x,y,z|
-    return 1if x + y > z
+    return 1 if x + y > z
   end
   return 0
 end
