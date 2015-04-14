@@ -64,6 +64,26 @@ def solution(a, b)
     alive_upstream + downstream.size
 end
 
+  
+def solution_nicest(a,b)
+  fishes = [a,b].transpose
+  remaining = []
+
+  while fishes.size > 0 || remaining.size >= 2 && remaining[-1].last == 0 && remaining[-2].last == 1 do 
+    if remaining.size >= 2 && remaining[-1].last == 0 && remaining[-2].last == 1
+      if remaining[-1].first > remaining[-2].first
+        remaining.delete_at -2
+      else
+        remaining.delete_at -1
+      end
+    elsif fishes.size > 0
+      remaining.push fishes.shift
+    end
+  end
+
+  remaining.size
+end
+
 require 'spec_helper'
 
 #TODO efficiency: 25%
