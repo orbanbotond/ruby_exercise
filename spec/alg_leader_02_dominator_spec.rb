@@ -20,6 +20,7 @@ def solution2(a)
     leader_count = a.count{|x|x == candidate}
     if leader_count > a.size/2
         return a.find_index(candidate)
+        # return candidate_last_idx
     else
         return -1
     end
