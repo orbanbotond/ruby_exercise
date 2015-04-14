@@ -1,6 +1,23 @@
 # you can use puts for debugging purposes, e.g.
 # puts "this is a debug message"
 
+def solution_nicer(s)
+  stack = []
+
+  pairs ={'[' => ']', '{' => '}', '(' => ')'}
+
+  s.chars.each do |x|
+    if pairs.keys.include?  x
+      stack << pairs[x]
+    elsif stack.pop != x
+      return 0
+    end
+  end
+  stack.size == 0 ? 1 : 0
+  # 1 nested
+  # 0 otherwise
+end
+
 def solution(s)
     a = []
     pairs = {'{' => '}', '[' => ']', '(' => ')'}
