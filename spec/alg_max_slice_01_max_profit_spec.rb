@@ -1,5 +1,18 @@
 require 'spec_helper'
 
+#space o(1)
+def golden_solution(a)
+  max_edge = max_slice = 0
+  a.each_cons(2) do |x,y|
+    profit = y - x
+    max_edge = [0, max_edge + profit].max
+    max_slice = [max_edge, max_slice].max
+  end
+
+  max_slice
+end
+
+# space: o(n)
 def solution(a)
   b = a.each_cons(2).map{|x,y|y-x}
   max_sum = 0
