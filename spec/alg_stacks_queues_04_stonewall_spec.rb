@@ -19,6 +19,26 @@ def solution(a)
     count
 end
 
+def solution_nicer(h)
+  bricks = h
+
+  used = [-1]
+  counter = 0
+
+  bricks.each do |brick|
+    while used.last > brick do
+      used.pop
+    end
+
+    unless used.last == brick
+      used << brick
+      counter += 1
+    end
+  end
+
+  counter
+end
+
 require 'spec_helper'
 
 describe 'Stone Wall' do
