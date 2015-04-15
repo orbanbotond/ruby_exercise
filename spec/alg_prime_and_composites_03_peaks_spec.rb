@@ -57,6 +57,35 @@ def solution(h)
   return 0
 end
 
+
+def solution_faster(a)
+  peaks = []
+  a.each_cons(3).with_index do |xx, idx|
+    x,y,z = xx
+    peaks << (idx +1) if y > x && y > z
+  end
+
+  n = a.size
+  1.upto(n) do |block_size|
+    next unless n % block_size == 0
+    peak_matching = 0
+    ok = true
+    peaks.each do |peak_idx|
+      if peak_idx / block_size > peak_matching
+        ok = false
+        break
+      end
+      peak_matching += 1 if (peak_idx / block_size ==  peak_matching)
+    end
+
+    ok = false if (peak_matching!= n/block_size)
+    return n/block_size if ok
+  end
+
+  return 0
+end
+
+
 require 'spec_helper'
 
 describe 'count the block wrapping the peaks' do
