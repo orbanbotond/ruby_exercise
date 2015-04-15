@@ -1,5 +1,19 @@
 require 'spec_helper'
 
+def solution_without_factorization(n)
+  a  = 2
+  b = n/a
+  perimeter = 100000000000
+  #find the minimal perimeter
+  while  a <= b do
+    perimeter = [perimeter, 2*(a+b)].min if a*b == n
+    a += 1
+    b = n/a
+  end   
+  perimeter
+    # write your code in Ruby 2.2
+end
+
 def solution(a)
   factor_count = 0
 

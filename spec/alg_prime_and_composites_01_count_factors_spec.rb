@@ -1,5 +1,24 @@
 require 'spec_helper'
 
+def solution_nicer(n)
+  a  = 1
+  b = n/a
+  factors = 0
+  while  a <= b do
+    if a*b == n
+      if a == b
+        factors += 1
+      else
+        factors += 2
+      end
+    end
+    a += 1
+    b = n/a
+  end   
+  factors
+    # write your code in Ruby 2.2
+end
+
 def solution(a)
   factor_count = 0
 
