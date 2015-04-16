@@ -16,6 +16,7 @@ def sieve_of_erathosteneses(n)
   return array
 end
 
+# O(n)
 def factorize(x, sieve)
   primeFactors = []
   while (sieve[x] > 0)
@@ -36,15 +37,33 @@ class Integer
   end
 end
 
-# factorize(12,sieve)
-
 def do_debug
   # debugging = true
   debugging = false
   puts(yield) if debugging
 end
 
+#TODO perf: 75%
 def solution(a)
+  max = a.max
+  map = {}
+  a.each do |x|
+    map[x] = 0
+  end
+
+  a.each do |x|
+    k = 1
+    while k * x <= max
+      actual = k*x
+      map[actual] += 1 if map.has_key? actual
+      k += 1
+    end
+  end
+  n = a.size
+  a.map{|x|n - map[x]}
+end
+
+def solution_slow(a)
   do_debug{"a:#{a}"}
   max = a.max
   # sieve = sieve_of_erathosteneses(max)
