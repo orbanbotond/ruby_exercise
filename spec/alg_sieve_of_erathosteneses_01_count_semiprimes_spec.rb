@@ -11,7 +11,8 @@ def sieve_of_erathosteneses(n)
     end
     i += 1 
   end
-
+  array[0] = 1
+  array[1] = 1
   return array
 end
 
@@ -38,7 +39,7 @@ def do_debug
   puts(yield) if debugging
 end
 
-def solution(n, p, q)
+def solution_slow(n, p, q)
   do_debug{ "input:#{n} p:#{p} q:#{q}" }
   sieve = sieve_of_erathosteneses(n)
   query = [p,q].transpose
@@ -60,10 +61,99 @@ def solution(n, p, q)
   answer
 end
 
+# O(n^2)
+def semiprimes(n, sieve)
+  semi = []
+  i = 2
+  while(i*i <= n) do
+    if (sieve[i] == 0)
+      k = i * i
+      while (k <= n) do
+        semi << k if k % i == 0 && sieve[k / i] == 0
+        k += 1
+      end
+    end
+    i += 1 
+  end
+  semi
+end
+
+# time: O(N*log(log(N))+M);
+# space: O(N+M),
+#--------------------------
+# sieve: O(N*log(log(N)))
+# all semiprimes: O(n*n) ??
+# prefix for semiprimes: O(nlog(n))
+# diff: O(1)
+def solution_slow_2(n, p, q)
+  sieve = sieve_of_erathosteneses(n)
+  # puts "sieve:#{sieve}"
+  semi = semiprimes(n, sieve)
+  # puts "sp:#{semi}"
+  prefix = [0,0,0,0,1]
+  5.upto(n) do |x|
+    if semi.include? x 
+      prefix << prefix.last + 1
+    else
+      prefix << prefix.last
+    end
+  end
+  # puts "prefix:#{prefix}"
+
+  queries =  [p,q].transpose
+
+
+  res = queries.map do |query|
+    prefix[query.last] - prefix[query.first - 1]
+  end
+
+  # puts "res:#{res}"
+
+  res
+end
+
+# time: O(N*log(log(N))+M);
+# space: O(N+M),
+#--------------------------
+# sieve: O(N*log(log(N)))
+# all semiprimes: < O(N*log(log(N)))
+# prefix for semiprimes: O(n)
+#result O(m)
+# diff: O(1)
+
+def solution(n, p, q)
+  primes = primes(n)
+  # puts "primes:#{primes}"
+  semi_primes_count = Array.new n+1, 0
+  primes.each do |p1|
+    primes.each do |p2|
+      break if p1 * p2 > n
+      semi_primes_count[p1 * p2] = 1
+    end
+  end
+
+  1.upto(n) do |i|
+    semi_primes_count[i] += semi_primes_count[i - 1]
+  end
+
+  queries =  [p,q].transpose
+
+  res = queries.map do |query|
+    semi_primes_count[query.last] - semi_primes_count[query.first - 1]
+  end
+
+  # puts "res:#{res}"
+
+  res
+end
+
+def primes(n)
+  sieve = sieve_of_erathosteneses(n)
+  sieve.map.with_index{ |x, idx| x == 0 ? idx : nil}.compact
+end
+
 require 'spec_helper'
 
-#TODO
-#performance: 40%
 describe 'count the block wrapping the peaks' do
 
   specify 'simple' do
