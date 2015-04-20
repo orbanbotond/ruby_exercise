@@ -51,7 +51,8 @@ def solution(a)
     end
   end
 
-  count += (a.size - caterpillar_back) * (a.size - caterpillar_back + 1) / 2
+  remaining_size = a.size - caterpillar_back
+  count += (remaining_size) * (remaining_size + 1) / 2
 end
 
 require 'spec_helper'
