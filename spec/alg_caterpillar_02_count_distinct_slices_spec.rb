@@ -33,23 +33,23 @@ end
 #This algorythm uses n! four counting
 def solution(a)
   accessed = Array.new(a.size + 1, nil)
-  back = 0
+  caterpillar_back = 0
   count = 0
 
-  a.each_with_index do |x, idx|
+  a.each_with_index do |x, caterpillar_front|
     if accessed[x] == nil
-      accessed[x] = idx
+      accessed[x] = caterpillar_front
     else
-      new_back = accessed[x] + 1
-      count += (idx - back) * (idx - back + 1) / 2
-      count -= (idx - new_back) * (idx - new_back + 1) / 2
-      back.upto(new_back - 1) { |n| accessed[a[n]] = nil}
-      accessed[x] = idx
-      back = new_back
+      old_index = accessed[x] + 1
+      count += (caterpillar_front - caterpillar_back) * (caterpillar_front - caterpillar_back + 1) / 2
+      count -= (caterpillar_front - old_index) * (caterpillar_front - old_index + 1) / 2
+      caterpillar_back.upto(old_index - 1) { |n| accessed[a[n]] = nil}
+      accessed[x] = caterpillar_front
+      caterpillar_back = old_index
     end
   end
 
-  count += (a.size - back) * (a.size - back + 1) / 2
+  count += (a.size - caterpillar_back) * (a.size - caterpillar_back + 1) / 2
 end
 
 require 'spec_helper'
