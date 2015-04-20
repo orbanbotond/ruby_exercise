@@ -1,7 +1,9 @@
 def do_debug string
-  # puts string
+  puts string
 end
 
+#This algorythm is not ok, because it depends on the input.
+#If I sort the nail sequence then the algorythm fails
 def findFirstNail(plankBegin, plankEnd, nails)
     do_debug "b:#{plankBegin} e:#{plankEnd} nails:#{nails}"
     result = -1     # The index of nail in the original array
@@ -77,11 +79,13 @@ describe 'Nailing planks' do
       # [0,1,2,3,4,5,6]
     # c = [1,2,4,5,6,9,3]
     # c = [1,2,5,4,6,9,3]
-    c = [1,2,5,4,6,9,3].reverse
+    c = [4,6,7,10,2]
+    c = [4,6,7,10,2].sort!
+    # c = [1,2,5,4,6,9,3].reverse
 
     # [0,1,6,3,2,4,5]
     # [1,2,3,4,5,6,9]
-    expect(solution(a, b, c)).to eq(3)
+    expect(solution(a, b, c)).to eq(4)
   end
 
   specify 'sophisticated' do
