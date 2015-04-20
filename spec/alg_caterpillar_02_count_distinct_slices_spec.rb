@@ -40,12 +40,14 @@ def solution(a)
     if accessed[x] == nil
       accessed[x] = caterpillar_front
     else
-      old_index = accessed[x] + 1
-      count += (caterpillar_front - caterpillar_back) * (caterpillar_front - caterpillar_back + 1) / 2
-      count -= (caterpillar_front - old_index) * (caterpillar_front - old_index + 1) / 2
-      caterpillar_back.upto(old_index - 1) { |n| accessed[a[n]] = nil}
+      new_caterpillar_back = accessed[x] + 1
+      first_part_size = caterpillar_front - caterpillar_back
+      second_part_size = caterpillar_front - new_caterpillar_back
+      count += first_part_size * (first_part_size + 1) / 2
+      count -= (second_part_size) * (second_part_size + 1) / 2
+      caterpillar_back.upto(new_caterpillar_back - 1) { |n| accessed[a[n]] = nil}
       accessed[x] = caterpillar_front
-      caterpillar_back = old_index
+      caterpillar_back = new_caterpillar_back
     end
   end
 
