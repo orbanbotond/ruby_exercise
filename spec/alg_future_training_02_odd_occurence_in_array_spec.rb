@@ -1,11 +1,11 @@
 
 def solution(a)
-  pairs = {}
+  similars = {}
   a.each do |x|
-    pairs[x] = pairs.fetch(x){0} + 1
+    similars[x] = similars.fetch(x){0} + 1
   end
 
-  odd = pairs.find{|x|x.last.odd?}
+  odd = similars.find{|x|x.last.odd?}
   odd.first
 end
 

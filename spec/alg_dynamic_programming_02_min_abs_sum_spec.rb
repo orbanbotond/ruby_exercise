@@ -39,7 +39,7 @@ require 'spec_helper'
 describe 'Min Abs Sum Spec' do
 
   specify 'example' do
-    expect(solution([1,5,2,-2])).to eq(0)
+    expect(solution([5,1,2,-2])).to eq(0)
   end
   specify 'example1' do
     expect(solution([3,1])).to eq(2)
