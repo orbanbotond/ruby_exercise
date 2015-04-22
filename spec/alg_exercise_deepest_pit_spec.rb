@@ -39,4 +39,19 @@ describe 'Equilibrum indexes' do
   specify 'normal case' do
     expect(solution([0,1,3,-2,0,1,0,-3,2,3,4])).to eq(4)
   end
+  specify 'no pits' do
+    expect(solution([0,1,2])).to eq(-1)
+  end
+  specify 'no pits 2' do
+    expect(solution([2, 1, 0])).to eq(-1)
+  end
+  specify 'no pits 2' do
+    expect(solution([1, 1, 1])).to eq(-1)
+  end
+  specify 'empty' do
+    expect(solution([])).to eq(-1)
+  end
+  specify 'one elem' do
+    expect(solution([1])).to eq(-1)
+  end
 end
