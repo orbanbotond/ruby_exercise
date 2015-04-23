@@ -24,6 +24,16 @@ def solution(a)
   max_slice
 end
 
+# testing ruby combination method
+def solution(a)
+  max_profit = 0
+  (0..a.size - 1).to_a.combination(2).to_a.each do |x|
+    profit = a[x.last] - a[x.first]
+    max_profit = profit if max_profit < profit
+  end
+  max_profit
+end
+
 require 'spec_helper'
 
 describe 'Max profit' do
