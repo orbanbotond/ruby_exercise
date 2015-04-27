@@ -87,7 +87,7 @@ def solution(a, b, c)
   start_nail_count = 1
   end_nail_count = c.size
 
-  min = 0
+  min = -1
   while start_nail_count <= end_nail_count do
     middle = (start_nail_count + end_nail_count) / 2
     if are_all_nailed?(nails, planks, middle)
