@@ -53,7 +53,7 @@ def walk(resultPos, result, nails, plankEnd, preResult)
   return [result, preResult].max
 end
 
-def solution(a, b, c)
+def solution__(a, b, c)
   do_debug "a:#{a} b:#{b} c:#{c}"
 
   input = [a,b].transpose
@@ -69,6 +69,38 @@ def solution(a, b, c)
   return preResult + 1
 end
 
+def are_all_nailed?(nails, planks, max_nail_nr)
+  nailed_planks = Array.new(planks.size, false)
+  0.upto(max_nail_nr - 1) do |nail_idx|
+    planks.each_with_index do |plank, idx|
+      nailed_planks[idx] = true if plank.first <= nails[nail_idx] && nails[nail_idx] <= plank.last
+    end
+  end
+  # puts "Trying with: max:#{max_nail_nr} all?:#{nailed_planks.all?{|x|x}}"
+  nailed_planks.all?{|x|x}
+end
+
+def solution(a, b, c)
+  nails = c
+  planks  = [a, b].transpose
+
+  start_nail_count = 1
+  end_nail_count = c.size
+
+  min = 0
+  while start_nail_count <= end_nail_count do
+    middle = (start_nail_count + end_nail_count) / 2
+    if are_all_nailed?(nails, planks, middle)
+      end_nail_count = middle - 1
+      min = middle
+    else
+      start_nail_count = middle + 1
+    end
+  end
+
+  min
+end
+
 require 'spec_helper'
 
 describe 'Nailing planks' do
@@ -80,7 +112,7 @@ describe 'Nailing planks' do
     # c = [1,2,4,5,6,9,3]
     # c = [1,2,5,4,6,9,3]
     c = [4,6,7,10,2]
-    c = [4,6,7,10,2].sort!
+    # c = [4,6,7,10,2].sort!
     # c = [1,2,5,4,6,9,3].reverse
 
     # [0,1,6,3,2,4,5]
