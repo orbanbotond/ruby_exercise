@@ -1,6 +1,48 @@
 # you can use puts for debugging purposes, e.g.
 # puts "this is a debug message"
 
+# you can use puts for debugging purposes, e.g.
+# puts "this is a debug message"
+# (n^2logn)
+def solution_bad(a)
+  return 0 if a.size == 0
+  puts "a:#{a}"
+  a.map!{|x|x.abs}
+  while(a.size >= 2)
+    a.sort!
+    puts "a:#{a}"
+    c = []
+    while(a.size >= 2)
+      b1 = a.pop
+      b2 = a.shift
+      c.push (b1 - b2).abs
+    end
+    a.concat c
+  end
+  a.first
+end
+
+# [5,1,2,-2]
+
+# [1,2,2,5] | sum=10
+#      x
+
+# result = 10
+#  0 1 2 3 4 5 6 7 8 9 0
+# [1,1,1,1,1,1,1,1,1,1,1]
+# 10, 10 - 2*5 = 10 = 0
+
+
+# [2,2,5] sum = 9 diff = 1
+
+# result = 9
+#  0 1 2 3 4 5 6 7 8 9
+# [1,0,1,0,1,1,0,1,0,1]
+
+# 9/2 = 4
+# min(9, 9-4) = 5
+# min(9, 9-4*1) = min(9,1) = 1
+
 def do_debug
   # debugging = true
   debugging = false
@@ -8,7 +50,7 @@ def do_debug
 end
 
 #TODO 20%performance
-def solution(a)
+def solution_b(a)
   return 0 if a.size == 0
   n = a.size - 1
   a.map!{|x|x.abs}
@@ -58,6 +100,9 @@ describe 'Min Abs Sum Spec' do
   end
   specify 'example5' do
     expect(solution([-100, 3, 2, 4])).to eq(91)
+  end
+  specify 'example6' do
+    expect(solution([3,3,3,4,5])).to eq(0)
   end
 
 end

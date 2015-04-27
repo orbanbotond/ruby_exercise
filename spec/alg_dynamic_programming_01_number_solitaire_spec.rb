@@ -10,7 +10,8 @@ end
 #
 # Detected time complexity:
 # O(N*log(N))
-def solution_n_log_n(a)
+def solution(a)
+  puts "a:#{a}"
   a.each_with_index do |elem, idx|
     next if idx ==0
     bidx = [idx - 6, 0].max
