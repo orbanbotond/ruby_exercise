@@ -1,25 +1,23 @@
 # you can use puts for debugging purposes, e.g.
 # puts "this is a debug message"
 
-# you can use puts for debugging purposes, e.g.
-# puts "this is a debug message"
-# (n^2logn)
-def solution_bad(a)
+def solution(a)
   return 0 if a.size == 0
-  puts "a:#{a}"
-  a.map!{|x|x.abs}
-  while(a.size >= 2)
-    a.sort!
-    puts "a:#{a}"
-    c = []
-    while(a.size >= 2)
-      b1 = a.pop
-      b2 = a.shift
-      c.push (b1 - b2).abs
+  a.sort!.map!{|x|x.abs}
+  sum = a.reduce(:+)
+
+  buff = Array.new sum + 1, 0
+  buff[0] = 1
+
+  a.each do |x|
+    buff.to_enum.with_index.reverse_each do |b, idx|
+      buff[idx] = 1 if buff[idx - x] == 1 && idx - x >= 0
     end
-    a.concat c
   end
-  a.first
+
+  (sum/2).downto(0) do |x|
+      return sum - 2*x if buff[x] == 1
+  end
 end
 
 # [5,1,2,-2]
