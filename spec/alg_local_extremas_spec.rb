@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 def solution(a)
-  puts "a:#{a}"
+  # puts "a:#{a}"
   direction = []
   a.each_cons(2) do |x,y|
     delta = y - x
@@ -27,7 +27,7 @@ def solution(a)
     end
   end
 
-  puts "simplified_directions:#{simplified_directions}"
+  # puts "simplified_directions:#{simplified_directions}"
 
   count = 0
 
@@ -35,13 +35,13 @@ def solution(a)
     count += 1 if x == 1 && y == -1 ||
                   x == -1 && y == 1
   end
-  puts "count peaks:#{count}"
+  # puts "count peaks:#{count}"
 
   simplified_directions.each_cons(3) do |x|
     count += 1 if x[0] == 1 && x[1] == 0 && x[2] == -1 ||
                   x[0] == -1 && x[1] == 0 && x[2] == 1 
   end
-  puts "count high platous:#{count}"
+  # puts "count high platous and depressions:#{count}"
 
   if simplified_directions.size >= 2
     #minimum
@@ -65,12 +65,12 @@ def solution(a)
     end
   end
 
-  puts "count edges:#{count}"
+  # puts "count edges:#{count}"
 
   count
 end
 
-describe 'Equilibrum indexes' do
+describe 'Counting Local Extremes' do
 
   specify 'normal case' do
     input = [2,2,3,4,3,3,2,2,1,1,2,5]
