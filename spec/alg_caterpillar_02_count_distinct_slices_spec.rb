@@ -6,7 +6,7 @@ def solution_non_preformant(a)
   end_ind = beg_ind
   count = 0
 
-  while true do
+  loop do
     while (true) do
       count +=1
       if end_ind < a.size - 1
