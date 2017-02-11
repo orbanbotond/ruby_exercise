@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'Hashes' do
   let(:hash) { {} }
 
-  context 'fetch' do
+  context 'methods' do
     specify 'set key' do
       new_value = 'new_value'
       expect(hash[:new_key] = 'new_value').to eq(new_value)
@@ -76,7 +76,7 @@ describe 'Hashes' do
       expect(another_hash.keys).to eq([:initial_key_2])
     end
 
-    specify 'collect/map' do      
+    specify 'collect/map' do
       hash[:initial_key_1] = :initial_value_1
       expect(hash.collect{|k,v| "#{k}-#{v}" }).to eq(["initial_key_1-initial_value_1"])
     end
