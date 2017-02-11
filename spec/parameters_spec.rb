@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 # http://stackoverflow.com/questions/1788923/parameter-vs-argument
-# A parameter is the variable which is part of the method’s signature (method declaration). An argument is an expression used when calling the method.
+# A parameter is the variable which is part of the method’s signature (method declaration).
+# An argument is an expression used when calling the method.
 
 # Consider the following code:
 
