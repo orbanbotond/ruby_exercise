@@ -60,6 +60,22 @@ describe 'Parameters' do
       expect(a(['a', 'b', 'c', 'd', 'e', 'f'])).to eq([['a', 'b', 'c', 'd', 'e', 'f'], 'opt',[]])
       expect(a(*['a', 'b', 'c', 'd', 'e', 'f'])).to eq(['a', 'b', ['c', 'd', 'e', 'f']])
     end
+
+    specify 'keyword arguments' do
+      # unfortunatelly the below is not supported.
+      # def a(required, optional1 => 'opt1', optional2 => 'opt2')
+      def a(required, keys = {})
+        key1 = keys.fetch(:optional1){'opt1'}
+        key2 = keys.fetch(:optional2){'opt2'}
+        [required, key1, key2]
+      end
+
+      expect(a('Cseva')).to eq(['Cseva', 'opt1', 'opt2'])
+      expect(a('Cseva', optional1: 'Optional1 specified')).to eq(['Cseva', 'Optional1 specified', 'opt2'])
+      expect(a('Cseva', optional2: 'Optional2 specified')).to eq(['Cseva', 'opt1', 'Optional2 specified'])
+      expect(a('Cseva', optional2: 'Optional2 specified', optional1: 'Optional1 specified')).to eq(['Cseva', 'Optional1 specified', 'Optional2 specified'])
+      expect(a('Cseva', optional1: 'Optional1 specified', optional2: 'Optional2 specified')).to eq(['Cseva', 'Optional1 specified', 'Optional2 specified'])
+    end
   end
 end
 
