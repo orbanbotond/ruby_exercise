@@ -8,10 +8,11 @@ Every exercise is in format of *spec*.
 The main content:
 -----------------
 
-
--/spec 					- general ruby exercises
--/spec/algorythms 		- algorythms
--/spec/meta_programming 	- meta programming exercises
--/spec/functional 		- functional style exercises
+| Directory              |    purpose                 |
+|------------------------|:---------------------------:
+|/spec 					 |    general ruby exercises  |
+|/spec/algorythms 		 |    algorythms              |
+|/spec/meta_programming  | meta programming exercises |
+|/spec/functional 		 | functional style exercises |
 
 ;)
