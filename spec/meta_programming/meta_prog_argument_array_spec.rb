@@ -1,6 +1,3 @@
-# you can use puts for debugging purposes, e.g.
-# puts "this is a debug message"
-
 def do_that(*args)
   args.reduce(:+)
 end

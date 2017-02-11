@@ -1,6 +1,3 @@
-# you can use puts for debugging purposes, e.g.
-# puts "this is a debug message"
-
 class Sandbox
 
   i = 0
@@ -25,11 +22,25 @@ require 'spec_helper'
 
 describe 'Flat scopes' do
 
-  specify 'can access the variables outside the default scope gate' do
+  specify 'can access the variables outside the default scope gate by flattening' do
     sandbox = Sandbox.new
     expect(sandbox.xx).to eq(1)
     expect(sandbox.yy).to eq(1)
     expect(Sandbox::A.new.i).to eq(1)
+  end
+
+  specify 'can not access local variable out of scope gate' do
+    my_var = "Success"
+    class MyClass
+      # We want to print my_var here...
+      puts my_var
+      def my_method
+        puts my_var
+      # ..and here
+      end
+    end
+
+    
   end
 
 end
