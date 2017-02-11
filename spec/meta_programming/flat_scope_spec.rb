@@ -31,16 +31,23 @@ describe 'Flat scopes' do
 
   specify 'can not access local variable out of scope gate' do
     my_var = "Success"
-    class MyClass
-      # We want to print my_var here...
-      puts my_var
-      def my_method
-        puts my_var
-      # ..and here
-      end
-    end
 
-    
+    expect do
+      class MyClass
+
+        # We want to print my_var here...
+        puts my_var
+
+        def my_method
+          puts my_var
+          # ..and here
+        end
+      end
+    end.to raise_error(NameError)
+    #It raises NameError because:
+    # Failure/Error: puts my_var
+    #  NameError:
+    #    undefined local variable or method `my_var' for MyClass:Class
   end
 
 end
