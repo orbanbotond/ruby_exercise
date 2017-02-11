@@ -61,6 +61,26 @@ describe 'Hashes' do
       expect(hash[:initial_key]).to be_nil
     end
 
+    specify 'merge' do
+      hash[:initial_key_1] = :initial_value_1
+      another_hash = {initial_key_2: :initial_value_2}
+      expect(hash.merge(another_hash).keys).to eq([:initial_key_1, :initial_key_2])
+      expect(another_hash.merge(hash).keys).to eq([:initial_key_2, :initial_key_1])
+    end
+
+    specify 'merge!' do
+      hash[:initial_key_1] = :initial_value_1
+      another_hash = {initial_key_2: :initial_value_2}
+      expect(hash.merge!(another_hash).keys).to eq([:initial_key_1, :initial_key_2])
+      expect(hash.keys).to eq([:initial_key_1, :initial_key_2])
+      expect(another_hash.keys).to eq([:initial_key_2])
+    end
+
+    specify 'collect/map' do      
+      hash[:initial_key_1] = :initial_value_1
+      expect(hash.collect{|k,v| "#{k}-#{v}" }).to eq(["initial_key_1-initial_value_1"])
+    end
+
     specify 'default for a hash' do
       hash.default = :new_default
       expect(hash[:not_existing_key]).to eq(:new_default)
