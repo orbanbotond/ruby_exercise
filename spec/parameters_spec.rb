@@ -122,12 +122,24 @@ describe 'Parameters' do
       expect(a('Boti', mandatory_1: 'Mandatory1', optional_1: 'optional')).to eq(['Boti', 'Mandatory1', 'optional'])
     end
 
-    specify 'true keyword arguments + positional args' do
+    specify 'block_given? and yielding' do
       def a(mandatory_1:, optional_1: 'default')
+        if block_given?
+          yield
+        end
+
         [mandatory_1, optional_1, block_given?]
       end
       expect(a(mandatory_1: 'Mandatory1')).to eq(['Mandatory1', 'default', false])
       expect(a(mandatory_1: 'Mandatory1'){}).to eq(['Mandatory1', 'default', true])
+    end
+
+    specify '&block' do
+      def a(mandatory_1:, optional_1: 'default', &block)        
+        return block.call(mandatory_1) if block_given?
+      end
+      expect(a(mandatory_1: 'Mandatory1')).to be_nil
+      expect(a(mandatory_1: 'Mandatory1'){|x|"returned: #{x}"}).to eq('returned: Mandatory1')
     end
   end
 end
