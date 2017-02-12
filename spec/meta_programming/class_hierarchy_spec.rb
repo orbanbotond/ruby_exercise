@@ -8,6 +8,7 @@ describe 'Class Hierarchy' do
   end
 
   specify 'Object' do
+    expect(Object.class).to eq(Class)
     expect(Object.superclass).to eq(BasicObject)
     expect(Object).to be_kind_of(BasicObject)
     expect(Object).to be_instance_of(Class)
@@ -19,6 +20,7 @@ describe 'Class Hierarchy' do
 
   specify 'Class' do
     expect(Class.superclass).to eq(Module)
+    expect(Class.class).to eq(Class)
   end
 
   specify 'String' do
