@@ -37,6 +37,48 @@ describe 'Dynamic Method' do
     end
   end
 
+  context 'Infinite loop danger' do
+    class Roulette
+      def method_missing(name, *args)
+        person = name.to_s.capitalize 
+        3.times do
+          number = rand(10) + 1
+          puts "#{number}..."
+        end
+        "#{person} got a #{number}"
+      end
+    end
+
+    specify 'will go into an infinite loop' do
+      expect do
+        number_of = Roulette.new
+        number_of.bob
+        number_of.frank
+      end.to raise_error(SystemStackError)
+    end
+
+    context 'the solution' do
+      class Roulette
+        def method_missing(name, *args)
+          person = name.to_s.capitalize
+          super unless %w[Bob Frank Bill].include? person 
+          number = 0
+          3.times do
+            number = rand(10) + 1
+            puts "#{number}..."
+          end
+          "#{person} got a #{number}"
+          number
+        end 
+      end
+
+      specify 'will go into an infinite loop' do
+        number_of = Roulette.new
+        expect(number_of.bob).to be_an(Integer)
+      end
+    end
+  end
+
   context 'Computer example' do
     let(:data_source) { OpenStruct.new(get_mouse_info: 'Trackpad',
                                        get_mouse_price: 5.1,
