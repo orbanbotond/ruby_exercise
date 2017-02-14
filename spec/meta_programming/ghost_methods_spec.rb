@@ -79,6 +79,26 @@ describe 'Dynamic Method' do
     end
   end
 
+  context 'speed/benchmarking/performance anxiety' do
+    class String
+      def method_missing(method, *args)
+      method == :ghost_reverse ? reverse : super 
+      end
+    end
+
+    require 'benchmark'
+
+    specify 'It takes about twice as long as it is for regular methods' do
+      b1 = Benchmark.measure do
+          1000000.times { "abc".reverse }
+      end
+      b2 = Benchmark.measure do
+          1000000.times { "abc".ghost_reverse }
+      end
+      expect(b2.total / b1.total).to be_within(0.5).of(1.6)
+    end
+  end
+
   context 'Computer example' do
     let(:data_source) { OpenStruct.new(get_mouse_info: 'Trackpad',
                                        get_mouse_price: 5.1,
