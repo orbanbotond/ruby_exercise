@@ -79,6 +79,14 @@ describe 'Dynamic Method' do
     end
   end
 
+  context 'blank slate' do
+    class Computer 
+      instance_methods.each do |m|
+        undef_method m unless m.to_s =~ /^__|method_missing|respond_to?/ 
+      end
+    end
+  end
+
   context 'speed/benchmarking/performance anxiety' do
     class String
       def method_missing(method, *args)
