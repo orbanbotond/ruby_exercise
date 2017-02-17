@@ -45,6 +45,9 @@ describe 'Binding' do
         extend ::RSpec::Matchers
         v2 = 2
 
+        # v1 is not accessible because of the scope gate.
+        expect { v1 }.to raise_error(NameError)
+
         expect(local_variables).to eq([:v2])
         def my_method 
           v3 = 3
