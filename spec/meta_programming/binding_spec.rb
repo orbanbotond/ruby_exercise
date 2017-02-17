@@ -1,5 +1,13 @@
 require 'spec_helper'
 
+# include ::RSpec::Matchers
+@var = "The top-level @var"
+def my_method 
+  return @var
+end
+
+# expect(my_method).to eq(@var)
+
 describe 'Binding' do
   context 'basic binding' do
     specify 'grab the binding at the moment it is defined.' do
@@ -28,7 +36,7 @@ describe 'Binding' do
     end
   end
 
-  context 'scope inspection' do
+  context 'scope gates inspection' do
     specify '' do
       v1 = 1
       class MyClass
@@ -49,6 +57,25 @@ describe 'Binding' do
       obj.my_method
       obj.my_method
       expect(local_variables).to eq([:v1, :obj])
+    end
+  end
+
+  context 'global variables' do
+    specify 'can be accessed from anywhere' do
+      def a_scope
+        $var = "some value"
+      end
+      def another_scope 
+        $var
+      end
+      a_scope
+      expect(another_scope).to eq(a_scope)
+    end
+  end
+
+  context 'top level instance variables' do
+    specify 'will be blocked by a scope gate' do
+      expect(my_method).to be_nil
     end
   end
 end
