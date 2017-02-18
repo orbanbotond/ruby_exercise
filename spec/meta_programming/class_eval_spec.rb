@@ -1,6 +1,21 @@
 require 'spec_helper'
 
 context 'Class Eval' do
+  specify 'The method can be defined inside method because the self is the same' do
+    class MyClass
+      def method_one
+        def method_two
+          'Hello!'
+        end
+      end
+    end
+
+    nnn = MyClass.new
+    expect(nnn).to respond_to(:method_one)
+    expect(nnn.method_one).to eq(:method_two)
+    expect(nnn).to respond_to(:method_two)
+  end
+
   specify 'The method appears after class_eval' do
     a_class = Integer
 
