@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 context 'Class Eval' do
-  specify 'The method can be defined inside method because the self is the same' do
+  specify 'reference to the current class is kept.' do
     class MyClass
       def method_one
         def method_two
