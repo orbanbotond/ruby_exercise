@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'Higher Order Procedures' do
-  context '&obj calls the proc on the object' do
+  context '&obj calls the to_proc on the object' do
     context 'symbol' do
       class Symbol
         def to_proc
@@ -24,7 +24,8 @@ describe 'Higher Order Procedures' do
           lambda { |e| @constraints.all? { |fn| fn.call(e) } }
         end
       end
-      specify "nice is'n it" do
+
+      specify "will filter for all constraint" do
         filter = Filter.new 
         filter.constraint { |x| x > 10 }
         filter.constraint { |x| x.even? }
