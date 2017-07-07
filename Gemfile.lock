@@ -17,11 +17,29 @@ GEM
       ice_nine (~> 0.11.0)
       memoizable (~> 0.4.0)
     builder (3.2.2)
+    celluloid (0.17.3)
+      celluloid-essentials
+      celluloid-extras
+      celluloid-fsm
+      celluloid-pool
+      celluloid-supervision
+      timers (>= 4.1.1)
+    celluloid-essentials (0.20.5)
+      timers (>= 4.1.1)
+    celluloid-extras (0.20.5)
+      timers (>= 4.1.1)
+    celluloid-fsm (0.20.5)
+      timers (>= 4.1.1)
+    celluloid-pool (0.20.5)
+      timers (>= 4.1.1)
+    celluloid-supervision (0.20.6)
+      timers (>= 4.1.1)
     coderay (1.1.0)
     color (1.8)
     diff-lcs (1.2.5)
     equalizer (0.0.9)
     fastercsv (1.5.5)
+    hitimes (1.2.4)
     i18n (0.7.0)
     ice_nine (0.11.0)
     json (1.8.2)
@@ -59,6 +77,8 @@ GEM
       pdf-writer (= 1.1.8)
     slop (3.6.0)
     thread_safe (0.3.4)
+    timers (4.1.2)
+      hitimes
     transaction-simple (1.4.0.2)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
@@ -69,6 +89,7 @@ PLATFORMS
 DEPENDENCIES
   active_attr
   adamantium
+  celluloid
   equalizer
   lazy_stream
   nokogiri

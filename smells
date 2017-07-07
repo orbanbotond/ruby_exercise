@@ -1,0 +1,118 @@
+# Ruby Conference
+#
+# Piotri Szotkowski
+# public by default and mutable by default.
+#
+# who wrote this crap? -> yey! Sometime in the past YAGNI triumphed.
+#
+# 1. duplicate method call. Could be costly specially if it is calculation heavy or deals with external services.
+#
+# "Write code so small so that you can't fit a bug in it! :D"
+#
+# 2. Data Clump -> Write a composite (value object.)
+#  
+# 3. Repeated conditional -> predicate method
+#
+# "Debugging is like being the detective in the same movie where you are the murdered :D"
+#
+# "How much you feel the need to apologize for things when you introduce the code to a new team member"  
+#
+# Feature envy:
+# ?
+# 
+# 4 Attribute:
+#  
+# Setters: Bad
+# Getters It depends.
+# Refactoring: Tell don't ask
+# with (make it immutable):
+#  def with(city: @city, name: @name)
+#
+# How do we find Code Smells:
+# "Reek" uses "RuboCop"
+#  features: -per directyory configurations.
+#
+# Code Comments: "War if Peace Freedom is Slavery, Code is Documentation...etc" :D
+# 
+# Always be critical! Tool: Nice and Jokey small sarcasm...
+# Let them know what doesn't work.
+#
+# ----------------------------------------
+#
+# Xavier Noria
+# Speculation Mode: Normal but avoid...
+# 
+# Concise like: remotes.sort.last -> remotes.max
+#
+# Fájl wrét: File.write :D
+#
+# 1:
+# RUBY =~ /regex/
+#
+# /regex/.match? (RUBY) (...much faster...!)
+#
+# /regex/.include?(regex) (...fastest...!)
+#
+# simple string is the fastest: 'abcdefghijklm'.include? "cde"
+# scan???
+#
+# 2: do not use self
+# "#{self.id}-#{name.parameters}"
+#
+# 3: natural
+#   def last_name
+#   def first_name ???
+#
+#  def initialize(protocol, host, port)
+#    @port = port
+#    @protocol = protocol
+#    @host = host ???
+#
+# 4: triple negation
+#  unless !x.blank? ????? 
+#
+# 5 User.new(name: args[:name], width: args[:width]) -> User.new args.slice(:name, :width)
+#
+# 6 options = super
+#   options[:secure] = true
+#   options
+#
+#   super.tap do |options|
+#     options[:secure] = true
+#   end
+#
+# 7 Diff between ^ $ A Z z in regular expr.
+#
+# ---------
+# Botzhidar Batsov: 
+#  He makes the raport like with Jokes. :)
+#
+#  Check: JRuby 2017 presentation checki it.
+#  Check: RDL
+#    "Simplicity leads to Happiness" Yoda to see it.
+#
+#  Check: Closure, Elixir, Scala (Mazochistic), Crystal.
+#
+# batsocv.com
+# emacsredux.com
+#
+# Crystal For Rubysts:
+#  crystalforrubists.com
+#  http://www.crystalforrubyists.com
+#
+# ROM-rb
+#  no n+q query problems.
+#  question: is it crystal compatible?
+#
+# Clever-cloud.com coupon: rubyc17roxx
+#
+# Testing:
+# --------
+#
+# ASK: ask for the slides...
+#
+# Dijkstra: The Humble Programmer.
+#
+# SRP: only one reason to change (UI/infrastucture/content/...)
+# sergey.kukunin@gmail.com
+#
