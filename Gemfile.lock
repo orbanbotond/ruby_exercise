@@ -36,7 +36,14 @@ GEM
       timers (>= 4.1.1)
     coderay (1.1.0)
     color (1.8)
+    concurrent-ruby (1.0.5)
     diff-lcs (1.2.5)
+    dry-core (0.3.1)
+      concurrent-ruby (~> 1.0)
+    dry-equalizer (0.2.0)
+    dry-monads (0.3.1)
+      dry-core
+      dry-equalizer
     equalizer (0.0.9)
     fastercsv (1.5.5)
     hitimes (1.2.4)
@@ -90,6 +97,7 @@ DEPENDENCIES
   active_attr
   adamantium
   celluloid
+  dry-monads
   equalizer
   lazy_stream
   nokogiri
