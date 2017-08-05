@@ -27,10 +27,26 @@ describe 'Monad' do
     end
   end
 
+  context 'try' do
+    context 'the methods' do
+      specify 'basic' do
+        extend Dry::Monads::Try::Mixin
+        res = Try() { 10 / 2 }
+        expect(res.success?).to be_truthy
+        expect(res.value).to eq(5)
+      end
+
+      specify '#exception' do
+        extend Dry::Monads::Try::Mixin
+        res = Try() { 10 / 0 }
+        expect(res.failure?).to be_truthy
+        expect(res.exception).to be_a(ZeroDivisionError)
+      end
+    end
+  end
+
   context 'either' do
     context 'the main benefit' do
-
-
       def monad(foo, bar)
         result = if foo > bar
           M.Right(10)
@@ -100,8 +116,6 @@ describe 'Monad' do
   end
 
   context 'maybe' do
-    M = Dry::Monads
-
     specify 'doubles' do
       array = [1,2,3,4,5]
       expect(M.Maybe(array).fmap{|x|x.map{|y|y*2}}).to eq(Dry::Monads::Some(array.map{|x|x*2}))
@@ -212,7 +226,11 @@ describe 'Monad' do
         expect(M.Maybe(5).bind(add_two).bind(add_two).or(M.Some(1)).value).to eq(9)
         expect(M.Maybe(nil).bind(add_two).bind(add_two).or(M.Some(1)).value).to eq(1)
       end
-      
     end
+  end
+
+  context 'The most complex' do
+    # let(:a)
+    # let(:maybe){}
   end
 end
