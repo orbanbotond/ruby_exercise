@@ -1,10 +1,35 @@
 require 'spec_helper'
 
 describe 'Monad' do
+  M = Dry::Monads
+
+  context 'basics' do
+    context 'bind' do
+      specify 'value' do
+        a = M.Maybe(2)
+        expect(a.bind{|x|x}).to eq(2)
+      end
+      specify 'nil' do
+        a = M.Maybe(nil)
+        expect(a.bind{|x|x}).to eq(M.None())
+      end
+    end
+
+    context 'fmap' do
+      specify 'value' do
+        a = M.Maybe(2)
+        expect(a.fmap{|x|x}).to eq(M.Some(2))
+      end
+      specify 'nil' do
+        a = M.Maybe(nil)
+        expect(a.fmap{|x|x}).to eq(M.None())
+      end
+    end
+  end
+
   context 'either' do
     context 'the main benefit' do
 
-      M = Dry::Monads
 
       def monad(foo, bar)
         result = if foo > bar
@@ -77,12 +102,57 @@ describe 'Monad' do
   context 'maybe' do
     M = Dry::Monads
 
+    specify 'doubles' do
+      array = [1,2,3,4,5]
+      expect(M.Maybe(array).fmap{|x|x.map{|y|y*2}}).to eq(Dry::Monads::Some(array.map{|x|x*2}))
+      expect(M.Maybe(nil).fmap{|x|x.map{|y|y*2}}).to eq(Dry::Monads::None())
+    end
+
     specify 'returns the content if there is some' do
       expect(M.Maybe(2)).to eq(Dry::Monads::Some(2))
     end
 
     specify 'returns None there is none' do
       expect(M.Maybe(nil)).to eq(Dry::Monads::None())
+    end
+
+    specify 'value or something' do
+      expect(M.Maybe(nil).value_or(2)).to eq(2)
+    end
+
+    context 'some operations' do
+      specify '- with some or a value' do
+        a = M.Maybe(2)
+        b = M.Maybe(nil).or(0)
+        expect(a.fmap{|x|x-b}).to eq(Dry::Monads::Some(2))
+      end
+
+      specify '- with some and none' do
+        a = M.Maybe(nil)
+        b = M.Maybe(2)
+        c = M.Maybe(3)
+        expect(b.bind{|x|c.fmap{|cc|x+cc}}).to eq(Dry::Monads::Some(5))
+        expect(b.bind{|x|c.fmap{|cc|cc+x}}).to eq(Dry::Monads::Some(5))
+        expect(c.bind{|x|b.fmap{|cc|cc+x}}).to eq(Dry::Monads::Some(5))
+
+        expect(a.bind{|x|c.fmap{|cc|cc+x}}).to eq(Dry::Monads::None())
+        expect(c.bind{|x|a.fmap{|cc|cc+x}}).to eq(Dry::Monads::None())
+      end
+
+      specify '- with 3 additions' do
+        zero = M.Maybe(nil)
+        a = M.Maybe(1)
+        b = M.Maybe(2)
+        c = M.Maybe(3)
+
+        expect(a.bind{|aa|b.bind{|bb| c.fmap{|cc|cc+aa+bb}}}).to eq(Dry::Monads::Some(6))
+        expect(b.bind{|aa|a.bind{|bb| c.fmap{|cc|cc+aa+bb}}}).to eq(Dry::Monads::Some(6))
+        expect(c.bind{|aa|a.bind{|bb| b.fmap{|cc|cc+aa+bb}}}).to eq(Dry::Monads::Some(6))
+      end
+    end
+
+    specify 'value or other monad' do
+      expect(M.Maybe(nil).or(M.Maybe('123')).value).to eq('123')
     end
 
     specify 'extracting the value from some' do
