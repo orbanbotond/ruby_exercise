@@ -230,7 +230,62 @@ describe 'Monad' do
   end
 
   context 'The most complex' do
-    # let(:a)
-    # let(:maybe){}
+    let(:input_maybee){{a: 1}}
+    let(:maybe) do
+      M.Maybe(input_maybee[:a]).fmap do |x|
+        x * 2
+      end
+    end
+    let(:either_input){true}
+    let(:either) do
+      extend Dry::Monads::Either::Mixin
+
+      if either_input
+        Right(10)
+      else
+        Left('the input is not ok')
+      end
+    end
+
+    context 'the maybe and the either and the try altogether' do
+      let(:operation) do
+        maybe.bind do |x|
+          extend Dry::Monads::Try::Mixin
+          either.bind{|value| Try(){value / x}.to_either}
+        end
+      end
+
+      context 'maybe is none' do
+        let(:input_maybee){{}}
+
+        specify 'The outcome is none' do
+          expect(operation).to eq(M.None)
+        end
+      end
+
+      context 'either goes to the left track' do
+        let(:either_input){ false }
+
+        specify 'The outcome is Left' do
+          expect(operation).to eq(Dry::Monads::Left('the input is not ok'))
+        end
+      end
+
+      context 'division by 0' do
+        let(:input_maybee){ {a:0} }
+
+        specify 'The outcome is a Left' do
+          expect(operation).to be_a(Dry::Monads::Either::Left)
+        end
+      end
+
+      context 'Super Happy Path' do
+        let(:either_input){ true }
+
+        specify 'The outcome is right' do
+          expect(operation).to eq(Dry::Monads::Right(5))
+        end
+      end
+    end
   end
 end
