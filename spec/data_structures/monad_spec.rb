@@ -4,6 +4,13 @@ describe 'Monad' do
   M = Dry::Monads
 
   context 'basics' do
+    context 'can not act as data holder' do
+      specify 'value' do
+        a = M.Maybe(2)
+        expect { a['result.code'] = 'code' }.to raise_error(NoMethodError)
+      end
+    end
+
     context 'bind' do
       specify 'value' do
         a = M.Maybe(2)
