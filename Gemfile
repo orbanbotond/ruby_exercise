@@ -16,3 +16,4 @@ gem 'dry-monads'
 gem 'dry-auto_inject'
 gem 'dry-transaction'
 gem 'activesupport'
+gem "interactor"
