@@ -1,29 +1,3 @@
-
-# class CreateAccount
-#   include Dry::Monads::Result::Mixin
-#   include Dry::Monads::Do.for(:call)
-
-#   def call(params)
-#     values = yield validate(params)
-#     account = yield create_account(values[:account])
-#     owner = yield create_owner(account, values[:owner])
-
-#     Success([account, owner])
-#   end
-
-#   def validate(params)
-#     # returns Success(values) or Failure(:invalid_data)
-#   end
-
-#   def create_account(account_values)
-#     # returns Success(account) or Failure(:account_not_created)
-#   end
-
-#   def create_owner(account, owner_values)
-#     # returns Success(owner) or Failure(:owner_not_created)
-#   end
-# end
-
 require 'spec_helper'
 
 module MonadDoNotation
