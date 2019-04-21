@@ -1,68 +1,69 @@
 require 'spec_helper'
 
-class Add
-  include Dry::Transaction
+module DryTransactions
+  class Add
+    include Dry::Transaction
 
-  step :validate
-  step :add
+    step :validate
+    step :add
 
-  private
+    private
 
-  def validate(input)
-    return Failure('must be a real number') unless input.all?{|x|x.finite?}
+    def validate(input)
+      return Failure('must be a real number') unless input.all?{|x|x.finite?}
 
-    Success(input)
+      Success(input)
+    end
+
+    def add(input)
+      ret = input.reduce(0) { |acc, x| acc + x }
+
+      Success(ret)
+    end
   end
 
-  def add(input)
-    ret = input.reduce(0) { |acc, x| acc + x }
+  class Multiply
+    include Dry::Transaction
 
-    Success(ret)
+    step :validate
+    step :multiply
+
+    private
+
+    def validate(input)
+      return Failure('must be a real number') unless input.all?{|x|x.finite?}
+
+      Success(input)
+    end
+
+    def multiply(input)
+      ret = input.reduce(1) { |acc, x| acc * x }
+
+      Success(ret)
+    end
+  end
+
+  class ComplexOperation
+    include Dry::Transaction
+
+    step :evaluate
+
+    private
+
+    def evaluate(input)
+      partialValues = [Multiply.new.call([input[1], input[2]])]
+      failures = partialValues.select{|x|x.failure?}
+
+      return failures.first if failures.present?
+
+      Add.new.call( [input[0], partialValues.map{|x|x.value!}].flatten)
+    end
   end
 end
-
-class Multiply
-  include Dry::Transaction
-
-  step :validate
-  step :multiply
-
-  private
-
-  def validate(input)
-    return Failure('must be a real number') unless input.all?{|x|x.finite?}
-
-    Success(input)
-  end
-
-  def multiply(input)
-    ret = input.reduce(1) { |acc, x| acc * x }
-
-    Success(ret)
-  end
-end
-
-class ComplexOperation
-  include Dry::Transaction
-
-  step :evaluate
-
-  private
-
-  def evaluate(input)
-    partialValues = [Multiply.new.call([input[1], input[2]])]
-    failures = partialValues.select{|x|x.failure?}
-
-    return failures.first if failures.present?
-
-    Add.new.call( [input[0], partialValues.map{|x|x.value!}].flatten)
-  end
-end
-
 
 describe 'DryTransactions' do
   context 'add' do
-    subject { Add.new.call params }
+    subject { DryTransactions::Add.new.call params }
     let(:params) { [2,3,4] }
 
     context 'negative cases' do
@@ -85,7 +86,7 @@ describe 'DryTransactions' do
   end
 
   context 'multiply' do
-    subject { Multiply.new.call params }
+    subject { DryTransactions::Multiply.new.call params }
     let(:params) { [2,3,4] }
 
     context 'negative cases' do
@@ -108,7 +109,7 @@ describe 'DryTransactions' do
   end
 
   context 'nesting' do
-    subject { ComplexOperation.new.call params }
+    subject { DryTransactions::ComplexOperation.new.call params }
     let(:params) { [2,3,4] }
 
     context 'negative cases' do

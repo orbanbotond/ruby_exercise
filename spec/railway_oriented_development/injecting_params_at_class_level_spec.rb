@@ -7,7 +7,6 @@ module CRUD
     step :validate
     step :persist
 
-    private
 
     def validate(input)
       Success(input.to_s + model_class.to_s)
