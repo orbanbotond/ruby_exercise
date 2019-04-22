@@ -17,3 +17,6 @@ gem 'dry-auto_inject'
 gem 'dry-transaction'
 gem 'activesupport'
 gem "interactor"
+gem "trailblazer",
+  git: 'https://github.com/trailblazer/trailblazer.git',
+  tag: 'v2.1.0.rc1'
