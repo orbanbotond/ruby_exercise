@@ -8,7 +8,6 @@ module TrailblazerOperations
 
     private
     def check(options, **)
-      binding.pry
       Railway.pass!
     end
 
@@ -57,7 +56,7 @@ module TrailblazerOperations
 
     step Nested( Add,
       input: -> (options, params:, **) do
-        options.merge params: [params[0], options[:operation_result]]
+        options.to_hash.except(:operation_result).merge params: [params[0], options[:operation_result]]
       end
     )
   end
