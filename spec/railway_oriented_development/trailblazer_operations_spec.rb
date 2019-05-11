@@ -2,15 +2,10 @@ require 'spec_helper'
 
 module TrailblazerOperations
   class Add < Trailblazer::Operation
-    step :check
     step :validate
     step :add
 
-    private
-    def check(options, **)
-      Railway.pass!
-    end
-
+  private
     def validate(options, params:)
       if params.all?{|x|x.finite?}
         Railway.pass! #=> right track, success
