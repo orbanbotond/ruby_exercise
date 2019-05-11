@@ -7,15 +7,14 @@ module TrailblazerOperations
 
   private
     def validate(options, params:)
-      if params.all?{|x|x.finite?}
-        Railway.pass! #=> right track, success
-      else
+      unless params.all?{|x|x.finite?}
         options[:validation] = 'must be a real number'
-        Railway.fail! #=> left track, failure
+        return Railway.fail!
       end
+      Railway.pass!
     end
 
-    def add(options, params:)
+    def add(options, params:, **rest)
       ret = params.reduce(0) { |acc, x| acc + x }
       options[:operation_result] = ret
     end
@@ -28,12 +27,11 @@ module TrailblazerOperations
     private
 
     def validate(options, params:)
-      if params.all?{|x|x.finite?}
-        Railway.pass! #=> right track, success
-      else
+      unless params.all?{|x|x.finite?}
         options[:validation] = 'must be a real number'
-        Railway.fail! #=> left track, failure
+        return Railway.fail!
       end
+      Railway.pass!
     end
 
     def multiply(options, params:)
