@@ -126,7 +126,7 @@ describe 'DryTransactions' do
       end
     end
 
-    context 'postitive cases' do
+    context 'positive cases' do
       specify 'Be a success with the proper correct output' do
         expect(subject).to be_success
         expect(subject[:operation_result]).to eq(params[0] + params[1] * params[2])

@@ -1,12 +1,10 @@
 require 'spec_helper'
 
 add = ->(params:) do
-  if params.all?{|x|x.finite?}
-    result = params.reduce(0) { |acc, x| acc + x }
-    return { operation_result: result }
-  else
-    return { validation: 'must be a real number' }
-  end
+  return { validation: 'must be a real number' } if params.any?{|x|x.infinite?}
+
+  result = params.reduce(0) { |acc, x| acc + x }
+  return { operation_result: result }
 end
 
 multiply = ->(params:) do
@@ -42,7 +40,7 @@ describe 'If Jungle' do
       end
     end
 
-    context 'postitive cases' do
+    context 'positive cases' do
       specify 'Be a success with the proper correct output' do
         expect(subject[:operation_result]).to eq(params.reduce(0) { |acc, x| acc + x })
       end
