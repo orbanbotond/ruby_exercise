@@ -197,6 +197,100 @@ describe 'Dry-Schema' do
       end
     end
 
+    describe 'hash' do
+      context 'mandatory hash' do
+        subject(:schema_validation) do
+          schema = Dry::Schema.Params do
+            required(:address).hash do
+            end
+          end
+
+          schema.call params
+        end
+
+        context 'negative' do
+          context 'wrong type is passed as value' do
+            let(:params) { { address: 'asd' } }
+
+            it { should be_failure }
+
+            it "the errors should point out the missing key" do
+              expect(schema_validation.errors.to_h).to include(:address)
+            end
+          end
+
+          context 'nil is passed as value' do
+            let(:params) { { address: nil } }
+
+            it { should be_failure }
+
+            it "the errors should point out the missing key" do
+              expect(schema_validation.errors.to_h).to include(:address)
+            end
+          end
+        end
+
+        context 'positive' do
+          context 'present key' do
+            let(:params) { { address: {} }}
+
+            it { should be_success }
+
+            it "the errors should be empty" do
+              expect(schema_validation.errors).to be_empty
+            end
+          end
+        end
+      end
+
+      context 'optional hash' do
+        subject(:schema_validation) do
+          schema = Dry::Schema.Params do
+            required(:address).maybe do
+              hash do
+              end
+            end
+          end
+
+          schema.call params
+        end
+
+        context 'negative' do
+          context 'wrong type is passed as value' do
+            let(:params) { { address: 'asd' } }
+
+            it { should be_failure }
+
+            it "the errors should point out the missing key" do
+              expect(schema_validation.errors.to_h).to include(:address)
+            end
+          end
+        end
+
+        context 'positive' do
+          context 'nil is passed as value' do
+            let(:params) { { address: nil } }
+
+            it { should be_success }
+
+            it "the errors should be empty" do
+              expect(schema_validation.errors).to be_empty
+            end
+          end
+
+          context 'present key' do
+            let(:params) { { address: {} }}
+
+            it { should be_success }
+
+            it "the errors should be empty" do
+              expect(schema_validation.errors).to be_empty
+            end
+          end
+        end 
+      end
+    end
+
     describe 'arrays' do
       subject(:schema_validation) {
         schema = Dry::Schema.Params do
@@ -231,36 +325,37 @@ describe 'Dry-Schema' do
       end
     end
 
-    describe 'hash' do
-      subject(:schema_validation) do
+    context 'array of hashes' do
+      subject(:schema_validation_for_array_of_hashes) {
         schema = Dry::Schema.Params do
-          required(:address).hash do
+          required(:addresses).array(:hash) do
+            required(:street).filled(:string)
           end
         end
 
         schema.call params
-      end
+      }
 
       context 'negative' do
         context 'wrong type is passed as value' do
-          let(:params) { { address: 'asd' } }
+          let(:params) { { addresses: [1, 2] } }
 
           it { should be_failure }
 
           it "the errors should point out the missing key" do
-            expect(schema_validation.errors.to_h).to include(:address)
+            expect(schema_validation_for_array_of_hashes.errors.to_h).to include(:addresses)
           end
         end
       end
 
       context 'positive' do
         context 'present key' do
-          let(:params) { { address: {} }}
+          let(:params) { { addresses: [{street: 'Sir. John'}, {street: 'Pompierilor'}] } }
 
           it { should be_success }
 
           it "the errors should be empty" do
-            expect(schema_validation.errors).to be_empty
+            expect(schema_validation_for_array_of_hashes.errors).to be_empty
           end
         end
       end
