@@ -1,109 +1,109 @@
-def do_debug string
-  puts string
-end
-
-#This algorythm is not ok, because it depends on the input.
-#If I sort the nail sequence then the algorythm fails
-def findFirstNail(plankBegin, plankEnd, nails)
-    do_debug "b:#{plankBegin} e:#{plankEnd} nails:#{nails}"
-    result = -1     # The index of nail in the original array
-    resultPos = -1  # The index of nail in the sorted array
- 
-    nailLower = 0
-    nailUpper = nails.size - 1
-    nailMid = 0
- 
-    while nailLower <= nailUpper do
-      nailMid = (nailLower + nailUpper) / 2
-      nailPosMid = nails[nailMid][1]
-      do_debug "l:#{nailLower} u:#{nailUpper} m:#{nailMid} npm:#{nailPosMid}"
-      if nailPosMid < plankBegin
-        nailLower = nailMid + 1
-        do_debug "rising lower bound nailLower:#{nailLower}"
-      elsif nailPosMid > plankEnd
-        nailUpper = nailMid - 1
-        do_debug "lowering upper bound nailUpper:#{nailUpper}"
-      else
-        nailUpper = nailMid - 1
-        result = nails[nailMid][0]
-        resultPos = nailMid
-        do_debug "adjusting: upper bound nailUpper:#{nailUpper}"
-        do_debug "result: #{result}"
-        do_debug "resultPos: #{resultPos}"
-      end
-    end
-    [result, resultPos]
-end 
-
-def walk(resultPos, result, nails, plankEnd, preResult)
-  resultPos += 1
-  while resultPos < nails.size
-      break if nails[resultPos][1] > plankEnd
-      result = [result, nails[resultPos][0]].min
-      resultPos += 1
-      # If we find a position before the preResult. We could
-      # terminate our search and return.
-      # With a position before the preResult, the result for
-      # this round must <= preResult. And globally, the final
-      # result is the maximum of ALL the results in each rounds.
-      # So the result of this round actually does not affect
-      # the final result.
-      return preResult if preResult >= result
-  end
-  return [result, preResult].max
-end
-
-def solution__(a, b, c)
-  do_debug "a:#{a} b:#{b} c:#{c}"
-
-  input = [a,b].transpose
-  nails = c.map.with_index{|x, idx| [idx, x]}.sort{|x,y|x.last <=> y.last}
-  preResult = -1
-  input.each do |x|
-    r, p = findFirstNail x.first, x.last, nails
-    puts "r: #{r} p:#{p}"
-    preResult = walk p, r, nails, x.last, preResult
-    return -1 if preResult == -1
-  end
-
-  return preResult + 1
-end
-
-def are_all_nailed?(nails, planks, max_nail_nr)
-  nailed_planks = Array.new(planks.size, false)
-  0.upto(max_nail_nr - 1) do |nail_idx|
-    planks.each_with_index do |plank, idx|
-      nailed_planks[idx] = true if plank.first <= nails[nail_idx] && nails[nail_idx] <= plank.last
-    end
-  end
-  # puts "Trying with: max:#{max_nail_nr} all?:#{nailed_planks.all?{|x|x}}"
-  nailed_planks.all?{|x|x}
-end
-
-def solution(a, b, c)
-  nails = c
-  planks  = [a, b].transpose
-
-  start_nail_count = 1
-  end_nail_count = c.size
-
-  min = -1
-  while start_nail_count <= end_nail_count do
-    middle = (start_nail_count + end_nail_count) / 2
-    if are_all_nailed?(nails, planks, middle)
-      end_nail_count = middle - 1
-      min = middle
-    else
-      start_nail_count = middle + 1
-    end
-  end
-
-  min
-end
-
 require 'spec_helper'
 
 describe 'Nailing planks' do
+
+  def do_debug string
+    puts string
+  end
+
+  #This algorythm is not ok, because it depends on the input.
+  #If I sort the nail sequence then the algorythm fails
+  def findFirstNail(plankBegin, plankEnd, nails)
+      do_debug "b:#{plankBegin} e:#{plankEnd} nails:#{nails}"
+      result = -1     # The index of nail in the original array
+      resultPos = -1  # The index of nail in the sorted array
+   
+      nailLower = 0
+      nailUpper = nails.size - 1
+      nailMid = 0
+   
+      while nailLower <= nailUpper do
+        nailMid = (nailLower + nailUpper) / 2
+        nailPosMid = nails[nailMid][1]
+        do_debug "l:#{nailLower} u:#{nailUpper} m:#{nailMid} npm:#{nailPosMid}"
+        if nailPosMid < plankBegin
+          nailLower = nailMid + 1
+          do_debug "rising lower bound nailLower:#{nailLower}"
+        elsif nailPosMid > plankEnd
+          nailUpper = nailMid - 1
+          do_debug "lowering upper bound nailUpper:#{nailUpper}"
+        else
+          nailUpper = nailMid - 1
+          result = nails[nailMid][0]
+          resultPos = nailMid
+          do_debug "adjusting: upper bound nailUpper:#{nailUpper}"
+          do_debug "result: #{result}"
+          do_debug "resultPos: #{resultPos}"
+        end
+      end
+      [result, resultPos]
+  end 
+
+  def walk(resultPos, result, nails, plankEnd, preResult)
+    resultPos += 1
+    while resultPos < nails.size
+        break if nails[resultPos][1] > plankEnd
+        result = [result, nails[resultPos][0]].min
+        resultPos += 1
+        # If we find a position before the preResult. We could
+        # terminate our search and return.
+        # With a position before the preResult, the result for
+        # this round must <= preResult. And globally, the final
+        # result is the maximum of ALL the results in each rounds.
+        # So the result of this round actually does not affect
+        # the final result.
+        return preResult if preResult >= result
+    end
+    return [result, preResult].max
+  end
+
+  def solution__(a, b, c)
+    do_debug "a:#{a} b:#{b} c:#{c}"
+
+    input = [a,b].transpose
+    nails = c.map.with_index{|x, idx| [idx, x]}.sort{|x,y|x.last <=> y.last}
+    preResult = -1
+    input.each do |x|
+      r, p = findFirstNail x.first, x.last, nails
+      puts "r: #{r} p:#{p}"
+      preResult = walk p, r, nails, x.last, preResult
+      return -1 if preResult == -1
+    end
+
+    return preResult + 1
+  end
+
+  def are_all_nailed?(nails, planks, max_nail_nr)
+    nailed_planks = Array.new(planks.size, false)
+    0.upto(max_nail_nr - 1) do |nail_idx|
+      planks.each_with_index do |plank, idx|
+        nailed_planks[idx] = true if plank.first <= nails[nail_idx] && nails[nail_idx] <= plank.last
+      end
+    end
+    # puts "Trying with: max:#{max_nail_nr} all?:#{nailed_planks.all?{|x|x}}"
+    nailed_planks.all?{|x|x}
+  end
+
+  def solution(a, b, c)
+    nails = c
+    planks  = [a, b].transpose
+
+    start_nail_count = 1
+    end_nail_count = c.size
+
+    min = -1
+    while start_nail_count <= end_nail_count do
+      middle = (start_nail_count + end_nail_count) / 2
+      if are_all_nailed?(nails, planks, middle)
+        end_nail_count = middle - 1
+        min = middle
+      else
+        start_nail_count = middle + 1
+      end
+    end
+
+    min
+  end
 
   specify 'simple' do
     a = [1,4,5,8 ]

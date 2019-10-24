@@ -2,11 +2,13 @@ require 'spec_helper'
 
 describe 'InfiniteLists' do
   context 'Enumerators' do
-    numbers = Enumerator.new do |y|
-      a = 1
-      loop do
-        y.yield a
-        a += 1
+    before do
+      @numbers = Enumerator.new do |y|
+        a = 1
+        loop do
+          y.yield a
+          a += 1
+        end
       end
     end
 
@@ -15,25 +17,25 @@ describe 'InfiniteLists' do
       specify 'will timeout' do
         expect do
           status = Timeout::timeout(2) {
-            numbers.select{|x|x % 5 == 0}.first(10)
+            @numbers.select{|x|x % 5 == 0}.first(10)
           }
         end.to raise_error(Timeout::Error)
       end
     end
     context 'with lazy' do
       specify 'will be evaluated' do
-        expect(numbers.lazy.select{|x|x % 5 == 0}.first(6)).to eq([5,10,15,20,25,30])
-        expect(numbers.lazy.select{|x|x % 5 == 0}.select{|x|x%3 ==0}.first(4)).to eq([15,30,45,60])
+        expect(@numbers.lazy.select{|x|x % 5 == 0}.first(6)).to eq([5,10,15,20,25,30])
+        expect(@numbers.lazy.select{|x|x % 5 == 0}.select{|x|x%3 ==0}.first(4)).to eq([15,30,45,60])
       end
     end
   end
 
   context 'lazy stream by hand' do
-    module EvenSeries
-      class Node
+    before do
+      create_temporary_class 'EvenSeriesNode' do
         def initialize(number=0)
           @value = number
-          @next = lambda { Node.new(number + 2) }
+          @next = lambda { EvenSeriesNode.new(number + 2) }
         end
         attr_reader :value
         def next
@@ -43,7 +45,7 @@ describe 'InfiniteLists' do
     end
 
     specify 'next generates the next value' do
-      e = EvenSeries::Node.new(30)
+      e = EvenSeriesNode.new(30)
       expect((e = e.next).value).to eq(32)
       expect((e = e.next).value).to eq(34)
       expect((e = e.next).value).to eq(36)
@@ -96,7 +98,7 @@ describe 'InfiniteLists' do
 
       specify 'classes' do
         expect(primes.class).to eq(LazyStream)
-        expect(primes.first.class).to eq(Fixnum)
+        expect(primes.first.class).to eq(Integer)
         expect(primes.rest.class).to eq(LazyStream)
       end
     end
@@ -134,15 +136,18 @@ describe 'InfiniteLists' do
       end
 
       context 'OO way' do
-        class Upto < LazyStream
-          def initialize( from, to )
-            if from > to
-              super(nil, &nil)
-            else
-              super(from) { self.class.new(from + 1, to) }
+        before do
+          create_temporary_class 'Upto', LazyStream do
+            def initialize( from, to )
+              if from > to
+                super(nil, &nil)
+              else
+                super(from) { self.class.new(from + 1, to) }
+              end
             end
           end
         end
+
         specify ':)s ...' do
           expect(Upto.new(3, 6).to_a).to eq([3,4,5,6])
         end
@@ -160,11 +165,14 @@ describe 'InfiniteLists' do
         end
       end
       context 'OO way' do
-        class Upfrom < LazyStream
-          def initialize( from )
-            super(from) { self.class.new(from + 1) }
+        before do
+          create_temporary_class 'Upfrom', LazyStream do
+            def initialize( from )
+              super(from) { self.class.new(from + 1) }
+            end
           end
         end
+
         specify ':)s ...' do
           expect(Upfrom.new(7).take(5).to_a).to eq([7,8,9,10,11])
         end
@@ -172,14 +180,16 @@ describe 'InfiniteLists' do
     end
 
     context 'grouping example' do
-      class Step < LazyStream
-        def initialize( step, start = 1 )
-          super(start) { self.class.new(step, start + 1) }
-          @step = step
-        end
+      before do
+        create_temporary_class 'Step', LazyStream do
+          def initialize( step, start = 1 )
+            super(start) { self.class.new(step, start + 1) }
+            @step = step
+          end
 
-        def next_group( count = 10 )
-          take(count).map { |i| i * @step }
+          def next_group( count = 10 )
+            take(count).map { |i| i * @step }
+          end
         end
       end
 

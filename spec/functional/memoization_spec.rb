@@ -35,7 +35,6 @@ def hex2rgb(hex)
 end
 memoize :hex2rgb
 
-
 require 'spec_helper'
 
 describe 'Memoization' do
