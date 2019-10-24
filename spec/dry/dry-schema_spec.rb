@@ -363,17 +363,73 @@ describe 'Dry-Schema' do
   end
 
   describe 'value' do
+    subject(:schema_validation_for_array_of_hashes) {
+      schema = Dry::Schema.Params do
+        required(:address).value(:nil?)
+      end
+
+      schema.call params
+    }
+
+    context 'negative' do
+      context 'wrong type is passed as value' do
+        let(:params) { { address: 1 } }
+
+        it { should be_failure }
+
+        it "the errors should point out the missing key" do
+          expect(schema_validation_for_array_of_hashes.errors.to_h).to include(:address)
+        end
+      end
+    end
+
+    context 'positive' do
+      context 'present key' do
+        let(:params) { { address: nil } }
+
+        it { should be_success }
+
+        it "the errors should be empty" do
+          expect(schema_validation_for_array_of_hashes.errors).to be_empty
+        end
+      end
+    end
   end
 
   describe 'nested schemas' do
+    # See the 'hash/mandatory hash' context
   end
 
   describe 'schema reuse' do
+    subject(:schema_validation_for_array_of_hashes) {
+      AddressSchema = Dry::Schema.Params do
+        required(:street).filled(:string)
+        required(:city).filled(:string)
+      end
+
+      schema = Dry::Schema.Params do
+        required(:email).filled(:string)
+        required(:address).hash(AddressSchema)
+      end
+      schema.call params
+    }
+
+    context 'positive' do
+      let(:params) { { email: 'email_address', address: { street: 'Oxford', city: 'London'} } }
+
+      it { should be_success }
+
+      it "the errors should be empty" do
+        expect(schema_validation_for_array_of_hashes.errors).to be_empty
+      end
+    end
   end
 
   describe 'custom predicates' do
+    # These are only in the dry Validation
   end
 
   describe 'strict key presence' do
+    # These are only in the dry Validation
   end
 end
