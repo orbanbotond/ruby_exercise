@@ -1,32 +1,35 @@
 require 'spec_helper'
 
 describe 'Auto Inject' do
-
-  class UsersRepository
-  end
-
-  class CreateUser
-  end
-
-  class MyContainer
-    extend Dry::Container::Mixin
-
-    register "users_repository" do
-      UsersRepository.new
+  before do
+    create_temporary_class 'UsersRepository' do
     end
 
-    register "operations.create_user" do
-      CreateUser.new
+    create_temporary_class 'CreateUser' do
     end
-  end
 
-  Import = Dry::AutoInject(MyContainer) 
+    create_temporary_class 'MyContainer' do
+      extend Dry::Container::Mixin
+
+      register "users_repository" do
+        UsersRepository.new
+      end
+
+      register "operations.create_user" do
+        CreateUser.new
+      end
+    end
+
+    Registry = Dry::AutoInject(MyContainer) 
+  end
 
   context 'basics' do
     context 'by default is injects all the dependencies' do
-      class MyClass
-        include Import['users_repository', 
-          'operations.create_user']
+      before do
+        create_temporary_class 'MyClass' do
+          include Registry['users_repository', 
+            'operations.create_user']
+        end
       end
 
       specify 'has a users_repository' do
@@ -40,12 +43,14 @@ describe 'Auto Inject' do
   end
 
   context 'specifying the dependencies' do
-    class DependendOnUsers
-      include Import['users_repository']
-    end
+    before do
+      create_temporary_class 'DependendOnUsers' do
+        include Registry['users_repository']
+      end
 
-    class DependendOnOperations
-      include Import['operations.create_user']
+      create_temporary_class 'DependendOnOperations' do
+        include Registry['operations.create_user']
+      end
     end
 
     specify 'has just what is needed' do
@@ -62,8 +67,10 @@ describe 'Auto Inject' do
   end
 
   context 'aliasing' do
-    class Aliased
-      include Import[users_repo: 'users_repository']
+    before do
+      create_temporary_class 'Aliased' do
+        include Registry[users_repo: 'users_repository']
+      end
     end
 
     specify 'has just what is needed' do
@@ -75,11 +82,13 @@ describe 'Auto Inject' do
   end
 
   context 'manual override of dependencies' do
-    class AnotherRepo
-    end
+    before do
+      create_temporary_class 'AnotherRepo' do
+      end
 
-    class Aliased
-      include Import[users_repo: 'users_repository']
+      create_temporary_class 'Aliased' do
+        include Registry[users_repo: 'users_repository']
+      end
     end
 
     specify 'has just what is needed' do
