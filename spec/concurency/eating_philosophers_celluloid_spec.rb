@@ -1,46 +1,5 @@
 require 'spec_helper'
 
-class Chopstick
-  def initialize
-    @mutex = Mutex.new
-  end
-
-  def take
-    @mutex.lock
-  end
-
-  def drop
-    @mutex.unlock
-
-  rescue ThreadError
-    puts "Trying to drop a chopstick not acquired"
-  end
-
-  def in_use?
-    @mutex.locked?
-  end
-end
-
-class Table
-  def initialize(num_seats)
-    @chopsticks  = num_seats.times.map { Chopstick.new }
-  end
-
-  def left_chopstick_at(position)
-    index = (position - 1) % @chopsticks.size
-    @chopsticks[index]
-  end
-
-  def right_chopstick_at(position)
-    index = position % @chopsticks.size
-    @chopsticks[index]
-  end
-
-  def chopsticks_in_use
-    @chopsticks.select { |f| f.in_use? }.size
-  end
-end
-
 class Philosopher
   include Celluloid
 
@@ -105,35 +64,78 @@ class Philosopher
   end
 end
 
-class Waiter
-  include Celluloid
-
-  def initialize
-    @eating   = []
-  end
-
-  # because synchronized data access is ensured
-  # by the actor model, this code is much more
-  # simple than its mutex-based counterpart. However,
-  # this approach requires two methods
-  # (one to start and one to stop the eating process),
-  # where the previous approach used a single serve() method.
-
-  def request_to_eat(philosopher)
-    return if @eating.include?(philosopher)
-
-    @eating << philosopher
-    philosopher.async.eat
-  end
-
-  def done_eating(philosopher)
-    @eating.delete(philosopher)
-  end
-end
-
 require 'timeout'
 
 context 'Dining' do
+  before do
+    create_temporary_class 'Table' do
+      def initialize(num_seats)
+        @chopsticks  = num_seats.times.map { Chopstick.new }
+      end
+
+      def left_chopstick_at(position)
+        index = (position - 1) % @chopsticks.size
+        @chopsticks[index]
+      end
+
+      def right_chopstick_at(position)
+        index = position % @chopsticks.size
+        @chopsticks[index]
+      end
+
+      def chopsticks_in_use
+        @chopsticks.select { |f| f.in_use? }.size
+      end
+    end
+
+    create_temporary_class 'Waiter' do
+      include Celluloid
+
+      def initialize
+        @eating   = []
+      end
+
+      # because synchronized data access is ensured
+      # by the actor model, this code is much more
+      # simple than its mutex-based counterpart. However,
+      # this approach requires two methods
+      # (one to start and one to stop the eating process),
+      # where the previous approach used a single serve() method.
+
+      def request_to_eat(philosopher)
+        return if @eating.include?(philosopher)
+
+        @eating << philosopher
+        philosopher.async.eat
+      end
+
+      def done_eating(philosopher)
+        @eating.delete(philosopher)
+      end
+    end
+
+    create_temporary_class 'Chopstick' do
+      def initialize
+        @mutex = Mutex.new
+      end
+
+      def take
+        @mutex.lock
+      end
+
+      def drop
+        @mutex.unlock
+
+      rescue ThreadError
+        puts "Trying to drop a chopstick not acquired"
+      end
+
+      def in_use?
+        @mutex.locked?
+      end
+    end
+  end
+
   specify 'ok' do
     names = %w{Heraclitus Aristotle Epictetus Schopenhauer Popper}
 

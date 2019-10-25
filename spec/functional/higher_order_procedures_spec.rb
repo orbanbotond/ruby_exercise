@@ -3,25 +3,30 @@ require 'spec_helper'
 describe 'Higher Order Procedures' do
   context '&obj calls the to_proc on the object' do
     context 'symbol' do
-      class Symbol
-        def to_proc
-          lambda { |x| x.send(self) } 
+      before do
+        create_temporary_class 'Symbol' do
+          def to_proc
+            lambda { |x| x.send(self) } 
+          end
         end
       end
+
       specify 'simple' do
         expect( %w[foo bar baz].map(&:capitalize)).to eq(['Foo', 'Bar', 'Baz'])
       end
     end
     context 'bigger object' do
-      class Filter
-        def initialize
-          @constraints = []
-        end
-        def constraint(&block)
-          @constraints << block
-        end
-        def to_proc
-          lambda { |e| @constraints.all? { |fn| fn.call(e) } }
+      before do
+        create_temporary_class 'Filter' do
+          def initialize
+            @constraints = []
+          end
+          def constraint(&block)
+            @constraints << block
+          end
+          def to_proc
+            lambda { |e| @constraints.all? { |fn| fn.call(e) } }
+          end
         end
       end
 

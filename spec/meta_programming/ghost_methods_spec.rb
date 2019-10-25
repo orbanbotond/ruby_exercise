@@ -1,32 +1,36 @@
 require 'spec_helper'
 
-table = Ruport::Data::Table.new :column_names => ["country", "wine"],
-  :data => [["France", "Bordeaux"],
-            ["Italy", "Chianti"],
-            ["France", "Chablis"]]
-  # puts table.to_text
-
-found = table.rows_with_country("France")
-
 describe 'Dynamic Method' do
   context 'ruport example' do
+
+    let(:table) do
+      table = Ruport::Data::Table.new :column_names => ["country", "wine"],
+        :data => [["France", "Bordeaux"],
+                  ["Italy", "Chianti"],
+                  ["France", "Chablis"]]
+        # puts table.to_text
+    end
+    let(:found) { table.rows_with_country("France") }
+
     specify 'ghost method is called' do
       expect( table.rows_with_country('France').map{|x|x.to_csv}).to eq(["France,Bordeaux\n", "France,Chablis\n"])
     end
   end
 
   context 'openstruct example' do
-    class MyOpenStruct 
-      def initialize
-        @attributes = {}
-      end
-      def method_missing(name, *args) 
-        attribute = name.to_s
-        if attribute =~ /=$/
-          @attributes[attribute.chop] = args[0]
-       else
-          @attributes[attribute]
-        end 
+    before do
+      create_temporary_class 'MyOpenStruct' do
+        def initialize
+          @attributes = {}
+        end
+        def method_missing(name, *args) 
+          attribute = name.to_s
+          if attribute =~ /=$/
+            @attributes[attribute.chop] = args[0]
+         else
+            @attributes[attribute]
+          end 
+        end
       end
     end
 
@@ -38,14 +42,16 @@ describe 'Dynamic Method' do
   end
 
   context 'Infinite loop danger' do
-    class Roulette
-      def method_missing(name, *args)
-        person = name.to_s.capitalize 
-        3.times do
-          number = rand(10) + 1
-          puts "#{number}..."
+    before do
+      create_temporary_class 'Roulette' do
+        def method_missing(name, *args)
+          person = name.to_s.capitalize 
+          3.times do
+            number = rand(10) + 1
+            puts "#{number}..."
+          end
+          "#{person} got a #{number}"
         end
-        "#{person} got a #{number}"
       end
     end
 
@@ -58,18 +64,20 @@ describe 'Dynamic Method' do
     end
 
     context 'the solution' do
-      class Roulette
-        def method_missing(name, *args)
-          person = name.to_s.capitalize
-          super unless %w[Bob Frank Bill].include? person 
-          number = 0
-          3.times do
-            number = rand(10) + 1
-            puts "#{number}..."
-          end
-          "#{person} got a #{number}"
-          number
-        end 
+      before do
+        create_temporary_class 'Roulette' do
+          def method_missing(name, *args)
+            person = name.to_s.capitalize
+            super unless %w[Bob Frank Bill].include? person 
+            number = 0
+            3.times do
+              number = rand(10) + 1
+              puts "#{number}..."
+            end
+            "#{person} got a #{number}"
+            number
+          end 
+        end
       end
 
       specify 'will go into an infinite loop' do
@@ -80,9 +88,11 @@ describe 'Dynamic Method' do
   end
 
   context 'blank slate' do
-    class Computer 
-      instance_methods.each do |m|
-        undef_method m unless m.to_s =~ /^__|method_missing|respond_to?/ 
+    before do
+      create_temporary_class 'Computer' do
+        instance_methods.each do |m|
+          undef_method m unless m.to_s =~ /^__|method_missing|respond_to?/ 
+        end
       end
     end
   end
@@ -90,7 +100,7 @@ describe 'Dynamic Method' do
   context 'speed/benchmarking/performance anxiety' do
     class String
       def method_missing(method, *args)
-      method == :ghost_reverse ? reverse : super 
+        method == :ghost_reverse ? reverse : super 
       end
     end
 
@@ -114,22 +124,23 @@ describe 'Dynamic Method' do
                                        get_cpu_price: 23,
                                        get_keyboard_info: 'US Layout',
                                        get_keyboard_price: 23) }
-
-    class Computer
-      def initialize(computer_id, data_source)
-        @id = computer_id
-        @data_source = data_source
-      end
-      def method_missing(name, *args)
-        super if !@data_source.respond_to?("get_#{name}_info")
-        info = @data_source.send("get_#{name}_info")
-        price = @data_source.send("get_#{name}_price")
-        result = "#{name.to_s.capitalize}: #{info} ($#{price})"
-        return "* #{result}" if price >= 100
-        result
-      end
-      def respond_to?(method)
-        @data_source.respond_to?("get_#{method}_info") || super 
+    before do
+      create_temporary_class 'Computer' do
+        def initialize(computer_id, data_source)
+          @id = computer_id
+          @data_source = data_source
+        end
+        def method_missing(name, *args)
+          super if !@data_source.respond_to?("get_#{name}_info")
+          info = @data_source.send("get_#{name}_info")
+          price = @data_source.send("get_#{name}_price")
+          result = "#{name.to_s.capitalize}: #{info} ($#{price})"
+          return "* #{result}" if price >= 100
+          result
+        end
+        def respond_to?(method)
+          @data_source.respond_to?("get_#{method}_info") || super 
+        end
       end
     end
 

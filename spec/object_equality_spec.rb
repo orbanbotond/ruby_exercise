@@ -1,22 +1,23 @@
 require 'spec_helper'
 
 describe "object equality" do
-
-  A = Struct.new(:a) do
-    def method_name
-      
+  before do
+    A = Struct.new(:a) do
+      def method_name
+        
+      end
     end
-  end
 
-  class B < A
-    def initialize(a)
-      super(a)
+    create_temporary_class 'B', A do
+      def initialize(a)
+        super(a)
+      end
     end
-  end
 
-  class C
-    def initialize(a)
-      @a = a
+    create_temporary_class 'C' do
+      def initialize(a)
+        @a = a
+      end
     end
   end
 
@@ -75,6 +76,7 @@ describe "object equality" do
       a12 = A.new(1)
       expect(a1 == a12).to be(true)
     end
+
     specify 'For regular class it compares the object itself' do
       c1 = C.new(1)
       c2 = C.new(2)
@@ -123,6 +125,5 @@ describe "object equality" do
     end
   end
 
-  context '==='
-
+  # context '==='
 end

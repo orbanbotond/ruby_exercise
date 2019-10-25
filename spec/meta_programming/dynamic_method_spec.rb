@@ -1,17 +1,12 @@
 require 'ostruct'
-
-class MyClass
-  define_method :my_method do |my_arg|
-    my_arg * 3
-end end
-
 require 'spec_helper'
 
 describe 'Dynamic Method' do
-
-  class A
-    define_method :my_method do |my_arg|
-      my_arg * 3
+  before do
+    create_temporary_class 'A' do
+      define_method :my_method do |my_arg|
+        my_arg * 3
+      end
     end
   end
 
@@ -22,23 +17,26 @@ describe 'Dynamic Method' do
   end
 
   context 'computer example' do
-    class Computer
-      def initialize(computer_id, data_source)
-        @id = computer_id
-        @data_source = data_source
-      end
-      def self.define_component(name) 
-        define_method(name) do
-          info = @data_source.send "get_#{name}_info"
-          price = @data_source.send "get_#{name}_price" 
-          result = "#{name.to_s.capitalize}: #{info} ($#{price})" 
-          return "* #{result}" if price >= 100
-          result
+    before do
+      create_temporary_class 'Computer' do
+        def initialize(computer_id, data_source)
+          @id = computer_id
+          @data_source = data_source
         end
+
+        def self.define_component(name) 
+          define_method(name) do
+            info = @data_source.send "get_#{name}_info"
+            price = @data_source.send "get_#{name}_price" 
+            result = "#{name.to_s.capitalize}: #{info} ($#{price})" 
+            return "* #{result}" if price >= 100
+            result
+          end
+        end
+        define_component :mouse
+        define_component :cpu
+        define_component :keyboard
       end
-      define_component :mouse
-      define_component :cpu
-      define_component :keyboard
     end
     
     let(:data_source) { OpenStruct.new(get_mouse_info: 'Trackpad',

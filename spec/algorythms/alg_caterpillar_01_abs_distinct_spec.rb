@@ -1,43 +1,43 @@
-def solution_using_lib(a)
-  a.map{|x|x.abs}.uniq.count
-end
-
-def solution(a)
-  beg_ind = 0
-  end_ind = a.size - 1
-
-  a = a.map!{|x|x.abs}
-  count = 1
-  current = [a[beg_ind], a[end_ind]].max
-
-  while beg_ind <= end_ind do
-    first = a[beg_ind]
-    last = a[end_ind]
-
-    if first == current
-      beg_ind +=1
-      next
-    end
-    if last == current
-      end_ind -=1
-      next
-    end
-    if first >= last
-      current = first
-      beg_ind += 1
-    else
-      current = last
-      end_ind -= 1
-    end
-    count +=1
-  end
-
-  count
-end
-
 require 'spec_helper'
 
 describe 'Abs distinct' do
+
+  def solution_using_lib(a)
+    a.map{|x|x.abs}.uniq.count
+  end
+
+  def solution(a)
+    beg_ind = 0
+    end_ind = a.size - 1
+
+    a = a.map!{|x|x.abs}
+    count = 1
+    current = [a[beg_ind], a[end_ind]].max
+
+    while beg_ind <= end_ind do
+      first = a[beg_ind]
+      last = a[end_ind]
+
+      if first == current
+        beg_ind +=1
+        next
+      end
+      if last == current
+        end_ind -=1
+        next
+      end
+      if first >= last
+        current = first
+        beg_ind += 1
+      else
+        current = last
+        end_ind -= 1
+      end
+      count +=1
+    end
+
+    count
+  end
 
   specify 'one element' do
     input = [1]

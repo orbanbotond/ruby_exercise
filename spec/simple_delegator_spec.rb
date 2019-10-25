@@ -2,9 +2,11 @@ require 'delegate'
 require 'spec_helper'
 
 describe 'Delegate' do
-  class A
-    def bbb
-      "2"
+  before do
+    create_temporary_class 'A' do
+      def bbb
+        "2"
+      end
     end
   end
 
