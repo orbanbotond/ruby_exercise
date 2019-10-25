@@ -20,6 +20,7 @@ describe 'Search Comparisons' do
     end
     d3 = Time.now - begining
     expect(d3).to be < d2
-    expect(d2).to be < d1
+    expect(d3).to be < d1
+    expect(d1).to be < d2
   end
 end
