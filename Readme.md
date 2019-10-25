@@ -1,6 +1,8 @@
 Late Night/Early Morning
 ========================
 
+[![CircleCI](https://circleci.com/gh/orbanbotond/ruby_exercise.svg?style=svg)](https://circleci.com/gh/orbanbotond/ruby_exercise)
+
 This is a small project for early morning or late night *focus* *meditative* ruby exercises.
 
 Every exercise is in format of *spec*.
