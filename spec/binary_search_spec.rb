@@ -74,14 +74,14 @@ describe 'binary search' do
     expect(boards1(data, 4)).to eq(1)
   end
 
-  specify 'boards 2' do
-    data = [1,0,1,0,1]
-    expect(boards2(data, 4)).to eq(1)
-  end
+  # specify 'boards 2' do
+  #   data = [1,0,1,0,1]
+  #   expect(boards2(data, 4)).to eq(1)
+  # end
 
-  specify 'boards 3' do
-    data = [1,0,1,0,1]
-    expect(boards3(data, 4)).to eq(1)
-  end
+  # specify 'boards 3' do
+  #   data = [1,0,1,0,1]
+  #   expect(boards3(data, 4)).to eq(1)
+  # end
 
 end
