@@ -1,35 +1,37 @@
 require 'spec_helper'
 
 describe "pattern matching and destructuring" do
+  before do
+    create_temporary_class 'MatchContext' do
+      def initialize
+        @bindings = Hash.new { |hash, key| Placeholder.new(hash, key) }
+      end
 
-  Placeholder = Struct.new(:bindings, :name) do
-    def ==(other)
-      return false unless guards.all?{ |g| g === other }
-      bindings[name] = other
-      true
+      def method_missing(name, *)
+        @bindings[name]
+      end
     end
 
-    def guards
-      @guards ||= []
+    Placeholder = Struct.new(:bindings, :name) do
+      def ==(other)
+        return false unless guards.all?{ |g| g === other }
+        bindings[name] = other
+        true
+      end
+
+      def guards
+        @guards ||= []
+      end
+
+      def >>(guard)
+        guards << guard
+        self
+      end
     end
 
-    def >>(guard)
-      guards << guard
-      self
-    end
+    Point = Struct.new(:x, :y)
   end
 
-  class MatchContext
-    def initialize
-      @bindings = Hash.new { |hash, key| Placeholder.new(hash, key) }
-    end
-
-    def method_missing(name, *)
-      @bindings[name]
-    end
-  end
-
-  Point = Struct.new(:x, :y)
 
   specify 'does not match the nil' do
     p = Point.new(5, nil)
