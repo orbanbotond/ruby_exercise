@@ -48,7 +48,7 @@ describe 'Map' do
     b2 = Benchmark.measure do
         1000000.times { WrapperClass.new.map_recursive([1,2,3]){|x| 2 * x} }
     end
-    expect(b2.total / b1.total).to be_within(0.099).of(1.0)
+    expect(b2.total / b1.total).to be_within(0.13).of(1.0)
   end
 
   specify 'recursive map takes the same space' do
