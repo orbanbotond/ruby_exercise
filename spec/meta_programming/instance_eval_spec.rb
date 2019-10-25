@@ -3,11 +3,13 @@ require 'spec_helper'
 #  These tehcniques are also called:
 #  nested lexical scopes
 describe 'Instance Eval' do
-  class MyClass
-    include ::RSpec::Matchers
+  before do
+    create_temporary_class 'MyClass' do
+      include ::RSpec::Matchers
 
-    def initialize
-      @v = 1
+      def initialize
+        @v = 1
+      end
     end
   end
 
@@ -25,12 +27,15 @@ describe 'Instance Eval' do
     end
   end
 
-  specify 'instance exec' do
-    class C
+  before do
+    create_temporary_class 'C' do
       def initialize
         @x, @y = 1, 2
       end
     end
+  end
+
+  specify 'instance exec' do
     expect(C.new.instance_exec(3) {|arg| (@x + @y) * arg }).to eq(9)
   end
 end

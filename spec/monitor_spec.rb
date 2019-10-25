@@ -2,24 +2,23 @@ require 'monitor'
 require 'spec_helper'
 
 describe 'Monitor' do
+  before do
+    create_temporary_class 'Guard' do
 
-  class Guard
-    attr_accessor :count
-    include MonitorMixin
+      attr_accessor :count
+      include MonitorMixin
 
-    def inc
-      self.synchronize do
-        puts "Incrementing: #{count}"
-        new_value = count + 1
-        sleep(rand(5))
-        self.count = new_value
-        puts "Incrementing DONE: #{count}"
+      def inc
+        self.synchronize do
+          puts "Incrementing: #{count}"
+          new_value = count + 1
+          sleep(rand(5))
+          self.count = new_value
+          puts "Incrementing DONE: #{count}"
+        end
       end
     end
 
-  end
-
-  before do
     @guard = Guard.new
     @guard.count = 0
   end
@@ -49,6 +48,5 @@ describe 'Monitor' do
 
     expect(@guard.count).to eq(20)
   end
-
 end
 

@@ -4,9 +4,10 @@ require 'spec_helper'
 require 'singleton'
 
 describe 'Singleton' do
-
-  class A
-    include Singleton
+  before do
+    create_temporary_class 'A' do
+      include Singleton
+    end
   end
 
   specify 'two instances are the same instance' do

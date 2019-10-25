@@ -1,16 +1,18 @@
 require 'spec_helper'
 
 context 'Class Eval' do
-  class MyClass
-    @my_var = 1
-    def self.read
-      @my_var
-    end
-    def write
-      @my_var = 2
-    end
-    def read
-      @my_var
+  before do
+    create_temporary_class 'MyClass' do
+      @my_var = 1
+      def self.read
+        @my_var
+      end
+      def write
+        @my_var = 2
+      end
+      def read
+        @my_var
+      end
     end
   end
 
@@ -22,24 +24,26 @@ context 'Class Eval' do
   end
 
   context 'class variables' do
-    class C 
-      @@v = 11
-      @v = 1
+    before do
+      create_temporary_class 'C' do
+        @@v = 11
+        @v = 1
 
-      def getClassVariableV
-        @@v
+        def getClassVariableV
+          @@v
+        end
+
+        def getClassInstanceVariableV
+          @v
+        end
+
+        def self.getInstanceVariableV
+          @v
+        end
       end
 
-      def getClassInstanceVariableV
-        @v
+      create_temporary_class 'D', C do
       end
-
-      def C.getInstanceVariableV
-        @v
-      end
-    end
-
-    class D < C
     end
 
     specify 'access class variable' do

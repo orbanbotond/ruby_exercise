@@ -1,63 +1,62 @@
-#TODO This algorithm gives 20% performance only 60% in total
-def solution_non_preformant(a)
-  puts "a:#{a}"
-
-  beg_ind = 0
-  end_ind = beg_ind
-  count = 0
-
-  loop do
-    while (true) do
-      count +=1
-      if end_ind < a.size - 1
-        if a[beg_ind..end_ind].include? a[end_ind+1]
-          # puts "not able"
-          break
-        else
-          # puts "e:#{end_ind + 1}"
-          end_ind += 1
-        end
-      else
-        # puts "not able"
-        break
-      end
-    end
-    beg_ind += 1
-    break if beg_ind == a.size
-    end_ind = beg_ind
-  end
-
-  count
-end
-
-#This algorythm uses n! four counting
-def solution(a)
-  accessed = Array.new(a.size + 1, nil)
-  caterpillar_back = 0
-  count = 0
-
-  a.each_with_index do |x, caterpillar_front|
-    if accessed[x] == nil
-      accessed[x] = caterpillar_front
-    else
-      new_caterpillar_back = accessed[x] + 1
-      first_part_size = caterpillar_front - caterpillar_back
-      second_part_size = caterpillar_front - new_caterpillar_back
-      count += first_part_size * (first_part_size + 1) / 2
-      count -= (second_part_size) * (second_part_size + 1) / 2
-      caterpillar_back.upto(new_caterpillar_back - 1) { |n| accessed[a[n]] = nil}
-      accessed[x] = caterpillar_front
-      caterpillar_back = new_caterpillar_back
-    end
-  end
-
-  remaining_size = a.size - caterpillar_back
-  count += (remaining_size) * (remaining_size + 1) / 2
-end
-
 require 'spec_helper'
 
 describe 'Count distinct slices' do
+  #TODO This algorithm gives 20% performance only 60% in total
+  def solution_non_preformant(a)
+    puts "a:#{a}"
+
+    beg_ind = 0
+    end_ind = beg_ind
+    count = 0
+
+    loop do
+      while (true) do
+        count +=1
+        if end_ind < a.size - 1
+          if a[beg_ind..end_ind].include? a[end_ind+1]
+            # puts "not able"
+            break
+          else
+            # puts "e:#{end_ind + 1}"
+            end_ind += 1
+          end
+        else
+          # puts "not able"
+          break
+        end
+      end
+      beg_ind += 1
+      break if beg_ind == a.size
+      end_ind = beg_ind
+    end
+
+    count
+  end
+
+  #This algorythm uses n! four counting
+  def solution(a)
+    accessed = Array.new(a.size + 1, nil)
+    caterpillar_back = 0
+    count = 0
+
+    a.each_with_index do |x, caterpillar_front|
+      if accessed[x] == nil
+        accessed[x] = caterpillar_front
+      else
+        new_caterpillar_back = accessed[x] + 1
+        first_part_size = caterpillar_front - caterpillar_back
+        second_part_size = caterpillar_front - new_caterpillar_back
+        count += first_part_size * (first_part_size + 1) / 2
+        count -= (second_part_size) * (second_part_size + 1) / 2
+        caterpillar_back.upto(new_caterpillar_back - 1) { |n| accessed[a[n]] = nil}
+        accessed[x] = caterpillar_front
+        caterpillar_back = new_caterpillar_back
+      end
+    end
+
+    remaining_size = a.size - caterpillar_back
+    count += (remaining_size) * (remaining_size + 1) / 2
+  end
 
   specify 'example test' do
     # input = [3,5,4,5,2]

@@ -41,17 +41,13 @@ module TrailblazerOperations
   end
 
   class ComplexOperation < Trailblazer::Operation
-    step Nested( Multiply,
-      input: -> (options, params:, **) do
-        options.merge params: params[-2..-1]
-      end
-    )
+    step Nested(Multiply), input: -> (options, params:, **) do
+      options.merge params: params[-2..-1]
+    end
 
-    step Nested( Add,
-      input: -> (options, params:, **) do
-        options.to_hash.except(:operation_result).merge params: [params[0], options[:operation_result]]
-      end
-    )
+    step Nested(Add), input: -> (options, params:, **) do
+      options.to_hash.except(:operation_result).merge params: [params[0], options[:operation_result]]
+    end
   end
 end
 

@@ -1,43 +1,41 @@
 require 'spec_helper'
 
-def solution_nicer(n)
-  a  = 1
-  b = n/a
-  factors = 0
-  while  a <= b do
-    if a*b == n
-      if a == b
-        factors += 1
-      else
-        factors += 2
-      end
-    end
-    a += 1
+describe 'factors count' do
+
+  def solution_nicer(n)
+    a  = 1
     b = n/a
-  end   
-  factors
-    # write your code in Ruby 2.2
-end
-
-def solution(a)
-  factor_count = 0
-
-  last_factor = 1
-  while last_factor*last_factor < a do
-    if a % last_factor == 0
-      factor_count += 2
-    end
-    last_factor += 1
+    factors = 0
+    while  a <= b do
+      if a*b == n
+        if a == b
+          factors += 1
+        else
+          factors += 2
+        end
+      end
+      a += 1
+      b = n/a
+    end   
+    factors
+      # write your code in Ruby 2.2
   end
 
-  factor_count +=1 if last_factor*last_factor == a
+  def solution(a)
+    factor_count = 0
 
-  return factor_count
-end
+    last_factor = 1
+    while last_factor*last_factor < a do
+      if a % last_factor == 0
+        factor_count += 2
+      end
+      last_factor += 1
+    end
 
-require 'spec_helper'
+    factor_count +=1 if last_factor*last_factor == a
 
-describe 'factors count' do
+    return factor_count
+  end
 
   specify 'simple' do
     expect(solution(24)).to eq(8)

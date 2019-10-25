@@ -1,35 +1,33 @@
 require 'spec_helper'
 
 describe 'Monad' do
-  M = Dry::Monads
-
   context 'basics' do
     context 'can not act as data holder' do
       specify 'value' do
-        a = M.Maybe(2)
+        a = Dry::Monads.Maybe(2)
         expect { a['result.code'] = 'code' }.to raise_error(NoMethodError)
       end
     end
 
     context 'bind' do
       specify 'value' do
-        a = M.Maybe(2)
+        a = Dry::Monads.Maybe(2)
         expect(a.bind{|x|x}).to eq(2)
       end
       specify 'nil' do
-        a = M.Maybe(nil)
-        expect(a.bind{|x|x}).to eq(M.None())
+        a = Dry::Monads.Maybe(nil)
+        expect(a.bind{|x|x}).to eq(Dry::Monads.None())
       end
     end
 
     context 'fmap' do
       specify 'value' do
-        a = M.Maybe(2)
-        expect(a.fmap{|x|x}).to eq(M.Some(2))
+        a = Dry::Monads.Maybe(2)
+        expect(a.fmap{|x|x}).to eq(Dry::Monads.Some(2))
       end
       specify 'nil' do
-        a = M.Maybe(nil)
-        expect(a.fmap{|x|x}).to eq(M.None())
+        a = Dry::Monads.Maybe(nil)
+        expect(a.fmap{|x|x}).to eq(Dry::Monads.None())
       end
     end
   end
@@ -56,9 +54,9 @@ describe 'Monad' do
     context 'the main benefit' do
       def monad(foo, bar)
         result = if foo > bar
-          M.Success(10)
+          Dry::Monads.Success(10)
         else
-          M.Failure("wrong")
+          Dry::Monads.Failure("wrong")
         end.fmap { |x| x * 2 }
       end
 
@@ -124,33 +122,33 @@ describe 'Monad' do
   context 'maybe' do
     specify 'doubles' do
       array = [1,2,3,4,5]
-      expect(M.Maybe(array).fmap{|x|x.map{|y|y*2}}).to eq(Dry::Monads::Some(array.map{|x|x*2}))
-      expect(M.Maybe(nil).fmap{|x|x.map{|y|y*2}}).to eq(Dry::Monads::None())
+      expect(Dry::Monads.Maybe(array).fmap{|x|x.map{|y|y*2}}).to eq(Dry::Monads::Some(array.map{|x|x*2}))
+      expect(Dry::Monads.Maybe(nil).fmap{|x|x.map{|y|y*2}}).to eq(Dry::Monads::None())
     end
 
     specify 'returns the content if there is some' do
-      expect(M.Maybe(2)).to eq(Dry::Monads::Some(2))
+      expect(Dry::Monads.Maybe(2)).to eq(Dry::Monads::Some(2))
     end
 
     specify 'returns None there is none' do
-      expect(M.Maybe(nil)).to eq(Dry::Monads::None())
+      expect(Dry::Monads.Maybe(nil)).to eq(Dry::Monads::None())
     end
 
     specify 'value or something' do
-      expect(M.Maybe(nil).value_or(2)).to eq(2)
+      expect(Dry::Monads.Maybe(nil).value_or(2)).to eq(2)
     end
 
     context 'some operations' do
       specify '- with some or a value' do
-        a = M.Maybe(2)
-        b = M.Maybe(nil).or(0)
+        a = Dry::Monads.Maybe(2)
+        b = Dry::Monads.Maybe(nil).or(0)
         expect(a.fmap{|x|x-b}).to eq(Dry::Monads::Some(2))
       end
 
       specify '- with some and none' do
-        a = M.Maybe(nil)
-        b = M.Maybe(2)
-        c = M.Maybe(3)
+        a = Dry::Monads.Maybe(nil)
+        b = Dry::Monads.Maybe(2)
+        c = Dry::Monads.Maybe(3)
         expect(b.bind{|x|c.fmap{|cc|x+cc}}).to eq(Dry::Monads::Some(5))
         expect(b.bind{|x|c.fmap{|cc|cc+x}}).to eq(Dry::Monads::Some(5))
         expect(c.bind{|x|b.fmap{|cc|cc+x}}).to eq(Dry::Monads::Some(5))
@@ -160,10 +158,10 @@ describe 'Monad' do
       end
 
       specify '- with 3 additions' do
-        zero = M.Maybe(nil)
-        a = M.Maybe(1)
-        b = M.Maybe(2)
-        c = M.Maybe(3)
+        zero = Dry::Monads.Maybe(nil)
+        a = Dry::Monads.Maybe(1)
+        b = Dry::Monads.Maybe(2)
+        c = Dry::Monads.Maybe(3)
 
         expect(a.bind{|aa|b.bind{|bb| c.fmap{|cc|cc+aa+bb}}}).to eq(Dry::Monads::Some(6))
         expect(b.bind{|aa|a.bind{|bb| c.fmap{|cc|cc+aa+bb}}}).to eq(Dry::Monads::Some(6))
@@ -172,7 +170,7 @@ describe 'Monad' do
     end
 
     specify 'value or other monad' do
-      expect(M.Maybe(nil).or(M.Maybe('123')).value!).to eq('123')
+      expect(Dry::Monads.Maybe(nil).or(Dry::Monads.Maybe('123')).value!).to eq('123')
     end
 
     specify 'extracting the value from some' do
@@ -183,9 +181,9 @@ describe 'Monad' do
 
     context 'nesting' do
       let(:maybe_street) do
-        maybe_street = M.Maybe(input).bind do |u|
-          M.Maybe(u[:address]).bind do |a|
-            M.Maybe(a[:street])
+        maybe_street = Dry::Monads.Maybe(input).bind do |u|
+          Dry::Monads.Maybe(u[:address]).bind do |a|
+            Dry::Monads.Maybe(a[:street])
           end
         end
       end
@@ -218,19 +216,19 @@ describe 'Monad' do
 
     context 'arythmethics' do
       specify 'nice' do
-        add_two = -> (x) { M.Maybe(x + 2) }
+        add_two = -> (x) { Dry::Monads.Maybe(x + 2) }
 
-        expect(M.Maybe(5).bind(add_two).bind(add_two).value!).to eq(9)
-        expect(M.Maybe(nil).bind(add_two).bind(add_two)).to be_failure
+        expect(Dry::Monads.Maybe(5).bind(add_two).bind(add_two).value!).to eq(9)
+        expect(Dry::Monads.Maybe(nil).bind(add_two).bind(add_two)).to be_failure
       end
     end
 
     context 'or' do
       specify 'value or something else is value' do
-        add_two = -> (x) { M.Maybe(x + 2) }
+        add_two = -> (x) { Dry::Monads.Maybe(x + 2) }
 
-        expect(M.Maybe(5).bind(add_two).bind(add_two).or(M.Some(1)).value!).to eq(9)
-        expect(M.Maybe(nil).bind(add_two).bind(add_two).or(M.Some(1)).value!).to eq(1)
+        expect(Dry::Monads.Maybe(5).bind(add_two).bind(add_two).or(Dry::Monads.Some(1)).value!).to eq(9)
+        expect(Dry::Monads.Maybe(nil).bind(add_two).bind(add_two).or(Dry::Monads.Some(1)).value!).to eq(1)
       end
     end
   end
@@ -238,7 +236,7 @@ describe 'Monad' do
   context 'The most complex' do
     let(:input_maybee){{a: 1}}
     let(:maybe) do
-      M.Maybe(input_maybee[:a]).fmap do |x|
+      Dry::Monads.Maybe(input_maybee[:a]).fmap do |x|
         x * 2
       end
     end
@@ -265,7 +263,7 @@ describe 'Monad' do
         let(:input_maybee){{}}
 
         specify 'The outcome is none' do
-          expect(operation).to eq(M.None)
+          expect(operation).to eq(Dry::Monads.None)
         end
       end
 

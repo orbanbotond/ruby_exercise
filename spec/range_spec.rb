@@ -26,7 +26,7 @@ describe "range" do
       expect((1...4).to_a).to eq([1,2,3])
     end
     specify 'times include? raises and error' do
-      expect { (Time.parse("1:00")...Time.now).include?(Time.parse("3:00")) }.to raise_error
+      expect(Time.parse("1:00")...Time.parse("4:00")).to include(Time.parse("3:00"))
     end
     specify 'times cover? works ok' do
       expect((Time.parse("1:00")...Time.now).cover?(Time.parse("4:00"))).to be(true)

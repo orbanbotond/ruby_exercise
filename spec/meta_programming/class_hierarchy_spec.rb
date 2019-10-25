@@ -29,13 +29,13 @@ describe 'Class Hierarchy' do
     expect(String).to be_instance_of(Class)
   end
 
-  class C
-  end
-
-  class C2 < C
-  end
-
-  class C3 < C2
+  before do
+    create_temporary_class "C" do
+    end
+    create_temporary_class "C2", C do
+    end
+    create_temporary_class "C3", C2 do
+    end
   end
 
   specify 'My Own Classes' do

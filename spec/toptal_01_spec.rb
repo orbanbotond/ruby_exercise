@@ -1,16 +1,16 @@
 require 'spec_helper'
 
-def solve(n)
-  string_representation = n.to_s
-  reversed = string_representation.reverse!.chars
-  final = []
-  reversed.each_slice(3) do |x|
-    final << x.join
-  end
-  final.join(',').reverse
-end
-
 describe 'problem 01' do
+
+  def solve(n)
+    string_representation = n.to_s
+    reversed = string_representation.reverse!.chars
+    final = []
+    reversed.each_slice(3) do |x|
+      final << x.join
+    end
+    final.join(',').reverse
+  end
 
   specify 'test 01' do
     expect(solve(1)).to eq('1')

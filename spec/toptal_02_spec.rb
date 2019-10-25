@@ -1,25 +1,24 @@
 require 'spec_helper'
 
-def preprocess()
-  
-end
-
-def generate_key(word)
-  word.chars.sort.join
-end
-
-def anagrams(input)
-  keys = {}
-  File.open('anagrams').each do |word|
-    key = generate_key(word.strip)
-    keys[key] = keys.fetch(key,[]) << word.strip
+describe 'anagrams' do
+  def preprocess()
+    
   end
 
-  key = generate_key(input)
-  keys[key]
-end
+  def generate_key(word)
+    word.chars.sort.join
+  end
 
-describe 'anagrams' do
+  def anagrams(input)
+    keys = {}
+    File.open('anagrams').each do |word|
+      key = generate_key(word.strip)
+      keys[key] = keys.fetch(key,[]) << word.strip
+    end
+
+    key = generate_key(input)
+    keys[key]
+  end
 
   specify 'test 01' do
     expect(anagrams('beat').sort).to eq(['beat', 'beta', 'bate'].sort)
@@ -32,5 +31,4 @@ describe 'anagrams' do
   specify 'test 03' do
     expect(anagrams('reset').sort).to eq(['reset', 'steer', 'trees'].sort)
   end
-
 end

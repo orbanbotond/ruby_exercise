@@ -44,5 +44,4 @@ describe 'Immutability' do
       expect(a.a).to be_frozen
     end
   end
-
 end

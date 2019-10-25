@@ -3,22 +3,23 @@ require 'observer'
 
 describe 'Observable' do
 
-  class Resource
-    include Observable
+  before do
+    create_temporary_class 'Resource' do
+      include Observable
 
-    attr_accessor :time
+      attr_accessor :time
 
-    def activate
-      puts 'activate'
-      changed
-      notify_observers(time)
+      def activate
+        puts 'activate'
+        changed
+        notify_observers(time)
+      end
     end
 
-  end
-
-  class CallB
-    def update(time)
-      puts 'update'
+    create_temporary_class 'CallB' do
+      def update(time)
+        puts 'update'
+      end
     end
   end
 
@@ -34,5 +35,4 @@ describe 'Observable' do
     expect(call_back).to receive(:update).with(time)
     res.activate
   end
-
 end

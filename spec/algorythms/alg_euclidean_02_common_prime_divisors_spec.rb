@@ -1,30 +1,30 @@
-# you can use puts for debugging purposes, e.g.
-# puts "this is a debug message"
-
-def are_other_prime_divisors(x, common_prime_divisor)
-  while x > 1
-    gcd = x.gcd common_prime_divisor
-    break if gcd == 1
-    x /= gcd
-  end
-  x != 1
-end
-
-def has_same_prime_divisors(x,y)
-  gcd = x.gcd y
-  return false if are_other_prime_divisors(x,gcd)
-  return false if are_other_prime_divisors(y,gcd)
-  return true
-end
-
-def solution(a, b)
-  t = [a,b].transpose
-  t.count {|x| has_same_prime_divisors(x.first, x.last) }
-end
-
 require 'spec_helper'
 
 describe 'Stone Wall' do
+
+  # you can use puts for debugging purposes, e.g.
+  # puts "this is a debug message"
+
+  def are_other_prime_divisors(x, common_prime_divisor)
+    while x > 1
+      gcd = x.gcd common_prime_divisor
+      break if gcd == 1
+      x /= gcd
+    end
+    x != 1
+  end
+
+  def has_same_prime_divisors(x,y)
+    gcd = x.gcd y
+    return false if are_other_prime_divisors(x,gcd)
+    return false if are_other_prime_divisors(y,gcd)
+    return true
+  end
+
+  def solution(a, b)
+    t = [a,b].transpose
+    t.count {|x| has_same_prime_divisors(x.first, x.last) }
+  end
 
   specify 'empty' do
     expect(solution([15, 10, 3], [75, 30, 5])).to eq(1)
