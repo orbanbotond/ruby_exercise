@@ -1,27 +1,28 @@
 require 'spec_helper'
 
 describe 'Mutex' do
+  before do
+    create_temporary_class 'Guard' do
+      def initialize(num_seats)
+        @chopsticks  = num_seats.times.map { Chopstick.new }
+      end
+      attr_accessor :count
 
-  class Guard
-    attr_accessor :count
+      def initialize
+        @semaphore = Mutex.new
+      end
 
-    def initialize
-      @semaphore = Mutex.new
-    end
-
-    def inc
-      @semaphore.synchronize do
-        puts "Incrementing: #{count}"
-        new_value = count + 1
-        sleep(rand(5))
-        self.count = new_value
-        puts "Incrementing DONE: #{count}"
+      def inc
+        @semaphore.synchronize do
+          puts "Incrementing: #{count}"
+          new_value = count + 1
+          sleep(rand(5))
+          self.count = new_value
+          puts "Incrementing DONE: #{count}"
+        end
       end
     end
 
-  end
-
-  before do
     @guard = Guard.new
     @guard.count = 0
   end
@@ -51,6 +52,4 @@ describe 'Mutex' do
 
     expect(@guard.count).to eq(20)
   end
-
 end
-
