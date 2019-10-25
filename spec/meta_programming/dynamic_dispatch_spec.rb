@@ -1,16 +1,17 @@
 require 'spec_helper'
 
 describe 'Dynamic Dispatch' do
-
-  class A
-    def a1(param)
-      param
-    end
-    def a2(param)
-      param
-    end
-    def a3(param)
-      param
+  before do
+    create_temporary_class 'A' do
+      def a1(param)
+        param
+      end
+      def a2(param)
+        param
+      end
+      def a3(param)
+        param
+      end
     end
   end
 

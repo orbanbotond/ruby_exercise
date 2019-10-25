@@ -1,14 +1,13 @@
 require 'spec_helper'
 
 describe "object equality" do
-
-  A = Struct.new(:a) do
-    def method_name
-      
-    end
-  end
-
   before do
+    A = Struct.new(:a) do
+      def method_name
+        
+      end
+    end
+
     create_temporary_class 'B', A do
       def initialize(a)
         super(a)
