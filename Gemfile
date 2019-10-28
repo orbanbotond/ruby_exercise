@@ -18,6 +18,7 @@ gem 'dry-transaction'
 gem 'activesupport'
 gem "interactor"
 gem "dry-schema", '~> 1.4'
+gem "dry-validation", '~> 1.3'
 gem "trailblazer",
   git: 'https://github.com/trailblazer/trailblazer.git',
   tag: 'v2.1.0.rc1'
