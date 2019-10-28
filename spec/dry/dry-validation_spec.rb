@@ -158,6 +158,40 @@ describe 'Dry-Validation' do
   end
 
   describe 'custom predicates' do
+    before do
+      create_temporary_class 'ApplicationContract', Dry::Validation::Contract do
+        register_macro(:min_size) do |macro:|
+          min = macro.args[0]
+          key.failure("must have at least #{min} elements") unless value.size >= min
+        end
+      end
+
+      create_temporary_class 'NewUserContract', ApplicationContract do
+        params do
+          required(:emails).value(:array)
+        end
+
+        rule(:emails).validate(min_size: 1)
+      end
+    end
+
+    subject(:contract_validation) { NewUserContract.new.call(params) }
+
+    context 'negative' do
+      let(:params) { { emails: [] } }
+
+      it { should be_failure }
+
+      specify "Failure" do
+        expect(contract_validation.errors.to_h[:emails].first).to match('must have at least')
+      end
+    end
+
+    context 'positive' do
+      let(:params) { { emails: ['asd3@asd.com','asd@asd.com']} }
+
+      it { should be_success }
+    end
   end
 
   describe 'strict key presence' do
