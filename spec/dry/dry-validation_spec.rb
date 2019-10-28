@@ -1,4 +1,6 @@
 require 'spec_helper'
+require 'active_support/duration.rb'
+require 'active_support/core_ext/numeric'
 
 describe 'Dry-Validation' do
   describe 'just schema' do
@@ -21,7 +23,6 @@ describe 'Dry-Validation' do
     it { should be_failure }
 
     specify "The age rule is not run untill the schema passes" do
-
       # The rule isn't run untill the schema passes
       expect(contract_validation.errors.to_h[:age]).to_not eq('has invalid format')
     end
@@ -68,7 +69,92 @@ describe 'Dry-Validation' do
       end
     end
 
-    #How to force both of the rules?
+    context 'rules with many keys' do
+      before do
+        create_temporary_class 'EventContract', Dry::Validation::Contract do
+          params do
+            required(:start_date).value(:date)
+            required(:end_date).value(:date)
+          end
+
+          rule(:end_date, :start_date) do
+            key.failure('must be after start date') if values[:end_date] < values[:start_date]
+          end
+        end
+      end
+
+      subject(:contract_validation) { EventContract.new.call(params) }
+      let(:params) { { end_date: 1.days.from_now.to_date, start_date: 2.day.from_now.to_date } }
+
+      it { should be_failure }
+
+      specify "The error is inserted under the first key in the rule" do
+        expect(contract_validation.errors.to_h[:end_date]).to be_present
+        expect(contract_validation.errors.to_h[:start_date]).to be_blank
+      end
+    end
+
+    context 'explicitely stating the key' do
+      before do
+        create_temporary_class 'EventContract', Dry::Validation::Contract do
+          params do
+            required(:start_date).value(:date)
+            required(:end_date).value(:date)
+          end
+
+          rule(:end_date, :start_date) do
+            key(:dates).failure('must be after start date') if values[:end_date] < values[:start_date]
+          end
+        end
+      end
+
+      subject(:contract_validation) { EventContract.new.call(params) }
+      let(:params) { { end_date: 1.days.from_now.to_date, start_date: 2.day.from_now.to_date } }
+
+      it { should be_failure }
+
+      specify "The error is inserted under the first key in the rule" do
+        expect(contract_validation.errors.to_h[:end_date]).to be_blank
+        expect(contract_validation.errors.to_h[:start_date]).to be_blank
+        expect(contract_validation.errors.to_h[:dates]).to be_present
+      end
+    end
+
+    context 'base rules' do
+      before do
+        create_temporary_class 'EventContract', Dry::Validation::Contract do
+          option :today, default: Date.method(:today)
+
+          params do
+            required(:start_date).value(:date)
+            required(:end_date).value(:date)
+          end
+
+          rule do
+            if today.saturday? || today.sunday?
+              base.failure 'creating events is allowed only on weekdays'
+            end
+          end
+        end
+      end
+      subject(:contract_validation) { EventContract.new.call(params) }
+      let(:params) { { end_date: 2.days.from_now.to_date, start_date: 1.day.from_now.to_date } }
+
+      context 'weekdays' do
+        it { should be_success }
+      end
+
+      context 'weekends' do
+        subject(:contract_validation) { EventContract.new(today: today).call(params) }
+        let(:today) { Date.today.end_of_week }
+
+        it { should be_failure }
+
+        specify "The error is inserted under the first key in the rule" do
+          expect(contract_validation.errors.to_h[nil]).to be_present
+        end
+      end
+    end
   end
 
   describe 'custom predicates' do
