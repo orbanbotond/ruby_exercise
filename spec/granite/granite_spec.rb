@@ -5,9 +5,6 @@ require 'spec_helper'
 
 require 'granite/rspec/satisfy_preconditions'
 
-# gem 'i18n'
-# Then configure I18n with some translations, and a default locale:
-
 I18n.load_path << Dir[File.expand_path("config/locales") + "/*.yml"]
 
 ActiveRecord::Base.establish_connection(
@@ -123,10 +120,6 @@ describe 'Granite' do
     end
   end
 
-  context 'history' do
-    # ????
-  end
-
   context 'perform' do
     context 'positive cases' do
       subject { lambda { BusinessAction.as(:anybody).new(ba_subject, params).perform! } }
@@ -151,9 +144,98 @@ describe 'Granite' do
   end
 
   context 'exceptions handling' do
+    before do
+      create_temporary_class 'BusinessAction', Granite::Action do
+        # The following line allows to call the perform without any performer
+        self._policies_strategy = Granite::Action::Policies::AlwaysAllowStrategy
+
+        handle_exception ArgumentError do |error|
+          decline_with(:business_call_failed)
+        end
+
+        private def execute_perform!(*)
+          raise ArgumentError, 'Argument is not numeric'
+        end
+      end
+    end
+
+    subject { lambda { BusinessAction.new.perform } }
+    it { should_not raise_exception }
+
+    context 'the details' do
+      subject { BusinessAction.new }
+
+      specify do
+        expect(subject.perform).to be_falsy
+        expect(subject.errors[:base]).to be_present
+        expect(subject.errors[:base]).to include "Failed the calls"
+      end
+    end
   end
 
-  context 'complete lifecycle' do
-    # perform!(context: :user)
+  context 'the complete lifecycle' do
+    before do
+      create_temporary_class 'BusinessAction', Granite::Action do
+        # The following line allows to call the perform without any performer
+        self._policies_strategy = Granite::Action::Policies::AlwaysAllowStrategy
+
+        subject :user
+
+        precondition do
+          decline_with(:precondition_failed) unless subject.first_name.present?
+        end
+
+        attribute :an_attribute, String
+
+        validates :an_attribute, presence: true
+
+        private def execute_perform!(*)
+        end
+      end
+    end
+
+    let(:params) { { an_attribute: :Boti } }
+    let(:user) { User.new first_name: 'Gergo' }
+    subject { BusinessAction.new(user, params) }
+
+    context 'the attribute validation' do
+      let(:params) { { } }
+
+      specify do
+        expect(subject.perform).to be_falsy
+        expect(subject.errors[:an_attribute]).to be_present
+      end
+
+      context 'the precondition is also failing that takes precedence therefore the attribute validation is not executed' do
+        let(:user) { User.new }
+
+        it { is_expected.not_to satisfy_preconditions.with_message 'Precondition Failed' }
+
+        specify do
+          expect(subject.perform).to be_falsy
+          expect(subject.errors[:base]).to be_present
+          expect(subject.errors[:an_attribute]).to be_blank
+        end
+      end
+    end
+
+    context 'the precondition' do
+      let(:user) { User.new }
+
+      it { is_expected.not_to satisfy_preconditions.with_message 'Precondition Failed' }
+
+      context 'the attribute is also failing' do
+        let(:params) { { } }
+        let(:user) { User.new }
+
+        it { is_expected.not_to satisfy_preconditions.with_message 'Precondition Failed' }
+
+        specify 'the precondition validation takes precendence over attribute validation and the attibute is note validated' do
+          expect(subject.perform).to be_falsy
+          expect(subject.errors[:base]).to be_present
+          expect(subject.errors[:an_attribute]).to be_blank
+        end
+      end
+    end
   end
 end

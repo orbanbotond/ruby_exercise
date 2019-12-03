@@ -6,3 +6,5 @@ en:
           attributes:
             base:
               not_baptizable: 'yeiyy'
+              business_call_failed: 'Failed the calls'
+              precondition_failed: 'Precondition Failed'
