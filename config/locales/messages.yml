@@ -1,0 +1,8 @@
+en:
+  granite_action:
+    errors:
+      models:
+        business_action:
+          attributes:
+            base:
+              not_baptizable: 'yeiyy'

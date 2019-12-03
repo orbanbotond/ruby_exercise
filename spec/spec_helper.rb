@@ -1,6 +1,10 @@
 require 'rubygems'
 require 'bundler/setup'
 
+require 'active_model'
+require 'action_view'
+require 'rails'
+
 Bundler.require(:default)
 
 require 'support/stub_class'
