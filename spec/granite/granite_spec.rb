@@ -64,6 +64,12 @@ describe 'Granite' do
       let(:ba_subject) { User.create }
       let(:params) { super().except :last_name }
       it { is_expected.not_to satisfy_preconditions.with_message 'yeiyy' }
+
+      context 'the exception class should be Granite::Action::ValidationError' do
+        subject { lambda { BusinessAction.as(:anybody).new(ba_subject, params).perform! } }
+
+        it { should raise_exception(Granite::Action::ValidationError) }
+      end
     end
   end
 
@@ -117,6 +123,22 @@ describe 'Granite' do
       context 'negative case' do
         it { is_expected.to eq false }
       end
+    end
+  end
+
+  context 'performer' do
+    context 'negative cases' do
+      subject { lambda { BusinessAction.new(ba_subject, params).perform! } }
+
+      context 'the exception class should be Granite::Action::NotAllowedError' do
+        it { should raise_exception(Granite::Action::NotAllowedError) }
+      end
+    end
+
+    context 'positive cases' do
+      subject { lambda { BusinessAction.as(:anybody).new(ba_subject, params).perform! } }
+
+      it { should_not raise_exception }
     end
   end
 
