@@ -10,30 +10,31 @@ def eurToRON(date, app_id = ENV['APP_ID'])
   response = RestClient.get rates_url
   parsed_response = JSON.parse(response)
   rates = parsed_response["rates"]
-  usdeur = rates["EUR"] # EUR/USD
-  usdron = rates["RON"] # RON/USD
+  usdeur = rates["EUR"] # USD/EUR 1 USD in EUR
+  usdron = rates["RON"] # USD/RON means 1 USD in RON
 
   #
-  # Generally:
+  # Generally: <original currency>/<target currency>
+  # means for 1 <original currency> in <target currency>
   #
-  # <target currency>
-  # -------------------
-  # <original currency>
-
+  # EUR/RON means: 1 EUR in RON
   #
-  # The formula for converting from EUR to RON:
+  # NOT like in physics, where:
+  # <target currency>/<original currency> * <original currency value> = <targetcurrency value>
   #
-  # ron   eur
-  # --- / --- =
-  # usd   usd
+  # The formula for converting from `EUR to RON` based on `usd/eur` and `usd/ron` rates.
+  # ---
   #
-  #   ron   usd
-  # = --- * ---
-  #   usd   eur
+  # Input: `usd/eur`, `usd/ron`
+  # Output: `eur/ron`
   #
-  #   ron
-  # = ---
-  #   eur
+  #    eur/ron =
+  #  = eur/ron
+  #  = eur/ron * usd/usd
+  #  = usd/ron * eur/usd
+  #  = usd/ron / usd/eur
+  #  = usdron/usdeur
+  #
 
   eurron = usdron/usdeur
 
@@ -63,3 +64,5 @@ total_with_diff.each_pair do |date, result|
 end
 puts "Diff: #{total_diff.sum}"
 
+date = "2020-04-05"
+result = eurToRON(date)
