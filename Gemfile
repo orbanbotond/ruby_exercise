@@ -29,6 +29,8 @@ gem "dry-schema", '~> 1.4'
 gem "dry-validation", '~> 1.3'
 gem "activesupport", require: false
 
+gem "rest-client", "~> 2.0"
+gem "dotenv"
 gem "trailblazer",
   git: 'https://github.com/trailblazer/trailblazer.git',
   tag: 'v2.1.0.rc1'
