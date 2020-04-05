@@ -28,7 +28,7 @@ def eurToRON(date, app_id = ENV['APP_ID'])
   # Input: `usd/eur`, `usd/ron`
   # Output: `eur/ron`
   #
-  #    eur/ron =
+  #    eurron =
   #  = eur/ron
   #  = eur/ron * usd/usd
   #  = usd/ron * eur/usd
