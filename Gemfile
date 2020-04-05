@@ -18,6 +18,8 @@ gem 'dry-transaction'
 gem 'activesupport'
 gem "interactor"
 gem "dry-schema", '~> 1.4'
+gem "rest-client", "~> 2.0"
+gem "dotenv"
 gem "trailblazer",
   git: 'https://github.com/trailblazer/trailblazer.git',
   tag: 'v2.1.0.rc1'
