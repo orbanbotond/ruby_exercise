@@ -1,0 +1,30 @@
+class AddParser
+  prechigh
+    left ADDITION SUBSTRACTION
+  preclow
+rule
+  target: exp { result = 0 }
+
+  exp: exp ADDITION exp     { result =val[0] + val[2]; puts "+"; puts debug_info(val, _values, result); }
+     | exp SUBSTRACTION exp { result =val[0] - val[2]; puts "-"; puts debug_info(val, _values, result); }
+     | DIGIT
+end
+
+---- header
+require_relative 'lexer.rex.rb'
+
+---- inner
+def next_token
+  @lexer.next_token
+end
+
+def debug_info(val, _values, result)
+  puts "result:#{result}"
+  puts "_values:#{_values}"
+  puts "val:#{val}"
+end
+
+def prepare_parser file_name
+  @lexer = AddLexer.new
+  @lexer.parse_file file_name
+end

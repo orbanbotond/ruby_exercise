@@ -17,7 +17,7 @@ gem 'dry-auto_inject'
 gem 'dry-transaction'
 gem 'activesupport'
 gem "interactor"
-
+gem "oedipus_lex"
 gem "granite"
 gem "activemodel"
 gem "sqlite3", require: false

@@ -1,0 +1,12 @@
+require 'oedipus_lex'
+
+Rake.application.rake_require "oedipus_lex"
+
+desc "Generate Lexer"
+task :lexer  => "lexer.rex.rb"
+
+desc "Generate Parser"
+task :parser => :lexer do
+  `gem list`
+  `racc parser.racc -o parser.racc.rb`
+end
