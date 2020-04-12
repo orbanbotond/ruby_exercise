@@ -10,7 +10,7 @@ require_relative 'lexer.rex.rb'
 
 class AddParser < Racc::Parser
 
-module_eval(<<'...end parser.racc/module_eval...', 'parser.racc', 17)
+module_eval(<<'...end parser.racc/module_eval...', 'parser.racc', 23)
 def next_token
   @lexer.next_token
 end
@@ -29,22 +29,32 @@ end
 ##### State transition tables begin ###
 
 racc_action_table = [
-     5,     6,     3,     4,     7,     3,     3 ]
+    10,     9,     7,     8,     6,     4,    18,     3,     4,     5,
+     3,     4,     5,     3,     4,     5,     3,     4,     5,     3,
+     4,     5,     3,    12,     5,    10,     9,     7,     8,    10,
+     9,    10,     9,    13 ]
 
 racc_action_check = [
-     2,     2,     0,     1,     4,     5,     6 ]
+    11,    11,    11,    11,     1,     0,    11,     0,     3,     0,
+     3,     7,     3,     7,     8,     7,     8,     9,     8,     9,
+    10,     9,    10,     4,    10,     2,     2,     2,     2,    14,
+    14,    15,    15,     6 ]
 
 racc_action_pointer = [
-    -2,     3,    -2,   nil,     4,     1,     2,   nil,   nil,   nil ]
+     0,     4,    23,     3,    14,   nil,    33,     6,     9,    12,
+    15,    -2,   nil,   nil,    27,    29,   nil,   nil,   nil ]
 
 racc_action_default = [
-    -5,    -5,    -1,    -4,    -5,    -5,    -5,    10,    -2,    -3 ]
+    -9,    -9,    -1,    -9,    -9,    -8,    -9,    -9,    -9,    -9,
+    -9,    -9,    -7,    19,    -3,    -4,    -5,    -6,    -2 ]
 
 racc_goto_table = [
-     2,     1,   nil,   nil,   nil,     8,     9 ]
+     2,     1,   nil,    11,   nil,   nil,   nil,    14,    15,    16,
+    17 ]
 
 racc_goto_check = [
-     2,     1,   nil,   nil,   nil,     2,     2 ]
+     2,     1,   nil,     2,   nil,   nil,   nil,     2,     2,     2,
+     2 ]
 
 racc_goto_pointer = [
    nil,     1,     0 ]
@@ -54,23 +64,32 @@ racc_goto_default = [
 
 racc_reduce_table = [
   0, 0, :racc_error,
-  1, 6, :_reduce_1,
-  3, 7, :_reduce_2,
-  3, 7, :_reduce_3,
-  1, 7, :_reduce_none ]
+  1, 11, :_reduce_1,
+  3, 12, :_reduce_2,
+  3, 12, :_reduce_3,
+  3, 12, :_reduce_4,
+  3, 12, :_reduce_5,
+  3, 12, :_reduce_6,
+  2, 12, :_reduce_7,
+  1, 12, :_reduce_none ]
 
-racc_reduce_n = 5
+racc_reduce_n = 9
 
-racc_shift_n = 10
+racc_shift_n = 19
 
 racc_token_table = {
   false => 0,
   :error => 1,
-  :ADDITION => 2,
-  :SUBSTRACTION => 3,
-  :DIGIT => 4 }
+  :DIVISION => 2,
+  :MULTIPLICATION => 3,
+  :ADDITION => 4,
+  :SUBSTRACTION => 5,
+  :MINUS => 6,
+  :OPENING_PARANTHESIS => 7,
+  :CLOSING_PARANTHESIS => 8,
+  :DIGIT => 9 }
 
-racc_nt_base = 5
+racc_nt_base = 10
 
 racc_use_result_var = true
 
@@ -93,8 +112,13 @@ Racc_arg = [
 Racc_token_to_s_table = [
   "$end",
   "error",
+  "DIVISION",
+  "MULTIPLICATION",
   "ADDITION",
   "SUBSTRACTION",
+  "MINUS",
+  "OPENING_PARANTHESIS",
+  "CLOSING_PARANTHESIS",
   "DIGIT",
   "$start",
   "target",
@@ -106,28 +130,56 @@ Racc_debug_parser = false
 
 # reduce 0 omitted
 
-module_eval(<<'.,.,', 'parser.racc', 5)
+module_eval(<<'.,.,', 'parser.racc', 7)
   def _reduce_1(val, _values, result)
      result = 0
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.racc', 7)
+module_eval(<<'.,.,', 'parser.racc', 9)
   def _reduce_2(val, _values, result)
-     result =val[0] + val[2]; puts "+"; puts debug_info(val, _values, result);
+     result = val[1]; puts debug_info(val, _values, result);
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.racc', 8)
+module_eval(<<'.,.,', 'parser.racc', 10)
   def _reduce_3(val, _values, result)
-     result =val[0] - val[2]; puts "-"; puts debug_info(val, _values, result);
+     result = val[0] + val[2]; puts "+"; puts debug_info(val, _values, result);
     result
   end
 .,.,
 
-# reduce 4 omitted
+module_eval(<<'.,.,', 'parser.racc', 11)
+  def _reduce_4(val, _values, result)
+     result = val[0] - val[2]; puts "-"; puts debug_info(val, _values, result);
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', 'parser.racc', 12)
+  def _reduce_5(val, _values, result)
+     result = val[0] * val[2]; puts "*"; puts debug_info(val, _values, result);
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', 'parser.racc', 13)
+  def _reduce_6(val, _values, result)
+     result = val[0] / val[2]; puts "/"; puts debug_info(val, _values, result);
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', 'parser.racc', 14)
+  def _reduce_7(val, _values, result)
+     result = - val[1]; puts debug_info(val, _values, result);
+    result
+  end
+.,.,
+
+# reduce 8 omitted
 
 def _reduce_none(val, _values, result)
   val[0]

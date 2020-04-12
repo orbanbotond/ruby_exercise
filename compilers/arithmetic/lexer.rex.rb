@@ -13,9 +13,13 @@ class AddLexer
   require 'strscan'
 
   # :stopdoc:
-  DIGIT        = /\s*\d+\s*/
-  ADDITION     = /\s*[+]s*/
-  SUBSTRACTION = /\s*[-]s*/
+  DIGIT               = /\s*\d+\s*/
+  ADDITION            = /\s*[+]\s*/
+  SUBSTRACTION        = /\s*[-]\s*/
+  MULTIPLICATION      = /\s*[*]\s*/
+  DIVISION            = /\s*[\/]\s*/
+  OPENING_PARANTHESIS = /\s*[\(]\s*/
+  CLOSING_PARANTHESIS = /\s*[\)]\s*/
   # :startdoc:
   # :stopdoc:
   class LexerError < StandardError ; end
@@ -110,6 +114,14 @@ class AddLexer
             action { [:ADDITION, text] }
           when text = ss.scan(/#{SUBSTRACTION}/) then
             action { [:SUBSTRACTION, text] }
+          when text = ss.scan(/#{MULTIPLICATION}/) then
+            action { [:MULTIPLICATION, text] }
+          when text = ss.scan(/#{DIVISION}/) then
+            action { [:DIVISION, text] }
+          when text = ss.scan(/#{OPENING_PARANTHESIS}/) then
+            action { [:OPENING_PARANTHESIS, text] }
+          when text = ss.scan(/#{CLOSING_PARANTHESIS}/) then
+            action { [:CLOSING_PARANTHESIS, text] }
           else
             text = ss.string[ss.pos .. -1]
             raise ScanError, "can not match (#{state.inspect}) at #{location}: '#{text}'"
@@ -130,7 +142,7 @@ class AddLexer
     token
   end # def next_token
     def do_parse;
-    end # this is a stub.
+    end
 end # class
 
    # AddLexer

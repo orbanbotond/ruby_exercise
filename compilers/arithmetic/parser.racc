@@ -1,12 +1,18 @@
 class AddParser
  prechigh
+   left DIVISION MULTIPLICATION
    left ADDITION SUBSTRACTION
+   nonassoc MINUS
  preclow
 rule
   target: exp { result = 0 }
 
-  exp: exp ADDITION exp     { result =val[0] + val[2]; puts "+"; puts debug_info(val, _values, result); }
-     | exp SUBSTRACTION exp { result =val[0] - val[2]; puts "-"; puts debug_info(val, _values, result); }
+  exp: OPENING_PARANTHESIS exp CLOSING_PARANTHESIS { result = val[1]; puts debug_info(val, _values, result); }
+     | exp ADDITION exp                            { result = val[0] + val[2]; puts "+"; puts debug_info(val, _values, result); }
+     | exp SUBSTRACTION exp                        { result = val[0] - val[2]; puts "-"; puts debug_info(val, _values, result); }
+     | exp MULTIPLICATION exp                      { result = val[0] * val[2]; puts "*"; puts debug_info(val, _values, result); }
+     | exp DIVISION exp                            { result = val[0] / val[2]; puts "/"; puts debug_info(val, _values, result); }
+     | SUBSTRACTION DIGIT = MINUS                  { result = - val[1]; puts debug_info(val, _values, result); }
      | DIGIT
 end
 

@@ -7,14 +7,22 @@ class AddLexer
   #
 
 macro
-  DIGIT         /\s*\d+\s*/
-  ADDITION      /\s*[+]s*/
-  SUBSTRACTION  /\s*[-]s*/
+  DIGIT                      /\s*\d+\s*/
+  ADDITION                   /\s*[+]\s*/
+  SUBSTRACTION               /\s*[-]\s*/
+  MULTIPLICATION             /\s*[*]\s*/
+  DIVISION                   /\s*[\/]\s*/
+  OPENING_PARANTHESIS        /\s*[\(]\s*/
+  CLOSING_PARANTHESIS        /\s*[\)]\s*/
 rule
-  /#{DIGIT}/        { [:DIGIT, text.to_i] }
-  /#{ADDITION}/     { [:ADDITION, text] }
-  /#{SUBSTRACTION}/ { [:SUBSTRACTION, text] }
+  /#{DIGIT}/                 { [:DIGIT, text.to_i] }
+  /#{ADDITION}/              { [:ADDITION, text] }
+  /#{SUBSTRACTION}/          { [:SUBSTRACTION, text] }
+  /#{MULTIPLICATION}/        { [:MULTIPLICATION, text] }
+  /#{DIVISION}/              { [:DIVISION, text] }
+  /#{OPENING_PARANTHESIS}/   { [:OPENING_PARANTHESIS, text] }
+  /#{CLOSING_PARANTHESIS}/   { [:CLOSING_PARANTHESIS, text] }
 inner
   def do_parse;
-  end # this is a stub.
+  end
 end # AddLexer
