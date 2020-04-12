@@ -2,7 +2,13 @@ require 'rubygems'
 require 'bundler/setup'
 
 Bundler.require(:default)
-Dotenv.load
+# Dotenv.load
+
+#### Public Interface
+# This method calculates the eurToRon rate on a certain `date`.
+#
+# * `:data`: is the date on the rate will be calculated.
+#
 
 def eurToRON(date, app_id = ENV['APP_ID'])
   result = {}
@@ -13,6 +19,8 @@ def eurToRON(date, app_id = ENV['APP_ID'])
   usdeur = rates["EUR"] # USD/EUR 1 USD in EUR
   usdron = rates["RON"] # USD/RON means 1 USD in RON
 
+  # Conversion conventions
+  # ----
   #
   # Generally: <original currency>/<target currency>
   # means for 1 <original currency> in <target currency>
@@ -45,6 +53,8 @@ def eurToRON(date, app_id = ENV['APP_ID'])
   result
 end
 
+binding.pry
+
 # We are interested on the rate on every 1st of the month.
 # months = (Date.new(2019, 01)..Date.new(2020, 03)).select {|d| d.day == 1}
 months = (Date.new(2016, 01)..Date.new(2020, 04)).select {|d| d.day == 1}
@@ -63,6 +73,3 @@ total_with_diff.each_pair do |date, result|
   puts "100EUR converted to RON on the date of #{result[:date]}` is: %0.2fRON, the diff is: %0.2fRON" % [result[:ron], result[:diff]]
 end
 puts "Diff: #{total_diff.sum}"
-
-date = "2020-04-05"
-result = eurToRON(date)
