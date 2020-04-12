@@ -1,0 +1,21 @@
+
+First, define the Hello, world!
+[[hello-world]] =
+    "Hello, world!"
+
+Next, define Main Program; 'Hello, world!'
+[[*]] =
+    def main
+      p [[hello-world]]
+    end
+
+Finaly, call the main.
+    [[*]] +=
+        main
+
+---
+
+1234567890
+1234567890
+
+
