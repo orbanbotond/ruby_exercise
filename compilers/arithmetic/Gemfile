@@ -1,0 +1,6 @@
+source 'https://rubygems.org'
+
+gem "oedipus_lex"
+gem "racc"
+gem 'pry'
+gem 'pry-nav'

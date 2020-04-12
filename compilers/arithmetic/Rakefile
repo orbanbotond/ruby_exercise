@@ -1,4 +1,7 @@
-require 'oedipus_lex'
+require 'rubygems'
+require 'bundler/setup'
+
+Bundler.require
 
 Rake.application.rake_require "oedipus_lex"
 
@@ -7,6 +10,7 @@ task :lexer  => "lexer.rex.rb"
 
 desc "Generate Parser"
 task :parser => :lexer do
-  `gem list`
   `racc parser.racc -o parser.racc.rb`
 end
+
+task :default => :parser
