@@ -18,8 +18,8 @@ gem 'dry-transaction'
 gem 'activesupport'
 gem "interactor"
 gem "oedipus_lex"
-gem "granite"
 gem "activemodel"
+gem "granite"
 gem "sqlite3", require: false
 gem "activerecord", require: false
 gem "actionview", require: false

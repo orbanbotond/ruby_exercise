@@ -1,8 +1,12 @@
 require 'rubygems'
 require 'bundler/setup'
 
+require 'active_model'
+require 'action_view'
+require 'rails'
+
 Bundler.require(:default)
-# Dotenv.load
+Dotenv.load
 
 #### Public Interface
 # This method calculates the eurToRon rate on a certain `date`.
@@ -53,19 +57,18 @@ def eurToRON(date, app_id = ENV['APP_ID'])
   result
 end
 
-binding.pry
-
 # We are interested on the rate on every 1st of the month.
 # months = (Date.new(2019, 01)..Date.new(2020, 03)).select {|d| d.day == 1}
-months = (Date.new(2016, 01)..Date.new(2020, 04)).select {|d| d.day == 1}
-dates = months.map{|date| date="#{date.year}-%02d-%02d" % [date.month, date.day]; puts date; date }
-total_result = dates.reduce({}){|memo, date| memo[date] = eurToRON(date); memo}
-total_with_diff = total_result.transform_values{|data|ron = 100*data[:eurron]; data.merge(diff: ron - 450, ron: ron)}
+# months = (Date.new(2016, 01)..Date.new(2020, 04)).select {|d| d.day == 1}
+# dates = months.map{|date| date="#{date.year}-%02d-%02d" % [date.month, date.day]; puts date; date }
+# total_result = dates.reduce({}){|memo, date| memo[date] = eurToRON(date); memo}
+# total_with_diff = total_result.transform_values{|data|ron = 100*data[:eurron]; data.merge(diff: ron - 450, ron: ron)}
 
 # saving:
-File.open("hash.marshal", "w"){|to_file| Marshal.dump(total_with_diff, to_file)}
+# File.open("hash.marshal", "w"){|to_file| Marshal.dump(total_with_diff, to_file)}
 # retrieving:
-# total_with_diff = File.open("hash.marshal", "r"){|from_file| Marshal.load(from_file)}
+
+total_with_diff = File.open("#{__dir__}/hash.marshal", "r"){|from_file| Marshal.load(from_file)}
 
 total_diff = total_with_diff.values.map{|data|data[:diff]}
 
