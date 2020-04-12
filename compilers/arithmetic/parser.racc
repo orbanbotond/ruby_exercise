@@ -1,7 +1,7 @@
 class AddParser
-  prechigh
-    left ADDITION SUBSTRACTION
-  preclow
+ prechigh
+   left ADDITION SUBSTRACTION
+ preclow
 rule
   target: exp { result = 0 }
 

@@ -1,4 +1,11 @@
 class AddLexer
+
+  # Examples for `lexeme`s:
+  # DIGIT:        "      45   "
+  # ADDITION:     "  +     "
+  # SUBSTRACTION: " -    "
+  #
+
 macro
   DIGIT         /\s*\d+\s*/
   ADDITION      /\s*[+]s*/
