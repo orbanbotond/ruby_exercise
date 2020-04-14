@@ -20,6 +20,7 @@ gem "interactor"
 
 gem "oedipus_lex"
 gem "racc"
+gem "json-schema"
 
 gem "activemodel"
 gem "granite"
