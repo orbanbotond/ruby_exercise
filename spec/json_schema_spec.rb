@@ -33,20 +33,18 @@ describe 'JSON Schema' do
   end
 
   context 'Negative Case' do
-    subject { -> { JSON::Validator.validate(schema, data) } }
+    subject { -> { JSON::Validator.validate!(schema, data) } }
 
     context "missing the required fields" do
-      let(:data) {super.except(:required_field)}
+      let(:data) {super().except(:required_field)}
 
-      it { is_expected.to raise_error }
-      # it { is_expected.to raise_error(JSON::Schema::ValidationError) }
+      it { is_expected.to raise_error(JSON::Schema::ValidationError) }
     end
 
     context "having invalid data type" do
-      let(:data) {super.merge(required_field: 1)}
+      let(:data) {super().merge(required_field: 1)}
 
-      it { is_expected.to raise_error }
-      # it { is_expected.to raise_error(JSON::Schema::ValidationError) }
+      it { is_expected.to raise_error(JSON::Schema::ValidationError) }
     end
   end
 end
