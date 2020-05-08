@@ -95,7 +95,7 @@ describe 'Granite' do
 
       context 'negative cases' do
         let(:params) { super().except(:first_name) }
-        
+
         it { is_expected.to_not be_valid }
 
         context 'error messages' do
@@ -145,25 +145,23 @@ describe 'Granite' do
   end
 
   context 'perform' do
+    subject { BusinessAction.as(performer).new(ba_subject, params) }
+    let(:performer) { :anybody }
+
     context 'positive cases' do
-      subject { lambda { BusinessAction.as(:anybody).new(ba_subject, params).perform! } }
-
-      it { should_not raise_exception }
-      it { is_expected.to be_truthy }
-
-      specify do
-        subject.call
-        expect(ba_subject.reload).to be_persisted
-        expect(ba_subject.reload.first_name).to eq params[:first_name]
-        expect(ba_subject.reload.last_name).to eq params[:last_name]
-      end
+      it { is_expected.to be_performable }
     end
 
     context 'negative cases' do
-      # There is no performer so it should not bew allowed to be executed.
-      subject { lambda { BusinessAction.new(ba_subject, params).perform! } }
+      let( :performer) { nil }
+      it { is_expected.to_not be_performable }
 
-      it { should raise_exception }
+      # This is just showing the erronous behaviour
+      context 'the behaviour' do
+        subject { lambda { BusinessAction.new(ba_subject, params).perform! } }
+
+        it { should raise_exception }
+      end
     end
   end
 
