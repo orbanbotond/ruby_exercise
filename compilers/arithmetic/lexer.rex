@@ -26,3 +26,6 @@ inner
   def do_parse;
   end
 end # AddLexer
+
+# Maybe we can use this gem to describe the tokens in BN (Backus-Naur) form
+# https://github.com/steveklabnik/abnf

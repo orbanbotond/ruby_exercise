@@ -15,7 +15,6 @@ rule
      | SUBSTRACTION DIGIT = MINUS                  { result = - val[1]; puts debug_info(val, _values, result); }
      | DIGIT
 end
-
 ---- header
 require_relative 'lexer.rex.rb'
 
@@ -34,3 +33,5 @@ def prepare_parser file_name
   @lexer = AddLexer.new
   @lexer.parse_file file_name
 end
+
+# make a more complicated grammar with multiple non terminals
