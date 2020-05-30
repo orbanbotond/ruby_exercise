@@ -12,9 +12,12 @@ gem 'active_attr'
 gem 'ruport'
 gem 'lazy_stream'
 gem 'celluloid'
+
 gem 'dry-monads'
 gem 'dry-auto_inject'
 gem 'dry-transaction'
+gem 'dry-transformer'
+
 gem 'activesupport'
 gem "interactor"
 
