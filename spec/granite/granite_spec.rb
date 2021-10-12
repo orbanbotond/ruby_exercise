@@ -127,6 +127,20 @@ describe 'Granite' do
     end
   end
 
+  context 'allowance' do
+    context 'negative cases' do
+      subject { BusinessAction.new(ba_subject, params) }
+
+      it { should_not be_allowed }
+    end
+
+    context 'positive cases' do
+      subject { BusinessAction.as(:anybody).new(ba_subject, params) }
+
+      it { should be_allowed }
+    end
+  end
+
   context 'performer' do
     context 'negative cases' do
       subject { lambda { BusinessAction.new(ba_subject, params).perform! } }
