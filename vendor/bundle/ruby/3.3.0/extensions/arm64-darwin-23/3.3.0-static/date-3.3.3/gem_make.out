@@ -1,0 +1,24 @@
+current directory: /Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/date-3.3.3/ext/date
+/Users/orbanbotond/.frum/versions/3.3.0/bin/ruby extconf.rb
+checking for rb_category_warn()... yes
+checking for timezone in time.h with  -Werror... yes
+checking for altzone in time.h with  -Werror... no
+creating Makefile
+
+current directory: /Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/date-3.3.3/ext/date
+make DESTDIR\= sitearchdir\=./.gem.20240510-20972-yitmwo sitelibdir\=./.gem.20240510-20972-yitmwo clean
+
+current directory: /Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/date-3.3.3/ext/date
+make DESTDIR\= sitearchdir\=./.gem.20240510-20972-yitmwo sitelibdir\=./.gem.20240510-20972-yitmwo
+compiling date_core.c
+compiling date_parse.c
+compiling date_strftime.c
+compiling date_strptime.c
+linking shared-object date_core.bundle
+
+current directory: /Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/date-3.3.3/ext/date
+make DESTDIR\= sitearchdir\=./.gem.20240510-20972-yitmwo sitelibdir\=./.gem.20240510-20972-yitmwo install
+/usr/bin/install -c -m 0755 date_core.bundle ./.gem.20240510-20972-yitmwo
+
+current directory: /Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/date-3.3.3/ext/date
+make DESTDIR\= sitearchdir\=./.gem.20240510-20972-yitmwo sitelibdir\=./.gem.20240510-20972-yitmwo clean

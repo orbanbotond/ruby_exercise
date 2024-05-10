@@ -1,0 +1,306 @@
+# 1.2.4
+
+* Fix a bug where using `fail_fast: true` (same with `:pass_fast`) would result in a
+  compile time exception `No fail_fast output found`. See  https://github.com/trailblazer/trailblazer/issues/256
+
+# 1.2.3
+
+* Add `FastTrack.left` alias.
+* Fix a bug where an operation using `Path()` would wrongly emit a deprecation warning.
+
+# 1.2.2
+
+* Add `#left` alias for `#fail`.
+
+# 1.2.1
+
+* Bugfix: `output_with_outer_ctx: :instance_method` no longer breaks.
+
+# 1.2.0
+
+## Introspect
+
+* As `Activity::Introspect::TaskMap` got removed, use `Activity::Introspect.Nodes(activity)` for introspecting. See https://trailblazer.to/2.1/docs/activity#activity-internals-introspection-api
+
+## Normalizer
+
+* Extract `normalizer/extension.rb` to implement `Extension() => myext`
+* Extract `normalizer/inherit.rb` to implement `inherit: true`.
+* Extract `normalizer/output_tuples.rb` which represents code for the Wiring API.
+* Connectors (`Track()`, `Id()` and `End()`) now contain the logic that returns the search builder. This used to sit in `#normalize_connections_from_dsl`.
+* What used to be the `"path.outputs"` step is now a separate, nested pipeline named `"activity.default_outputs"`. See https://trailblazer.to/2.1/docs/internals#internals-wiring-api-outputs-defaulting
+    Basically, The default step's outputs are set in that separate pipeline under `"activity.default_outputs"`.
+* Rename `"path.connections"` to `"path.step.add_success_connector"` for consistency.
+* Move `Railway::DSL::NormalizerForPass` to `Railway::DSL::Pass::Normalizer` (same for `Fail`).
+* Move `FastTrack::DSL::NormalizerForPass` to `FastTrack::DSL::Pass::Normalizer` (same for `Fail`).
+* Remove `"activity.normalize_outputs_from_dsl"` as this all happens in `#compile_wirings` now.
+
+## Various
+
+* Deprecate `Path(end_id:, end_task:)` options in favor of `Path(terminus: :semantic)`.
+* `FastTrack` outputs for non-`Subprocess()` are only added when `fast_track: true` is set.
+    As a result, this will throw an exception `No `pass_fast` output found for :find_model`.
+
+    ```ruby
+    step :find_model, Output(:pass_fast) # throws "no output" exception.
+    ```
+
+    and needs to be changed to
+
+    ```ruby
+    step :find_model,
+      fast_track: true,
+      Output(:pass_fast)
+    ```
+* Fixed a bug where `Subprocess(Path)` would accidentially add a `:failure` connection.
+    As a result, this doesn't work anymore
+
+    ```ruby
+    step Subprocess(Path), Output(:failure) => ...
+    ```
+* Allow inheriting of `:fail_fast`, `:pass_fast` and `:fast_track`.
+* The `:outputs` option for `#step` is now a private concept.  When passed explicitely to the normalizer (as it happens with `Subprocess()`) it's no longer extended or defaulted.
+* `Strategy.End()` now returns an `OutputTuples::End` instance. Use `Activity.End()` for the original behavior.
+* Removed the `:connections` option in favor of simply using output tuples for setting connections. We also don't inherit `:connections` anymore, but the output tuples.
+* Removed the `VariableMapping::Inherit` module as we can use generic inheritance logic.
+* Finally add the `Extension() => my_ext` option to painlessly add extensions. This means you don't have to manually merge `:extensions` anymore.
+* Extensions are now properly inherited (if `generic?` is false) using the universal inheritance mechanism.
+* `Strategy.invoke` now passes on keyword arguments, too.
+* A terminus step no longer maintains any wirings (as per `trailblazer-activity-0.16.0`), resulting in a terminus `Sequence` row as follows.
+
+    ```ruby
+    [
+      :success,
+      implementing::Success,
+      [], # no outputs anymore!
+      {id: "End.success", stop_event: true, semantic: :success}, # instead, {:semantic} is passed as a data option.
+    ]
+    ```
+* Remove `Search::Noop` as an empty wirings array in `Sequence` are allowed now.
+
+# 1.1.1
+
+* When using `step ..., inherit: true, replace: :find_model` you can now omit `:id`. The ID from
+  `:replace` is used automatically in that case.
+* Deprecate `:override` option for `#step`.
+* Simplify `inherit: [:variable_mapping]` by recording the `:in_filters` and `:out_filters` variables
+instead of the compiled pipelines. This fixes #61.
+* Introduce `#patch` to simplify modifying nested activities. Instead of `Subprocess(<activity>, patch: ...)` you can use
+  the dedicated DSL function.
+
+# 1.1.0
+
+* Use `trailblazer-activity` 0.15.0.
+* Remove `Path::DSL.OptionsForSequenceBuilder` and move concrete code to `Path::DSL.options_for_sequence_build`
+  which returns a set:
+
+  1. default termini instructions for the concrete strategy
+  2. options specific for this strategy subclass.
+
+  Everything else, such as merging user options, computing and adding termini, etc, now happens in
+  `Strategy::DSL.OptionsForSequenceBuilder`.
+* Adding `Subprocess(Create, strict: true)` to wire all outputs of `Create` automatically.
+  Each output will be wired to its same named Track(semantic).
+* Adding `Strategy(termini: )`
+* For `output:` in combination with `:output_with_outer_ctx`, deprecate the second positional argument and make it
+  the `:outer_ctx` keyword argument instead.
+* Introduce `Linear.Patch` as the public entry point for patching activities.
+* Remove `Runtime.initial_aggregate` step for the input and output pipelines which results in slightly better runtime performance and less code.
+
+## Variable Mapping
+
+* Simplify the architecture in `VariableMapping`, filters are now added directly into the `Pipeline`.
+  Performance increase from 17k to 25k from 1.0.0 to this version.
+* Introduce `Inject(:variable)` to supersede the version receiving a big mapping hash.
+* Add `Inject(:variable, override: true)` to always write a variable to ctx, regardless of its presence.
+* Fix a bug where `Inject()` would override `In()` filters even though the latter was added latest. This
+  is fixed by treating both filter types equally and in the order they were added by the user (and the macro).
+
+# 1.0.0
+
+## Additions
+
+* Introduce composable input/output filters with `In()`, `Out()` and `Inject()`. # FIXME: add link
+* We no longer store arbitrary variables from `#step` calls in the sequence row's `data` field.
+  Use the `DataVariable` helper to mark variables for storage in `data`.
+
+  ```ruby
+  step :find_model,
+    model_class: Song,
+    Trailblazer::Activity::DSL::Linear::Helper.DataVariable() => :model_class
+  ```
+* Add `Normalizer.extend!` to add steps to a particular normalizer. # FIXME: add link
+* Add `Strategy.terminus` to add termini. # FIXME: add link
+* The `Sequence` instance is now readable via `#to_h`: `Strategy.to_h[:sequence]`.
+* In Normalizer, the `path.wirings` step is now named `activity.wirings`.
+
+## Design
+
+  * DSL logic: move as much as possible into the normalizer as it's much easier to understand and follow (and debug).
+  * Each DSL method now directly invokes a normalizer pipeline that processes the user options and produces an ADDS structure.
+* We now need `Sequence::Row` instances in `Sequence` to adhere to the Adds specification.
+* Rename `Linear::State` to `Linear::Sequence::Builder`. This is now a stateless function, only.
+  Sequence::Builder.()
+* @state ?
+* Remove `Strategy@activity` instance variable and move it to `@state[:activity]`.
+* Much better file structuring.
+
+## Internals
+
+* Use `Trailblazer::Declarative::State` to maintain sequence and other fields. This makes inheritance consistent.
+* Make `Strategy` a class. It makes constant management much simpler to understand.
+* `Linear.end_id` now accepts keyword arguments (mainly, `:semantic`).
+* `Strategy.apply_step_on_state!` is now an immutable `Sequence::Builder.update_sequence_for`.
+* The `Railway.Path()` helper returns a `DSL::PathBranch` non-symbol that is then picked up and processed by the normalizer (exactly how we do it with `In()`, `Track()` etc.). Branching implementation is handled in `helper/path.rb`.
+* Remove `State.update_options`. Use `@state.update!`.
+* Remove `Helper.normalize`.
+* Remove `Linear::DSL.insert_task`. The canonical way to add steps is using the ADDS interface going through a normalizer.
+  That's why there's a normalizer for `end` (or "terminus") now for consistency.
+* Remove `Helper::ClassMethods`, `Helper` is now the namespace to mix in your own functions (and ours, like `Output()`).
+* Introduce `Helper::Constants` for namespaced macros such as `Policy::Pundit()`.
+
+## Renaming
+
+* Rename `Linear::State::Normalizer` to `Linear::Normalizer::Normalizers` as it represents a container for normalizers.
+* Move `Linear::Insert` to `Activity::Adds::Insert` in the `trailblazer-activity` gem.
+* Move `Linear::Search` to `Linear::Sequence::Search` and `Linear::Compiler` to `Linear::Sequence::Compiler`.
+* `TaskWrap::Pipeline.prepend` is now `Linear::Normalizer.prepend_to`. To use the `:replace` option you can use `Linear::Normalizer.replace`.
+* Move `Sequence::IndexError` to `Activity::Adds::IndexError` in the `trailblazer-activity` gem. Remove `IndexError#step_id`.
+* Move DSL structures like `OutputSemantic` to `Linear` namespace.
+
+# 0.5.0
+
+* Introduce `:inject` option to pass-through injected variables and to default input variables.
+* Remove `VariableMapping::Input::Scoped` as we're now using a separate `Pipeline` for input filtering.
+* Massively simplify (and accelerate!) the `Normalizer` layer by using `TaskWrap::Pipeline` instead of `Activity::Path`. Note that you can alter a normalizer by using the `TaskWrap::Pipeline` API now.
+
+# 0.4.3
+
+* Limit `trailblazer-activity` dependency to `< 0.13.0`.
+
+# 0.4.2
+
+* Don't allow duplicate activities in Sequence (#47) :ghost:
+* {:inherit} will only inherit the wirings supported in child activity (#48)
+
+# 0.4.1
+
+* Updrading `trailblazer-activity` to use shiny `trailblazer-option`.
+
+# 0.4.0
+
+* Support for Ruby 3.0.
+
+# 0.3.5
+
+* Retain custom wirings within subprocess while patching.
+
+# 0.3.4
+
+* Allow DSL helpers such as `End()` in `Path()`.
+* Introduce `Path(..., before: )` option to insert all path member steps before a certain element.
+* Allow `Path(..., connect_to: Track(..))`.
+
+# 0.3.3
+
+* Fix for registering `PassFast` & `FailFast` ends in `FastTrack` to fix circuit interface callables which emits those signals.
+
+# 0.3.2
+
+* Updrading `trailblazer-activity` version to utilise new `trailblazer-context` :drum:
+
+# 0.3.1
+
+* Fixes in circuit interface normalization when given task is a {Symbol}, consider additional {task} options (like {id}) and assign {task} symbol as an {id}.
+
+# 0.3.0
+
+* Fix circuit interface callable to make `step task: :instance_method` use circuit signature.
+
+# 0.2.9
+
+* The `Path()` helper, when used with `:end_task` will now automatically _append_ the end task (or terminus) to `End.success`.
+  It used to be placed straight after the last path's element, which made it hard to later insert more steps into that very path.
+
+# 0.2.8
+
+* Add `:inherit` option so `step` can override an existing step while inheriting the original `:extensions` and `:connections` (which are the `Outputs`). This is great to customize "template" activities.
+* Add `Track(:color, wrap_around: true)` option and `Search::WrapAround` so you can find a certain track color (or the beginning of a Path) even when the path was positioned before the actual step in the `Sequence`.
+  Note that this feature is still experimental and might get removed.
+
+# 0.2.7
+
+* `Did you mean ?` suggestions on Linear::Sequence::IndexError.
+* Introduce `Linear::Helper` module for strategy extensions in third-party gems.
+* Convenient way to patch Subprocess itself using `patch` option.
+* Allow multiple `Path()` macro per step.
+* Small fix for defining instance methods as steps using circuit interface.
+
+# 0.2.6
+
+* Added `@fields` to `Linear::State` to save arbitrary data on the activity/strategy level.
+
+# 0.2.5
+
+* Patching now requires the [`:patch` option for `Subprocess`](http://2019.trailblazer.to/2.1/docs/activity.html#activity-dsl-options-patching
+).
+
+# 0.2.4
+
+* Add a minimal API for patching nested activities. This allows customizing deeply-nested activities without changing the original.
+
+# 0.2.3
+
+* Add `Strategy::invoke` which is a short-cut to `TaskWrap.invoke`. It's available as class method in all three strategies.
+
+# 0.2.2
+
+* Fix requiring `trailblazer/activity.rb`.
+
+# 0.2.1
+
+* Update to `activity-0.9.1` and `context-0.2.0`.
+
+# 0.2.0
+
+* Update to `activity-0.9.0`.
+
+# 0.1.9
+
+* Fix `:extensions` merging that would override `:input` and `:output` if the `:extensions` option was given via the DSL.
+
+# 0.1.8.
+
+* Fix `Linear` namespacing and `require`s.
+
+# 0.1.7
+
+* Add `:connect_to` option to `Path()` to allow re-joining a branched activity.
+
+# 0.1.6
+
+* Use `activity-0.8.3`.
+
+# 0.1.5
+
+* Fix `:override` in combo with a missing `:id` and inheritance by moving the overriding after id generation.
+
+# 0.1.4
+
+* Provide default `:input` and `:output` if one of them is missing.
+
+# 0.1.3
+
+* Simplify `:override` handling by moving it to a later position.
+
+# 0.1.2
+
+* In `Strategy#to_h`, now provide a new member `:activity`, which is the actual `Activity` wrapped by the Path (or whatever) strategy.
+
+# 0.1.1
+
+* Raise when a step has a duplicate, already existing `:id` but is *not* a `:replace`.
+
+# 0.1.0
+
+* This code is extracted, refactored and heavy-metaly simplified from the original `trailblazer-activity` gem.

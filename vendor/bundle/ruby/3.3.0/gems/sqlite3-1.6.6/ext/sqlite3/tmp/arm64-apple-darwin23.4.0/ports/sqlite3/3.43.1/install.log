@@ -1,0 +1,15 @@
+ ././install-sh -c -d '/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib'
+ /bin/sh ./libtool   --mode=install /usr/bin/install -c   libsqlite3.la '/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib'
+libtool: install: /usr/bin/install -c .libs/libsqlite3.lai /Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib/libsqlite3.la
+libtool: install: /usr/bin/install -c .libs/libsqlite3.a /Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib/libsqlite3.a
+libtool: install: chmod 644 /Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib/libsqlite3.a
+libtool: install: ranlib /Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib/libsqlite3.a
+ ././install-sh -c -d '/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/bin'
+  /bin/sh ./libtool   --mode=install /usr/bin/install -c sqlite3 '/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/bin'
+libtool: install: /usr/bin/install -c sqlite3 /Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/bin/sqlite3
+ ././install-sh -c -d '/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/include'
+ /usr/bin/install -c -m 644 sqlite3.h sqlite3ext.h '/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/include'
+ ././install-sh -c -d '/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/share/man/man1'
+ /usr/bin/install -c -m 644 sqlite3.1 '/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/share/man/man1'
+ ././install-sh -c -d '/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib/pkgconfig'
+ /usr/bin/install -c -m 644 sqlite3.pc '/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib/pkgconfig'

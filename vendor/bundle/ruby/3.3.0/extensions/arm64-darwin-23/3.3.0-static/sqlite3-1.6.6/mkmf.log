@@ -1,0 +1,588 @@
+pkg_config: checking for pkg-config for /Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib/pkgconfig/sqlite3.pc... -------------------- ["-I/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/include ", "-L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib", "-lsqlite3"]
+
+DYLD_LIBRARY_PATH=.:/Users/orbanbotond/.frum/versions/3.3.0/lib pkg-config --exists /Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib/pkgconfig/sqlite3.pc
+DYLD_LIBRARY_PATH=.:/Users/orbanbotond/.frum/versions/3.3.0/lib pkg-config --libs /Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib/pkgconfig/sqlite3.pc |
+=> "-L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -lsqlite3\n"
+DYLD_LIBRARY_PATH=.:/Users/orbanbotond/.frum/versions/3.3.0/lib "clang -o conftest -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/arm64-darwin23 -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/ruby/backward -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0 -I.  -I/opt/homebrew/opt/libffi/include -I/opt/homebrew/opt/mysql/include -I/opt/homebrew/opt/openssl@3/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wmisleading-indentation -Wundef -pipe conftest.c  -L. -L/Users/orbanbotond/.frum/versions/3.3.0/lib -L.  -L/opt/homebrew/opt/libffi/lib -L/opt/homebrew/opt/mysql/lib -L/opt/homebrew/opt/openssl@3/lib -fstack-protector-strong  -arch arm64   -lruby.3.3-static -framework CoreFoundation -ldl -lobjc -lpthread   -lpthread  "
+ld: warning: ignoring duplicate libraries: '-lpthread'
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return !!argv[argc];
+6: }
+/* end */
+
+DYLD_LIBRARY_PATH=.:/Users/orbanbotond/.frum/versions/3.3.0/lib "clang -o conftest -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/arm64-darwin23 -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/ruby/backward -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0 -I.  -I/opt/homebrew/opt/libffi/include -I/opt/homebrew/opt/mysql/include -I/opt/homebrew/opt/openssl@3/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wmisleading-indentation -Wundef -pipe conftest.c  -L. -L/Users/orbanbotond/.frum/versions/3.3.0/lib -L.  -L/opt/homebrew/opt/libffi/lib -L/opt/homebrew/opt/mysql/lib -L/opt/homebrew/opt/openssl@3/lib -fstack-protector-strong  -arch arm64   -lruby.3.3-static -framework CoreFoundation -ldl -lobjc -lpthread  -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -lsqlite3 -lpthread  "
+ld: warning: ignoring duplicate libraries: '-lpthread'
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return !!argv[argc];
+6: }
+/* end */
+
+DYLD_LIBRARY_PATH=.:/Users/orbanbotond/.frum/versions/3.3.0/lib pkg-config --cflags-only-I /Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib/pkgconfig/sqlite3.pc |
+=> "-I/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/include\n"
+DYLD_LIBRARY_PATH=.:/Users/orbanbotond/.frum/versions/3.3.0/lib pkg-config --cflags-only-other /Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib/pkgconfig/sqlite3.pc |
+=> "\n"
+DYLD_LIBRARY_PATH=.:/Users/orbanbotond/.frum/versions/3.3.0/lib pkg-config --libs-only-l /Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib/pkgconfig/sqlite3.pc |
+=> "-lsqlite3\n"
+package configuration for /Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib/pkgconfig/sqlite3.pc
+incflags: -I/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/include
+cflags: 
+ldflags: -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib
+libs: -lsqlite3
+
+--------------------
+
+DYLD_LIBRARY_PATH=.:/Users/orbanbotond/.frum/versions/3.3.0/lib pkg-config --libs --static /Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib/pkgconfig/sqlite3.pc |
+append_ldflags: checking for whether -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib is accepted as LDFLAGS... -------------------- yes
+
+DYLD_LIBRARY_PATH=.:/Users/orbanbotond/.frum/versions/3.3.0/lib "clang -o conftest -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/arm64-darwin23 -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/ruby/backward -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0 -I. -I/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/include  -I/opt/homebrew/opt/libffi/include -I/opt/homebrew/opt/mysql/include -I/opt/homebrew/opt/openssl@3/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wmisleading-indentation -Wundef -pipe  conftest.c  -L. -L/Users/orbanbotond/.frum/versions/3.3.0/lib -L.  -L/opt/homebrew/opt/libffi/lib -L/opt/homebrew/opt/mysql/lib -L/opt/homebrew/opt/openssl@3/lib -fstack-protector-strong -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib  -arch arm64   -lsqlite3 -lruby.3.3-static -framework CoreFoundation -ldl -lobjc -lpthread  -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -lpthread  "
+ld: warning: ignoring duplicate libraries: '-lpthread'
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return !!argv[argc];
+6: }
+/* end */
+
+--------------------
+
+append_ldflags: checking for whether -lsqlite3 is accepted as LDFLAGS... -------------------- yes
+
+DYLD_LIBRARY_PATH=.:/Users/orbanbotond/.frum/versions/3.3.0/lib "clang -o conftest -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/arm64-darwin23 -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/ruby/backward -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0 -I. -I/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/include  -I/opt/homebrew/opt/libffi/include -I/opt/homebrew/opt/mysql/include -I/opt/homebrew/opt/openssl@3/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wmisleading-indentation -Wundef -pipe  conftest.c  -L. -L/Users/orbanbotond/.frum/versions/3.3.0/lib -L.  -L/opt/homebrew/opt/libffi/lib -L/opt/homebrew/opt/mysql/lib -L/opt/homebrew/opt/openssl@3/lib -fstack-protector-strong -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib  -arch arm64   -lsqlite3 -lruby.3.3-static -framework CoreFoundation -ldl -lobjc -lpthread  -lsqlite3 -lpthread  "
+ld: warning: ignoring duplicate libraries: '-lpthread', '-lsqlite3'
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return !!argv[argc];
+6: }
+/* end */
+
+--------------------
+
+append_ldflags: checking for whether -lz is accepted as LDFLAGS... -------------------- yes
+
+DYLD_LIBRARY_PATH=.:/Users/orbanbotond/.frum/versions/3.3.0/lib "clang -o conftest -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/arm64-darwin23 -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/ruby/backward -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0 -I. -I/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/include  -I/opt/homebrew/opt/libffi/include -I/opt/homebrew/opt/mysql/include -I/opt/homebrew/opt/openssl@3/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wmisleading-indentation -Wundef -pipe  conftest.c  -L. -L/Users/orbanbotond/.frum/versions/3.3.0/lib -L.  -L/opt/homebrew/opt/libffi/lib -L/opt/homebrew/opt/mysql/lib -L/opt/homebrew/opt/openssl@3/lib -fstack-protector-strong -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -lsqlite3  -arch arm64   -lsqlite3 -lruby.3.3-static -framework CoreFoundation -ldl -lobjc -lpthread  -lz -lpthread  "
+ld: warning: ignoring duplicate libraries: '-lpthread', '-lsqlite3'
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return !!argv[argc];
+6: }
+/* end */
+
+--------------------
+
+append_cflags: checking for whether -fvisibility=hidden is accepted as CFLAGS... -------------------- yes
+
+DYLD_LIBRARY_PATH=.:/Users/orbanbotond/.frum/versions/3.3.0/lib "clang -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/arm64-darwin23 -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/ruby/backward -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0 -I. -I/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/include  -I/opt/homebrew/opt/libffi/include -I/opt/homebrew/opt/mysql/include -I/opt/homebrew/opt/openssl@3/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wmisleading-indentation -Wundef -pipe  -arch arm64 -fvisibility=hidden -Werror -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return !!argv[argc];
+6: }
+/* end */
+
+--------------------
+
+find_header: checking for sqlite3.h... -------------------- yes
+
+DYLD_LIBRARY_PATH=.:/Users/orbanbotond/.frum/versions/3.3.0/lib "clang -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/arm64-darwin23 -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/ruby/backward -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0 -I. -I/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/include  -I/opt/homebrew/opt/libffi/include -I/opt/homebrew/opt/mysql/include -I/opt/homebrew/opt/openssl@3/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wmisleading-indentation -Wundef -pipe  -fvisibility=hidden -arch arm64  -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <sqlite3.h>
+/* end */
+
+--------------------
+
+find_library: checking for sqlite3_libversion_number() in -lsqlite3... -------------------- yes
+
+DYLD_LIBRARY_PATH=.:/Users/orbanbotond/.frum/versions/3.3.0/lib "clang -o conftest -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/arm64-darwin23 -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/ruby/backward -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0 -I. -I/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/include  -I/opt/homebrew/opt/libffi/include -I/opt/homebrew/opt/mysql/include -I/opt/homebrew/opt/openssl@3/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wmisleading-indentation -Wundef -pipe  -fvisibility=hidden conftest.c  -L. -L/Users/orbanbotond/.frum/versions/3.3.0/lib -L.  -L/opt/homebrew/opt/libffi/lib -L/opt/homebrew/opt/mysql/lib -L/opt/homebrew/opt/openssl@3/lib -fstack-protector-strong -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -lsqlite3 -lz  -arch arm64   -lsqlite3 -lruby.3.3-static -framework CoreFoundation -ldl -lobjc -lpthread  -lsqlite3  -lsqlite3 -lpthread  "
+conftest.c:14:57: error: use of undeclared identifier 'sqlite3_libversion_number'
+int t(void) { void ((*volatile p)()); p = (void ((*)()))sqlite3_libversion_number; return !p; }
+                                                        ^
+1 error generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: int t(void) { void ((*volatile p)()); p = (void ((*)()))sqlite3_libversion_number; return !p; }
+/* end */
+
+DYLD_LIBRARY_PATH=.:/Users/orbanbotond/.frum/versions/3.3.0/lib "clang -o conftest -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/arm64-darwin23 -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/ruby/backward -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0 -I. -I/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/include  -I/opt/homebrew/opt/libffi/include -I/opt/homebrew/opt/mysql/include -I/opt/homebrew/opt/openssl@3/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wmisleading-indentation -Wundef -pipe  -fvisibility=hidden conftest.c  -L. -L/Users/orbanbotond/.frum/versions/3.3.0/lib -L.  -L/opt/homebrew/opt/libffi/lib -L/opt/homebrew/opt/mysql/lib -L/opt/homebrew/opt/openssl@3/lib -fstack-protector-strong -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -lsqlite3 -lz  -arch arm64   -lsqlite3 -lruby.3.3-static -framework CoreFoundation -ldl -lobjc -lpthread  -lsqlite3  -lsqlite3 -lpthread  "
+ld: warning: ignoring duplicate libraries: '-lpthread', '-lsqlite3'
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: extern void sqlite3_libversion_number();
+15: int t(void) { sqlite3_libversion_number(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for rb_proc_arity()... -------------------- yes
+
+DYLD_LIBRARY_PATH=.:/Users/orbanbotond/.frum/versions/3.3.0/lib "clang -o conftest -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/arm64-darwin23 -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/ruby/backward -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0 -I. -I/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/include  -I/opt/homebrew/opt/libffi/include -I/opt/homebrew/opt/mysql/include -I/opt/homebrew/opt/openssl@3/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wmisleading-indentation -Wundef -pipe  -fvisibility=hidden conftest.c  -L. -L/Users/orbanbotond/.frum/versions/3.3.0/lib -L.  -L/opt/homebrew/opt/libffi/lib -L/opt/homebrew/opt/mysql/lib -L/opt/homebrew/opt/openssl@3/lib -fstack-protector-strong -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -lsqlite3 -lz  -arch arm64  -lsqlite3  -lsqlite3 -lruby.3.3-static -framework CoreFoundation -ldl -lobjc -lpthread  -lsqlite3  -lsqlite3 -lpthread  "
+ld: warning: ignoring duplicate libraries: '-lpthread', '-lsqlite3'
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_proc_arity; return !p; }
+/* end */
+
+--------------------
+
+have_func: checking for rb_integer_pack()... -------------------- yes
+
+DYLD_LIBRARY_PATH=.:/Users/orbanbotond/.frum/versions/3.3.0/lib "clang -o conftest -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/arm64-darwin23 -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/ruby/backward -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0 -I. -I/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/include  -I/opt/homebrew/opt/libffi/include -I/opt/homebrew/opt/mysql/include -I/opt/homebrew/opt/openssl@3/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wmisleading-indentation -Wundef -pipe  -fvisibility=hidden conftest.c  -L. -L/Users/orbanbotond/.frum/versions/3.3.0/lib -L.  -L/opt/homebrew/opt/libffi/lib -L/opt/homebrew/opt/mysql/lib -L/opt/homebrew/opt/openssl@3/lib -fstack-protector-strong -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -lsqlite3 -lz  -arch arm64  -lsqlite3  -lsqlite3 -lruby.3.3-static -framework CoreFoundation -ldl -lobjc -lpthread  -lsqlite3  -lsqlite3 -lpthread  "
+ld: warning: ignoring duplicate libraries: '-lpthread', '-lsqlite3'
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_integer_pack; return !p; }
+/* end */
+
+--------------------
+
+have_func: checking for sqlite3_initialize()... -------------------- yes
+
+DYLD_LIBRARY_PATH=.:/Users/orbanbotond/.frum/versions/3.3.0/lib "clang -o conftest -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/arm64-darwin23 -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/ruby/backward -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0 -I. -I/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/include  -I/opt/homebrew/opt/libffi/include -I/opt/homebrew/opt/mysql/include -I/opt/homebrew/opt/openssl@3/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wmisleading-indentation -Wundef -pipe  -fvisibility=hidden conftest.c  -L. -L/Users/orbanbotond/.frum/versions/3.3.0/lib -L.  -L/opt/homebrew/opt/libffi/lib -L/opt/homebrew/opt/mysql/lib -L/opt/homebrew/opt/openssl@3/lib -fstack-protector-strong -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -lsqlite3 -lz  -arch arm64  -lsqlite3  -lsqlite3 -lruby.3.3-static -framework CoreFoundation -ldl -lobjc -lpthread  -lsqlite3  -lsqlite3 -lpthread  "
+conftest.c:14:57: error: use of undeclared identifier 'sqlite3_initialize'
+int t(void) { void ((*volatile p)()); p = (void ((*)()))sqlite3_initialize; return !p; }
+                                                        ^
+1 error generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: int t(void) { void ((*volatile p)()); p = (void ((*)()))sqlite3_initialize; return !p; }
+/* end */
+
+DYLD_LIBRARY_PATH=.:/Users/orbanbotond/.frum/versions/3.3.0/lib "clang -o conftest -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/arm64-darwin23 -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/ruby/backward -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0 -I. -I/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/include  -I/opt/homebrew/opt/libffi/include -I/opt/homebrew/opt/mysql/include -I/opt/homebrew/opt/openssl@3/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wmisleading-indentation -Wundef -pipe  -fvisibility=hidden conftest.c  -L. -L/Users/orbanbotond/.frum/versions/3.3.0/lib -L.  -L/opt/homebrew/opt/libffi/lib -L/opt/homebrew/opt/mysql/lib -L/opt/homebrew/opt/openssl@3/lib -fstack-protector-strong -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -lsqlite3 -lz  -arch arm64  -lsqlite3  -lsqlite3 -lruby.3.3-static -framework CoreFoundation -ldl -lobjc -lpthread  -lsqlite3  -lsqlite3 -lpthread  "
+ld: warning: ignoring duplicate libraries: '-lpthread', '-lsqlite3'
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: extern void sqlite3_initialize();
+15: int t(void) { sqlite3_initialize(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for sqlite3_backup_init()... -------------------- yes
+
+DYLD_LIBRARY_PATH=.:/Users/orbanbotond/.frum/versions/3.3.0/lib "clang -o conftest -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/arm64-darwin23 -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/ruby/backward -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0 -I. -I/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/include  -I/opt/homebrew/opt/libffi/include -I/opt/homebrew/opt/mysql/include -I/opt/homebrew/opt/openssl@3/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wmisleading-indentation -Wundef -pipe  -fvisibility=hidden conftest.c  -L. -L/Users/orbanbotond/.frum/versions/3.3.0/lib -L.  -L/opt/homebrew/opt/libffi/lib -L/opt/homebrew/opt/mysql/lib -L/opt/homebrew/opt/openssl@3/lib -fstack-protector-strong -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -lsqlite3 -lz  -arch arm64  -lsqlite3  -lsqlite3 -lruby.3.3-static -framework CoreFoundation -ldl -lobjc -lpthread  -lsqlite3  -lsqlite3 -lpthread  "
+conftest.c:14:57: error: use of undeclared identifier 'sqlite3_backup_init'
+int t(void) { void ((*volatile p)()); p = (void ((*)()))sqlite3_backup_init; return !p; }
+                                                        ^
+1 error generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: int t(void) { void ((*volatile p)()); p = (void ((*)()))sqlite3_backup_init; return !p; }
+/* end */
+
+DYLD_LIBRARY_PATH=.:/Users/orbanbotond/.frum/versions/3.3.0/lib "clang -o conftest -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/arm64-darwin23 -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/ruby/backward -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0 -I. -I/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/include  -I/opt/homebrew/opt/libffi/include -I/opt/homebrew/opt/mysql/include -I/opt/homebrew/opt/openssl@3/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wmisleading-indentation -Wundef -pipe  -fvisibility=hidden conftest.c  -L. -L/Users/orbanbotond/.frum/versions/3.3.0/lib -L.  -L/opt/homebrew/opt/libffi/lib -L/opt/homebrew/opt/mysql/lib -L/opt/homebrew/opt/openssl@3/lib -fstack-protector-strong -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -lsqlite3 -lz  -arch arm64  -lsqlite3  -lsqlite3 -lruby.3.3-static -framework CoreFoundation -ldl -lobjc -lpthread  -lsqlite3  -lsqlite3 -lpthread  "
+ld: warning: ignoring duplicate libraries: '-lpthread', '-lsqlite3'
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: extern void sqlite3_backup_init();
+15: int t(void) { sqlite3_backup_init(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for sqlite3_column_database_name()... -------------------- no
+
+DYLD_LIBRARY_PATH=.:/Users/orbanbotond/.frum/versions/3.3.0/lib "clang -o conftest -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/arm64-darwin23 -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/ruby/backward -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0 -I. -I/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/include  -I/opt/homebrew/opt/libffi/include -I/opt/homebrew/opt/mysql/include -I/opt/homebrew/opt/openssl@3/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wmisleading-indentation -Wundef -pipe  -fvisibility=hidden conftest.c  -L. -L/Users/orbanbotond/.frum/versions/3.3.0/lib -L.  -L/opt/homebrew/opt/libffi/lib -L/opt/homebrew/opt/mysql/lib -L/opt/homebrew/opt/openssl@3/lib -fstack-protector-strong -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -lsqlite3 -lz  -arch arm64  -lsqlite3  -lsqlite3 -lruby.3.3-static -framework CoreFoundation -ldl -lobjc -lpthread  -lsqlite3  -lsqlite3 -lpthread  "
+conftest.c:14:57: error: use of undeclared identifier 'sqlite3_column_database_name'
+int t(void) { void ((*volatile p)()); p = (void ((*)()))sqlite3_column_database_name; return !p; }
+                                                        ^
+1 error generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: int t(void) { void ((*volatile p)()); p = (void ((*)()))sqlite3_column_database_name; return !p; }
+/* end */
+
+DYLD_LIBRARY_PATH=.:/Users/orbanbotond/.frum/versions/3.3.0/lib "clang -o conftest -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/arm64-darwin23 -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/ruby/backward -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0 -I. -I/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/include  -I/opt/homebrew/opt/libffi/include -I/opt/homebrew/opt/mysql/include -I/opt/homebrew/opt/openssl@3/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wmisleading-indentation -Wundef -pipe  -fvisibility=hidden conftest.c  -L. -L/Users/orbanbotond/.frum/versions/3.3.0/lib -L.  -L/opt/homebrew/opt/libffi/lib -L/opt/homebrew/opt/mysql/lib -L/opt/homebrew/opt/openssl@3/lib -fstack-protector-strong -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -lsqlite3 -lz  -arch arm64  -lsqlite3  -lsqlite3 -lruby.3.3-static -framework CoreFoundation -ldl -lobjc -lpthread  -lsqlite3  -lsqlite3 -lpthread  "
+ld: warning: ignoring duplicate libraries: '-lpthread', '-lsqlite3'
+Undefined symbols for architecture arm64:
+  "_sqlite3_column_database_name", referenced from:
+      _t in conftest-3503a2.o
+ld: symbol(s) not found for architecture arm64
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: extern void sqlite3_column_database_name();
+15: int t(void) { sqlite3_column_database_name(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for sqlite3_enable_load_extension()... -------------------- yes
+
+DYLD_LIBRARY_PATH=.:/Users/orbanbotond/.frum/versions/3.3.0/lib "clang -o conftest -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/arm64-darwin23 -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/ruby/backward -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0 -I. -I/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/include  -I/opt/homebrew/opt/libffi/include -I/opt/homebrew/opt/mysql/include -I/opt/homebrew/opt/openssl@3/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wmisleading-indentation -Wundef -pipe  -fvisibility=hidden conftest.c  -L. -L/Users/orbanbotond/.frum/versions/3.3.0/lib -L.  -L/opt/homebrew/opt/libffi/lib -L/opt/homebrew/opt/mysql/lib -L/opt/homebrew/opt/openssl@3/lib -fstack-protector-strong -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -lsqlite3 -lz  -arch arm64  -lsqlite3  -lsqlite3 -lruby.3.3-static -framework CoreFoundation -ldl -lobjc -lpthread  -lsqlite3  -lsqlite3 -lpthread  "
+conftest.c:14:57: error: use of undeclared identifier 'sqlite3_enable_load_extension'
+int t(void) { void ((*volatile p)()); p = (void ((*)()))sqlite3_enable_load_extension; return !p; }
+                                                        ^
+1 error generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: int t(void) { void ((*volatile p)()); p = (void ((*)()))sqlite3_enable_load_extension; return !p; }
+/* end */
+
+DYLD_LIBRARY_PATH=.:/Users/orbanbotond/.frum/versions/3.3.0/lib "clang -o conftest -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/arm64-darwin23 -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/ruby/backward -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0 -I. -I/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/include  -I/opt/homebrew/opt/libffi/include -I/opt/homebrew/opt/mysql/include -I/opt/homebrew/opt/openssl@3/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wmisleading-indentation -Wundef -pipe  -fvisibility=hidden conftest.c  -L. -L/Users/orbanbotond/.frum/versions/3.3.0/lib -L.  -L/opt/homebrew/opt/libffi/lib -L/opt/homebrew/opt/mysql/lib -L/opt/homebrew/opt/openssl@3/lib -fstack-protector-strong -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -lsqlite3 -lz  -arch arm64  -lsqlite3  -lsqlite3 -lruby.3.3-static -framework CoreFoundation -ldl -lobjc -lpthread  -lsqlite3  -lsqlite3 -lpthread  "
+ld: warning: ignoring duplicate libraries: '-lpthread', '-lsqlite3'
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: extern void sqlite3_enable_load_extension();
+15: int t(void) { sqlite3_enable_load_extension(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for sqlite3_load_extension()... -------------------- yes
+
+DYLD_LIBRARY_PATH=.:/Users/orbanbotond/.frum/versions/3.3.0/lib "clang -o conftest -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/arm64-darwin23 -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/ruby/backward -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0 -I. -I/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/include  -I/opt/homebrew/opt/libffi/include -I/opt/homebrew/opt/mysql/include -I/opt/homebrew/opt/openssl@3/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wmisleading-indentation -Wundef -pipe  -fvisibility=hidden conftest.c  -L. -L/Users/orbanbotond/.frum/versions/3.3.0/lib -L.  -L/opt/homebrew/opt/libffi/lib -L/opt/homebrew/opt/mysql/lib -L/opt/homebrew/opt/openssl@3/lib -fstack-protector-strong -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -lsqlite3 -lz  -arch arm64  -lsqlite3  -lsqlite3 -lruby.3.3-static -framework CoreFoundation -ldl -lobjc -lpthread  -lsqlite3  -lsqlite3 -lpthread  "
+conftest.c:14:57: error: use of undeclared identifier 'sqlite3_load_extension'
+int t(void) { void ((*volatile p)()); p = (void ((*)()))sqlite3_load_extension; return !p; }
+                                                        ^
+1 error generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: int t(void) { void ((*volatile p)()); p = (void ((*)()))sqlite3_load_extension; return !p; }
+/* end */
+
+DYLD_LIBRARY_PATH=.:/Users/orbanbotond/.frum/versions/3.3.0/lib "clang -o conftest -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/arm64-darwin23 -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/ruby/backward -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0 -I. -I/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/include  -I/opt/homebrew/opt/libffi/include -I/opt/homebrew/opt/mysql/include -I/opt/homebrew/opt/openssl@3/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wmisleading-indentation -Wundef -pipe  -fvisibility=hidden conftest.c  -L. -L/Users/orbanbotond/.frum/versions/3.3.0/lib -L.  -L/opt/homebrew/opt/libffi/lib -L/opt/homebrew/opt/mysql/lib -L/opt/homebrew/opt/openssl@3/lib -fstack-protector-strong -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -lsqlite3 -lz  -arch arm64  -lsqlite3  -lsqlite3 -lruby.3.3-static -framework CoreFoundation -ldl -lobjc -lpthread  -lsqlite3  -lsqlite3 -lpthread  "
+ld: warning: ignoring duplicate libraries: '-lpthread', '-lsqlite3'
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: extern void sqlite3_load_extension();
+15: int t(void) { sqlite3_load_extension(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for sqlite3_open_v2()... -------------------- yes
+
+DYLD_LIBRARY_PATH=.:/Users/orbanbotond/.frum/versions/3.3.0/lib "clang -o conftest -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/arm64-darwin23 -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/ruby/backward -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0 -I. -I/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/include  -I/opt/homebrew/opt/libffi/include -I/opt/homebrew/opt/mysql/include -I/opt/homebrew/opt/openssl@3/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wmisleading-indentation -Wundef -pipe  -fvisibility=hidden conftest.c  -L. -L/Users/orbanbotond/.frum/versions/3.3.0/lib -L.  -L/opt/homebrew/opt/libffi/lib -L/opt/homebrew/opt/mysql/lib -L/opt/homebrew/opt/openssl@3/lib -fstack-protector-strong -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -lsqlite3 -lz  -arch arm64  -lsqlite3  -lsqlite3 -lruby.3.3-static -framework CoreFoundation -ldl -lobjc -lpthread  -lsqlite3  -lsqlite3 -lpthread  "
+conftest.c:14:57: error: use of undeclared identifier 'sqlite3_open_v2'
+int t(void) { void ((*volatile p)()); p = (void ((*)()))sqlite3_open_v2; return !p; }
+                                                        ^
+1 error generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: int t(void) { void ((*volatile p)()); p = (void ((*)()))sqlite3_open_v2; return !p; }
+/* end */
+
+DYLD_LIBRARY_PATH=.:/Users/orbanbotond/.frum/versions/3.3.0/lib "clang -o conftest -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/arm64-darwin23 -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/ruby/backward -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0 -I. -I/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/include  -I/opt/homebrew/opt/libffi/include -I/opt/homebrew/opt/mysql/include -I/opt/homebrew/opt/openssl@3/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wmisleading-indentation -Wundef -pipe  -fvisibility=hidden conftest.c  -L. -L/Users/orbanbotond/.frum/versions/3.3.0/lib -L.  -L/opt/homebrew/opt/libffi/lib -L/opt/homebrew/opt/mysql/lib -L/opt/homebrew/opt/openssl@3/lib -fstack-protector-strong -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -lsqlite3 -lz  -arch arm64  -lsqlite3  -lsqlite3 -lruby.3.3-static -framework CoreFoundation -ldl -lobjc -lpthread  -lsqlite3  -lsqlite3 -lpthread  "
+ld: warning: ignoring duplicate libraries: '-lpthread', '-lsqlite3'
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: extern void sqlite3_open_v2();
+15: int t(void) { sqlite3_open_v2(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for sqlite3_prepare_v2()... -------------------- yes
+
+DYLD_LIBRARY_PATH=.:/Users/orbanbotond/.frum/versions/3.3.0/lib "clang -o conftest -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/arm64-darwin23 -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/ruby/backward -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0 -I. -I/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/include  -I/opt/homebrew/opt/libffi/include -I/opt/homebrew/opt/mysql/include -I/opt/homebrew/opt/openssl@3/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wmisleading-indentation -Wundef -pipe  -fvisibility=hidden conftest.c  -L. -L/Users/orbanbotond/.frum/versions/3.3.0/lib -L.  -L/opt/homebrew/opt/libffi/lib -L/opt/homebrew/opt/mysql/lib -L/opt/homebrew/opt/openssl@3/lib -fstack-protector-strong -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -lsqlite3 -lz  -arch arm64  -lsqlite3  -lsqlite3 -lruby.3.3-static -framework CoreFoundation -ldl -lobjc -lpthread  -lsqlite3  -lsqlite3 -lpthread  "
+conftest.c:14:57: error: use of undeclared identifier 'sqlite3_prepare_v2'
+int t(void) { void ((*volatile p)()); p = (void ((*)()))sqlite3_prepare_v2; return !p; }
+                                                        ^
+1 error generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: int t(void) { void ((*volatile p)()); p = (void ((*)()))sqlite3_prepare_v2; return !p; }
+/* end */
+
+DYLD_LIBRARY_PATH=.:/Users/orbanbotond/.frum/versions/3.3.0/lib "clang -o conftest -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/arm64-darwin23 -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/ruby/backward -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0 -I. -I/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/include  -I/opt/homebrew/opt/libffi/include -I/opt/homebrew/opt/mysql/include -I/opt/homebrew/opt/openssl@3/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wmisleading-indentation -Wundef -pipe  -fvisibility=hidden conftest.c  -L. -L/Users/orbanbotond/.frum/versions/3.3.0/lib -L.  -L/opt/homebrew/opt/libffi/lib -L/opt/homebrew/opt/mysql/lib -L/opt/homebrew/opt/openssl@3/lib -fstack-protector-strong -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -L/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/lib -lsqlite3 -lz  -arch arm64  -lsqlite3  -lsqlite3 -lruby.3.3-static -framework CoreFoundation -ldl -lobjc -lpthread  -lsqlite3  -lsqlite3 -lpthread  "
+ld: warning: ignoring duplicate libraries: '-lpthread', '-lsqlite3'
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: extern void sqlite3_prepare_v2();
+15: int t(void) { sqlite3_prepare_v2(); return 0; }
+/* end */
+
+--------------------
+
+have_type: checking for sqlite3_int64 in sqlite3.h... -------------------- yes
+
+DYLD_LIBRARY_PATH=.:/Users/orbanbotond/.frum/versions/3.3.0/lib "clang -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/arm64-darwin23 -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/ruby/backward -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0 -I. -I/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/include  -I/opt/homebrew/opt/libffi/include -I/opt/homebrew/opt/mysql/include -I/opt/homebrew/opt/openssl@3/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wmisleading-indentation -Wundef -pipe  -fvisibility=hidden -arch arm64  -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <sqlite3.h>
+4: 
+5: /*top*/
+6: typedef sqlite3_int64 conftest_type;
+7: int conftestval[sizeof(conftest_type)?1:-1];
+/* end */
+
+--------------------
+
+have_type: checking for sqlite3_uint64 in sqlite3.h... -------------------- yes
+
+DYLD_LIBRARY_PATH=.:/Users/orbanbotond/.frum/versions/3.3.0/lib "clang -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/arm64-darwin23 -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0/ruby/backward -I/Users/orbanbotond/.frum/versions/3.3.0/include/ruby-3.3.0 -I. -I/Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/sqlite3-1.6.6/ports/arm64-apple-darwin23.4.0/sqlite3/3.43.1/include  -I/opt/homebrew/opt/libffi/include -I/opt/homebrew/opt/mysql/include -I/opt/homebrew/opt/openssl@3/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wextra-tokens -Wdeprecated-declarations -Wdivision-by-zero -Wdiv-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wmisleading-indentation -Wundef -pipe  -fvisibility=hidden -arch arm64  -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <sqlite3.h>
+4: 
+5: /*top*/
+6: typedef sqlite3_uint64 conftest_type;
+7: int conftestval[sizeof(conftest_type)?1:-1];
+/* end */
+
+--------------------
+

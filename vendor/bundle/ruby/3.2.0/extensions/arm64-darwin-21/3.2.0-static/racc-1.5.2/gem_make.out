@@ -1,0 +1,29 @@
+current directory: /Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.2.0/gems/racc-1.5.2/ext/racc/cparse
+/Users/orbanbotond/.frum/versions/3.2.2/bin/ruby extconf.rb
+checking for rb_ary_subseq()... yes
+creating Makefile
+
+current directory: /Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.2.0/gems/racc-1.5.2/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20231010-1960-lke9q0 sitelibdir\=./.gem.20231010-1960-lke9q0 clean
+
+current directory: /Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.2.0/gems/racc-1.5.2/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20231010-1960-lke9q0 sitelibdir\=./.gem.20231010-1960-lke9q0
+compiling cparse.c
+cparse.c:302:5: warning: 'rb_iterate' is deprecated: by: rb_block_call since 1.9 [-Wdeprecated-declarations]
+    rb_iterate(lexer_iter, v->value_v, lexer_i, v->value_v);
+    ^
+/Users/orbanbotond/.frum/versions/3.2.2/include/ruby-3.2.0/ruby/internal/iterator.h:269:1: note: 'rb_iterate' has been explicitly marked deprecated here
+RBIMPL_ATTR_DEPRECATED(("by: rb_block_call since 1.9"))
+^
+/Users/orbanbotond/.frum/versions/3.2.2/include/ruby-3.2.0/ruby/internal/attr/deprecated.h:36:53: note: expanded from macro 'RBIMPL_ATTR_DEPRECATED'
+# define RBIMPL_ATTR_DEPRECATED(msg) __attribute__((__deprecated__ msg))
+                                                    ^
+1 warning generated.
+linking shared-object racc/cparse.bundle
+
+current directory: /Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.2.0/gems/racc-1.5.2/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20231010-1960-lke9q0 sitelibdir\=./.gem.20231010-1960-lke9q0 install
+/usr/bin/install -c -m 0755 cparse.bundle ./.gem.20231010-1960-lke9q0/racc
+
+current directory: /Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.2.0/gems/racc-1.5.2/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20231010-1960-lke9q0 sitelibdir\=./.gem.20231010-1960-lke9q0 clean

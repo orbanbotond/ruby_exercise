@@ -1,0 +1,20 @@
+current directory: /Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/unf_ext-0.0.8.2/ext/unf_ext
+/Users/orbanbotond/.frum/versions/3.3.0/bin/ruby extconf.rb
+checking for -lstdc++... yes
+creating Makefile
+
+current directory: /Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/unf_ext-0.0.8.2/ext/unf_ext
+make DESTDIR\= sitearchdir\=./.gem.20240510-20972-p3vd38 sitelibdir\=./.gem.20240510-20972-p3vd38 clean
+
+current directory: /Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/unf_ext-0.0.8.2/ext/unf_ext
+make DESTDIR\= sitearchdir\=./.gem.20240510-20972-p3vd38 sitelibdir\=./.gem.20240510-20972-p3vd38
+compiling unf.cc
+linking shared-object unf_ext.bundle
+ld: warning: ignoring duplicate libraries: '-lc++'
+
+current directory: /Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/unf_ext-0.0.8.2/ext/unf_ext
+make DESTDIR\= sitearchdir\=./.gem.20240510-20972-p3vd38 sitelibdir\=./.gem.20240510-20972-p3vd38 install
+/usr/bin/install -c -m 0755 unf_ext.bundle ./.gem.20240510-20972-p3vd38
+
+current directory: /Users/orbanbotond/profession/ruby/hobby/ruby_exercise/vendor/bundle/ruby/3.3.0/gems/unf_ext-0.0.8.2/ext/unf_ext
+make DESTDIR\= sitearchdir\=./.gem.20240510-20972-p3vd38 sitelibdir\=./.gem.20240510-20972-p3vd38 clean

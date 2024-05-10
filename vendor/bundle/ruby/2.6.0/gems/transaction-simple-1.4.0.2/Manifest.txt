@@ -1,0 +1,17 @@
+History.rdoc
+Licence.rdoc
+Manifest.txt
+README.rdoc
+Rakefile
+lib/transaction-simple.rb
+lib/transaction/simple.rb
+lib/transaction/simple/group.rb
+lib/transaction/simple/threadsafe.rb
+lib/transaction/simple/threadsafe/group.rb
+research/instance_variable_defined.rb
+research/special-dumpable-string.rb
+research/special-dumpable.rb
+test/test_broken_graph.rb
+test/test_transaction_simple.rb
+test/test_transaction_simple_group.rb
+test/test_transaction_simple_threadsafe.rb

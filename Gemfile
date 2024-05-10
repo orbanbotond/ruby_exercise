@@ -1,10 +1,12 @@
 source 'https://rubygems.org'
 
-gem 'rspec', '~> 3.0'
+# gem 'rspec', '~> 3.0'
+gem 'rspec', '~> 3.2.0'
 
-gem 'bit-twiddle'
+# gem 'bit-twiddle'
 gem 'equalizer'
 gem 'adamantium'
+gem 'ntl-actor', require: 'actor'
 gem 'pry'
 gem 'pry-nav'
 gem 'nokogiri'
@@ -12,13 +14,15 @@ gem 'active_attr'
 gem 'ruport'
 gem 'lazy_stream'
 gem 'celluloid'
-
+# gem 'evt-mimic'
+gem 'evt-dependency'
+gem 'evt-initializer'
+gem 'evt-configure'
 gem 'dry-monads'
 gem 'dry-auto_inject'
 gem 'dry-transaction'
 gem 'dry-transformer'
 
-gem 'activesupport'
 gem "interactor"
 
 gem "oedipus_lex"
@@ -38,6 +42,4 @@ gem "activesupport", require: false
 
 gem "rest-client", "~> 2.0"
 gem "dotenv"
-gem "trailblazer",
-  git: 'https://github.com/trailblazer/trailblazer.git',
-  tag: 'v2.1.0.rc1'
+gem "trailblazer", git: 'https://github.com/trailblazer/trailblazer.git', tag: 'v2.1.0.rc1'
