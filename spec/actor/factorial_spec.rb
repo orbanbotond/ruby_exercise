@@ -18,6 +18,7 @@ class Factorial
       puts "Starting a new Actor: #{number - 1}"
       puts "A: #{address}"
 
+      # this address is a newly generated address
       Factorial.start number - 1, address
     end
   end
