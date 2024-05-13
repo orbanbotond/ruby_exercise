@@ -164,7 +164,7 @@ class FibonacciOn
   attr_reader :starting_point
   attr_reader :creator_address
 
-  def initialize(sequence, creator_address, starting_point = true, above_adresses = nil, above_and_above_adresses = nil)
+  def initialize(sequence, creator_address, starting_point = true, above_adresses = nil, above_and_above_adresses = nil, phase: nil)
     @starting_point = starting_point
 
     # TODO find a better name for the sequence
@@ -175,6 +175,8 @@ class FibonacciOn
     @above_adresses = above_adresses
     @above_and_above_adresses = above_and_above_adresses
 
+    @phase = phase
+
     debug "Created!"
     debug_all
   end
@@ -184,6 +186,10 @@ class FibonacciOn
   end
 
   CreatedAddressNotification = Struct.new :address, :originator_sequence do
+    include Actor::Messaging::Message
+  end
+
+  AddressSpreadPhaseNotification = Struct.new do
     include Actor::Messaging::Message
   end
 
@@ -211,17 +217,19 @@ class FibonacciOn
   end
 
   def start_initialisation_phase
-    @initiating_phase = true
+    @state = :initialisation_phase
   end
 
   def end_initialisation_phase
-    @initiating_phase = false
-
-    # TODO signal to prev and prev prev to start backdown of streams
+    @state = :address_spread_phase
   end
 
   def initialising_phase?
-    @initiating_phase
+    @state == :initialisation_phase
+  end
+
+  def address_spread_phase?
+    @state == :address_spread_phase
   end
 
   def start_previous
@@ -229,23 +237,56 @@ class FibonacciOn
   end
 
   def start_previous_of_previous
-    FibonacciOn.start(sequence - 2, address, false, prev_address, address)
+    return if @prev_of_prev_started
+
+    @prev_of_prev_started = true
+    FibonacciOn.start(sequence - 2, address, false, prev_address, address, phase: @state)
   end
 
   def send_prev_prev_address_to_prev
-    debug "Sending prev_prev_address to prev"
-    addressNotification = PrevPrevAddressToPrev.new(prev_prev_address)
-    send.(addressNotification, prev_address)
+    debug "Sending prev_prev_address:#{prev_prev_address} to prev:#{prev_address}"
+# debug_all
+
+  # binding.pry if sequence == 6
+    notification = PrevPrevAddressToPrev.new(prev_prev_address)
+    send.(notification, prev_address)
   end
 
-  handle PrevPrevAddressToPrev do |address|
-    debug "Received prev"
-    @prev_address = address
+  def start_address_spread_phase
+    debug "Start Address Spread Phase"
+    addressSpreadPhaseNotification = AddressSpreadPhaseNotification.new
+    send.(addressSpreadPhaseNotification, prev_address)
+    send.(addressSpreadPhaseNotification, prev_prev_address)
+  end
+
+  def address_spread_phase?
+    @state == :address_spread_phase
+  end
+
+  handle AddressSpreadPhaseNotification do |address|
+    debug "Received AddressSpreadPhaseNotification"
+
+    # TODO introduce a state machine here!
+    @state = :address_spread_phase
+
+    if can_go_back?
+      start_previous_of_previous
+    else
+      #
+    end
+  end
+
+  handle PrevPrevAddressToPrev do |notification|
+    debug "Received prev from Above"
+    @prev_address = notification.address
+    send_prev_prev_address_to_prev if prev_address && prev_prev_address
 debug_all
+
+    start_previous_of_previous if prev_address && can_go_back?
   end
 
   handle :start do
-    debug "Starting, starting point: #{@starting_point}"
+    debug "Starting, starting point: #{@starting_point}, Phase:#{@phase}"
 
     if starting_point?
       start_initialisation_phase
@@ -256,9 +297,16 @@ debug_all
   end
 
   handle CreatedAddressNotification do |address_notification|
-    debug "Address arrived from below"
+    debug "Address arrived from below:#{address_notification.address}"
 
-    if initialising_phase?
+    if address_spread_phase?
+      if coming_from_prev_prev?(address_notification.originator_sequence)
+        @prev_prev_address = address_notification.address
+debug_all
+      end
+
+      send_prev_prev_address_to_prev if prev_address && prev_prev_address
+    elsif initialising_phase?
       if coming_from_prev?(address_notification.originator_sequence)
         @prev_address = address_notification.address
 debug_all
@@ -268,8 +316,14 @@ debug_all
 debug_all
         send_prev_prev_address_to_prev
         end_initialisation_phase
+
+        start_address_spread_phase
       end
     end
+  end
+
+  def can_go_back?
+    !initial_sequences?
   end
 
   def initial_sequences?
