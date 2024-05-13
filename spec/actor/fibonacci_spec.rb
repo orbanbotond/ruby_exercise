@@ -156,15 +156,16 @@ class FibonacciOn
   include Actor
 
   attr_reader :sequence
-  attr_reader :above_adresses
-  attr_reader :above_and_above_adresses
+  attr_reader :above_address
+  attr_reader :above_and_above_address
 
   attr_reader :prev_address
   attr_reader :prev_prev_address
   attr_reader :starting_point
   attr_reader :creator_address
 
-  def initialize(sequence, creator_address, starting_point = true, above_adresses = nil, above_and_above_adresses = nil, phase: nil)
+  def initialize(sequence, creator_address, starting_point = true, above_address = nil, above_and_above_address = nil, phase: nil)
+    # TODO make this a keyword param
     @starting_point = starting_point
 
     # TODO find a better name for the sequence
@@ -172,10 +173,12 @@ class FibonacciOn
 
     # TODO clean this mess a bit
     @creator_address = creator_address
-    @above_adresses = above_adresses
-    @above_and_above_adresses = above_and_above_adresses
+    @above_address = above_address
+    @above_and_above_address = above_and_above_address
 
-    @phase = phase
+    @state = phase
+
+    @partial_results = []
 
     debug "Created!"
     debug_all
@@ -190,6 +193,10 @@ class FibonacciOn
   end
 
   AddressSpreadPhaseNotification = Struct.new do
+    include Actor::Messaging::Message
+  end
+
+  PartialResult = Struct.new :value do
     include Actor::Messaging::Message
   end
 
@@ -213,7 +220,7 @@ class FibonacciOn
 
   def debug_all
      puts "P:#{prev_address}, PP: #{prev_prev_address}"
-     puts "A:#{above_adresses}, AA: #{above_and_above_adresses}"
+     puts "A:#{above_address}, AA: #{above_and_above_address}"
   end
 
   def start_initialisation_phase
@@ -237,6 +244,7 @@ class FibonacciOn
   end
 
   def start_previous_of_previous
+    return unless prev_address && can_go_back?
     return if @prev_of_prev_started
 
     @prev_of_prev_started = true
@@ -247,7 +255,6 @@ class FibonacciOn
     debug "Sending prev_prev_address:#{prev_prev_address} to prev:#{prev_address}"
 # debug_all
 
-  # binding.pry if sequence == 6
     notification = PrevPrevAddressToPrev.new(prev_prev_address)
     send.(notification, prev_address)
   end
@@ -270,7 +277,7 @@ class FibonacciOn
     @state = :address_spread_phase
 
     if can_go_back?
-      start_previous_of_previous
+      start_previous_of_previous  if address_spread_phase?
     else
       #
     end
@@ -282,7 +289,7 @@ class FibonacciOn
     send_prev_prev_address_to_prev if prev_address && prev_prev_address
 debug_all
 
-    start_previous_of_previous if prev_address && can_go_back?
+    start_previous_of_previous if address_spread_phase?
   end
 
   handle :start do
@@ -294,6 +301,8 @@ debug_all
     else
       send_address_back_to_creator
     end
+
+    reply 1 if initial_sequences?
   end
 
   handle CreatedAddressNotification do |address_notification|
@@ -322,6 +331,17 @@ debug_all
     end
   end
 
+  handle PartialResult do |result|
+    @partial_results << result.value
+    debug "Partial Result Arrived: #{result.value}, #{@partial_results}"
+
+    reply @partial_results.sum if all_partial_results_arrived?
+  end
+
+  def all_partial_results_arrived?
+    @partial_results.size == 2
+  end
+
   def can_go_back?
     !initial_sequences?
   end
@@ -330,21 +350,17 @@ debug_all
     sequence == 1 || sequence == 2
   end
 
-  # def reply value
-  #   debug "replying with: #{value}"
+  def reply value
+    debug "replying with: #{value}"
 
-  #   debug "Sending to Parent"
-  #   result = ChildResult.new value
-  #   send.(result, parent_address)
+    result = PartialResult.new value
 
-  #   if child_sequence
-  #     debug "Sending to Sibling"
-  #     result = SiblingResult.new value
-  #     send.(result, sibling_address) 
-  #   end
+    send.(result, creator_address) if starting_point?
+    send.(result, above_address) if above_address
+    send.(result, above_and_above_address) if above_and_above_address
 
-  #   :stop
-  # end
+    :stop
+  end
 
   def debug(message)
     puts "#{sequence}: #{message}"
@@ -418,7 +434,7 @@ describe Fibonacci do
         expect(result.value).to eq(1)
       end
 
-      puts "O(n) Fibonacci: #{time}"
+      puts "Fibonacci O(n): #{time}"
     end
 
     specify '2' do
@@ -431,7 +447,7 @@ describe Fibonacci do
         expect(result.value).to eq(1)
       end
 
-      puts "O(n) Fibonacci: #{time}"
+      puts "Fibonacci O(n): #{time}"
     end
 
     specify '3' do
@@ -444,7 +460,7 @@ describe Fibonacci do
         expect(result.value).to eq(2)
       end
 
-      puts "O(n) Fibonacci: #{time}"
+      puts "Fibonacci O(n): #{time}"
     end
 
     specify '4' do
@@ -457,7 +473,7 @@ describe Fibonacci do
         expect(result.value).to eq(3)
       end
 
-      puts "Cached Fibonacci: #{time}"
+      puts "Fibonacci O(n): #{time}"
     end
 
     specify '5' do
@@ -470,7 +486,7 @@ describe Fibonacci do
         expect(result.value).to eq(5)
       end
 
-      puts "Cached Fibonacci: #{time}"
+      puts "Fibonacci O(n): #{time}"
     end
 
     specify '7' do
@@ -483,7 +499,20 @@ describe Fibonacci do
         expect(result.value).to eq(13)
       end
 
-      puts "Cached Fibonacci: #{time}"
+      puts "Fibonacci O(n): #{time}"
+    end
+
+    specify '17' do
+      time = Benchmark.measure do
+        result_address = Actor::Messaging::Address.build
+
+        FibonacciOn.start 17, result_address
+
+        result = Actor::Messaging::Read.(result_address)
+        expect(result.value).to eq(1597)
+      end
+
+      puts "Fibonacci O(n): #{time}"
     end
   end
 end
