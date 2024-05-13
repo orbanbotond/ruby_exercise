@@ -407,6 +407,20 @@ describe Fibonacci do
     puts "Noncached Fibonacci: #{time}"
   end
 
+  #1.499145
+  specify '17' do
+    time = Benchmark.measure do
+      result_address = Actor::Messaging::Address.build
+
+      Fibonacci.start 17, result_address
+
+      result = Actor::Messaging::Read.(result_address)
+      expect(result.value).to eq(1597)
+    end
+
+    puts "Fibonacci: #{time}"
+  end
+
   specify '7 cached' do
     # Not effective at all because actors are instantiated exponentially 
     cache = FibonacciCache.new
@@ -502,6 +516,7 @@ describe Fibonacci do
       puts "Fibonacci O(n): #{time}"
     end
 
+    #0.007992sec
     specify '17' do
       time = Benchmark.measure do
         result_address = Actor::Messaging::Address.build
