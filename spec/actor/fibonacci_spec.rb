@@ -198,18 +198,28 @@ class FibonacciOn
     starting_point
   end
 
-  def send_address_back_to_creator
-    debug "Sending address back to creator"
-    addressNotification = CreatedAddressNotification.new(address, sequence)
-    send.(addressNotification, creator_address)
-  end
-
   def coming_from_prev_prev?(seq)
      seq == sequence - 2
   end
 
   def coming_from_prev?(seq)
      seq == sequence - 1
+  end
+
+  def prev2_addresses_synced? 
+    prev_address && prev_prev_address
+  end
+
+  def all_partial_results_arrived?
+    @partial_results.size == 2
+  end
+
+  def can_go_back?
+    !initial_sequences?
+  end
+
+  def initial_sequences?
+    sequence == 1 || sequence == 2
   end
 
   def debug_all
@@ -233,6 +243,12 @@ class FibonacciOn
     @state == :address_spread_phase
   end
 
+  def send_address_back_to_creator
+    debug "Sending address back to creator"
+    addressNotification = CreatedAddressNotification.new(address, sequence)
+    send.(addressNotification, creator_address)
+  end
+
   def start_previous
     FibonacciOn.start(sequence - 1, address, address, starting_point: false)
   end
@@ -248,6 +264,8 @@ class FibonacciOn
   end
 
   def send_prev_prev_address_to_prev
+    return unless prev_address && prev_prev_address
+
     debug "Sending prev_prev_address:#{prev_prev_address} to prev:#{prev_address}"
 
     notification = PrevPrevAddressToPrev.new(prev_prev_address)
@@ -260,10 +278,6 @@ class FibonacciOn
     addressSpreadPhaseNotification = AddressSpreadPhaseNotification.new
     send.(addressSpreadPhaseNotification, prev_address)
     send.(addressSpreadPhaseNotification, prev_prev_address)
-  end
-
-  def address_spread_phase?
-    @state == :address_spread_phase
   end
 
   handle AddressSpreadPhaseNotification do |address|
@@ -279,7 +293,7 @@ class FibonacciOn
 
     @prev_address = notification.address
 
-    send_prev_prev_address_to_prev if prev_address && prev_prev_address
+    send_prev_prev_address_to_prev
     start_previous_of_previous if address_spread_phase?
   end
 
@@ -299,25 +313,22 @@ class FibonacciOn
   handle CreatedAddressNotification do |address_notification|
     debug "Address arrived from below:#{address_notification.address}"
 
-    if address_spread_phase?
-      if coming_from_prev_prev?(address_notification.originator_sequence)
-        @prev_prev_address = address_notification.address
-      end
+    if coming_from_prev_prev?(address_notification.originator_sequence)
+      @prev_prev_address = address_notification.address
 
-      send_prev_prev_address_to_prev if prev_address && prev_prev_address
-    elsif initialising_phase?
-      if coming_from_prev?(address_notification.originator_sequence)
-        @prev_address = address_notification.address
+      send_prev_prev_address_to_prev
 
-        start_previous_of_previous
-      elsif coming_from_prev_prev?(address_notification.originator_sequence)
-        @prev_prev_address = address_notification.address
-
-        send_prev_prev_address_to_prev
+      if initialising_phase? && prev2_addresses_synced?
         end_initialisation_phase
 
         start_address_spread_phase
       end
+    end
+
+    if coming_from_prev?(address_notification.originator_sequence)
+      @prev_address = address_notification.address
+
+      start_previous_of_previous if initialising_phase?
     end
   end
 
@@ -326,18 +337,6 @@ class FibonacciOn
     debug "Partial Result Arrived: #{result.value}, #{@partial_results}"
 
     reply @partial_results.sum if all_partial_results_arrived?
-  end
-
-  def all_partial_results_arrived?
-    @partial_results.size == 2
-  end
-
-  def can_go_back?
-    !initial_sequences?
-  end
-
-  def initial_sequences?
-    sequence == 1 || sequence == 2
   end
 
   def reply value
