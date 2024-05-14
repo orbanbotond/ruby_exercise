@@ -71,10 +71,6 @@ class FibonacciCached
     return unless @prev && @prev_prev
 
     puts "having all"
-    puts "having all"
-    puts "having all"
-    puts "having all"
-    puts "having all"
     puts "caching"
 
     sum = @prev + @prev_prev
@@ -164,8 +160,7 @@ class FibonacciOn
   attr_reader :starting_point
   attr_reader :creator_address
 
-  def initialize(sequence, creator_address, starting_point = true, above_address = nil, above_and_above_address = nil, phase: nil)
-    # TODO make this a keyword param
+  def initialize(sequence, creator_address, above_address = nil, above_and_above_address = nil, starting_point: true, phase: nil)
     @starting_point = starting_point
 
     # TODO find a better name for the sequence
@@ -240,7 +235,7 @@ class FibonacciOn
   end
 
   def start_previous
-    FibonacciOn.start(sequence - 1, address, false, address)
+    FibonacciOn.start(sequence - 1, address, address, starting_point: false)
   end
 
   def start_previous_of_previous
@@ -248,7 +243,7 @@ class FibonacciOn
     return if @prev_of_prev_started
 
     @prev_of_prev_started = true
-    FibonacciOn.start(sequence - 2, address, false, prev_address, address, phase: @state)
+    FibonacciOn.start(sequence - 2, address, prev_address, address, phase: @state, starting_point: false)
   end
 
   def send_prev_prev_address_to_prev
