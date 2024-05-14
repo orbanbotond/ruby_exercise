@@ -166,7 +166,6 @@ class FibonacciOn
     # TODO find a better name for the sequence
     @sequence = sequence
 
-    # TODO clean this mess a bit
     @creator_address = creator_address
     @above_address = above_address
     @above_and_above_address = above_and_above_address
@@ -239,7 +238,9 @@ class FibonacciOn
   end
 
   def start_previous_of_previous
-    return unless prev_address && can_go_back?
+    return unless can_go_back?
+    return unless prev_address
+
     return if @prev_of_prev_started
 
     @prev_of_prev_started = true
@@ -248,7 +249,6 @@ class FibonacciOn
 
   def send_prev_prev_address_to_prev
     debug "Sending prev_prev_address:#{prev_prev_address} to prev:#{prev_address}"
-# debug_all
 
     notification = PrevPrevAddressToPrev.new(prev_prev_address)
     send.(notification, prev_address)
@@ -256,6 +256,7 @@ class FibonacciOn
 
   def start_address_spread_phase
     debug "Start Address Spread Phase"
+
     addressSpreadPhaseNotification = AddressSpreadPhaseNotification.new
     send.(addressSpreadPhaseNotification, prev_address)
     send.(addressSpreadPhaseNotification, prev_prev_address)
@@ -268,21 +269,18 @@ class FibonacciOn
   handle AddressSpreadPhaseNotification do |address|
     debug "Received AddressSpreadPhaseNotification"
 
-    # TODO introduce a state machine here!
     @state = :address_spread_phase
 
     if can_go_back?
       start_previous_of_previous  if address_spread_phase?
-    else
-      #
     end
   end
 
   handle PrevPrevAddressToPrev do |notification|
     debug "Received prev from Above"
+
     @prev_address = notification.address
     send_prev_prev_address_to_prev if prev_address && prev_prev_address
-debug_all
 
     start_previous_of_previous if address_spread_phase?
   end
@@ -306,18 +304,17 @@ debug_all
     if address_spread_phase?
       if coming_from_prev_prev?(address_notification.originator_sequence)
         @prev_prev_address = address_notification.address
-debug_all
       end
 
       send_prev_prev_address_to_prev if prev_address && prev_prev_address
     elsif initialising_phase?
       if coming_from_prev?(address_notification.originator_sequence)
         @prev_address = address_notification.address
-debug_all
+
         start_previous_of_previous
       elsif coming_from_prev_prev?(address_notification.originator_sequence)
         @prev_prev_address = address_notification.address
-debug_all
+
         send_prev_prev_address_to_prev
         end_initialisation_phase
 
