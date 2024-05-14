@@ -271,17 +271,15 @@ class FibonacciOn
 
     @state = :address_spread_phase
 
-    if can_go_back?
-      start_previous_of_previous  if address_spread_phase?
-    end
+    start_previous_of_previous  if address_spread_phase? && can_go_back?
   end
 
   handle PrevPrevAddressToPrev do |notification|
     debug "Received prev from Above"
 
     @prev_address = notification.address
-    send_prev_prev_address_to_prev if prev_address && prev_prev_address
 
+    send_prev_prev_address_to_prev if prev_address && prev_prev_address
     start_previous_of_previous if address_spread_phase?
   end
 
