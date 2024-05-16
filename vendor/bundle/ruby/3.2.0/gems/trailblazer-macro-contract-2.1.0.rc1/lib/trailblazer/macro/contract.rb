@@ -1,5 +1,0 @@
-require "reform"
-require "trailblazer/operation"
-require "trailblazer/operation/contract"
-require "trailblazer/operation/validate"
-require "trailblazer/operation/persist"

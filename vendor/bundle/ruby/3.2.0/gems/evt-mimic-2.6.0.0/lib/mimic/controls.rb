@@ -1,6 +1,0 @@
-require 'mimic/controls/subject'
-require 'mimic/controls/subject/no_parameters'
-require 'mimic/controls/subject/delegated_parameters'
-require 'mimic/controls/subject/mixed_parameters'
-require 'mimic/controls/recorder'
-require 'mimic/controls/mimic'
