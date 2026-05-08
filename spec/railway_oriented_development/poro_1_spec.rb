@@ -5,6 +5,12 @@ require 'active_model'
 require 'debug'
 
 # A tiny Result primitive you can reuse across services.
+class RailWay
+  def self.start(value = nil)
+    ResultCompact.ok(value)
+  end
+end
+
 class Result
   # value is rather params
   attr_reader :value, :error
@@ -148,7 +154,7 @@ end
 
 class Users::CreateUser
   def call(params, current_actor: nil)
-    ResultCompact.ok(params)
+    RailWay.start(params)
       .then(:coerce)    { |p| coerce(p) }
       .then(:authorize) { |p| authorize(p, current_actor) }
       .then(:create)    { |p| create_in_transaction(p) }
