@@ -22,6 +22,7 @@ gem 'dry-monads'
 gem 'dry-auto_inject'
 gem 'dry-transaction'
 gem 'dry-transformer'
+gem 'evt-configure'
 
 gem "interactor"
 
@@ -43,3 +44,6 @@ gem "activesupport", require: false
 gem "rest-client", "~> 2.0"
 gem "dotenv"
 gem "trailblazer", git: 'https://github.com/trailblazer/trailblazer.git', tag: 'v2.1.0.rc1'
+gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
+
+
